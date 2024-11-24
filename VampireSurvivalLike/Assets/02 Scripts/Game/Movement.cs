@@ -11,7 +11,7 @@ public abstract class Movement : MonoBehaviour
         _rigid2D = GetComponent<Rigidbody2D>();
     }
 
-    protected void StopImmediately()
+    public void StopImmediately()
     {
         _rigid2D.velocity = Vector2.zero;
     }

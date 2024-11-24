@@ -15,6 +15,26 @@ namespace Player
 
             _rigid2D.velocity = moveVec * speed;
         }
+
+        public bool MoveKeyDown()
+        {
+            if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool MoveKeyUp()
+        {
+            if (Input.GetKeyUp(KeyCode.W) && Input.GetKeyUp(KeyCode.A) && Input.GetKeyUp(KeyCode.S) && Input.GetKeyUp(KeyCode.D))
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 }
 
