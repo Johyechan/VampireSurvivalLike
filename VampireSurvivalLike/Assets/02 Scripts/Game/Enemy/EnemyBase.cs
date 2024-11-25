@@ -4,12 +4,17 @@ using UnityEngine;
 using FSM;
 using Manager;
 using UnityEditor;
+using Pool;
 
 namespace Enemy
 {
     public class EnemyBase : MonoBehaviour
     {
         public EnemySO so;
+
+        [SerializeField] protected ObjectPoolType _type;
+
+        protected GameObject _player;
 
         protected Rigidbody2D _rigid2D;
 
@@ -25,6 +30,7 @@ namespace Enemy
         protected StateMachine _stateMachine;
 
         protected bool _isDead;
+        protected bool _isOut;
 
         private void OnDrawGizmos()
         {
@@ -32,9 +38,11 @@ namespace Enemy
             Gizmos.DrawWireSphere(transform.position, so.radius);
         }
 
-        protected virtual void Start()
+        protected virtual void OnEnable()
         {
             _isDead = false;
+
+            _player = GameManager.Instance.player;
 
             _movement = GetComponent<EnemyMovement>();
 
@@ -43,15 +51,19 @@ namespace Enemy
             _idleState = new EnemyIdleState(_movement);
             _chaseState = new EnemyChaseState(_movement, so.speed);
             _attackState = new EnemyAttackState(_movement, so.power);
-            _dieState = new EnemyDieState();
+            _dieState = new EnemyDieState(_movement, _type, gameObject);
 
             _stateMachine = new StateMachine();
-
-            _stateMachine.ChangeState(_idleState);
         }
 
         protected virtual void Update()
         {
+            if(_isOut)
+            {
+                _stateMachine.ChangeState(_idleState);
+                return;
+            }
+
             if (_health.IsDie && _isDead)
                 return;
 
@@ -62,6 +74,14 @@ namespace Enemy
             }
 
             _stateMachine.UpdateExecute();
+        }
+
+        protected void OutCheck(float distance)
+        {
+            if (Vector2.Distance(_player.transform.position, transform.position) > distance)
+            {
+                ObjectPoolManager.Instance.ReturnObject(_type, gameObject);
+            }
         }
 
         protected void CheckAttackArea(float radius)

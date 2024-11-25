@@ -1,3 +1,4 @@
+using Pool;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,9 +7,13 @@ namespace Enemy
 {
     public class NormalEnemy : EnemyBase
     {
-        protected override void Start()
+        [SerializeField] protected float _outDistance;
+
+        protected override void OnEnable()
         {
-            base.Start();
+            base.OnEnable();
+
+            _isDead = false;
 
             _stateMachine.ChangeState(_chaseState);
         }
@@ -18,6 +23,8 @@ namespace Enemy
             base.Update();
 
             CheckAttackArea(so.radius);
+
+            OutCheck(_outDistance);
         }
     }
 }

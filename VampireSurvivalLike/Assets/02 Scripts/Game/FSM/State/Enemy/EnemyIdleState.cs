@@ -16,7 +16,6 @@ namespace FSM
 
         public void Enter()
         {
-            Debug.Log("Enter Idle");
             _movement.StopImmediately();
         }
 

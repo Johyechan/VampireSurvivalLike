@@ -25,6 +25,11 @@ public abstract class Health : MonoBehaviour, IDamageable
         death += Death;
     }
 
+    protected virtual void OnEnable()
+    {
+        death += Death;
+    }
+
     public void TakeDamage(float damage)
     {
         if(!_isDie)

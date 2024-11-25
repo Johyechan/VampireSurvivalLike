@@ -7,6 +7,4 @@ public class PlayerSO : ScriptableObject
 {
     public float hp;
     public float speed;
-    public float power;
-    public float attackCoolTime;
 }

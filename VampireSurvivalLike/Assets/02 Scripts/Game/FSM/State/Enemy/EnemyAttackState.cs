@@ -20,7 +20,6 @@ namespace FSM
         public void Enter()
         {
             _movement.StopImmediately();
-            Debug.Log("Enter Attack");
         }
 
         public void Execute()

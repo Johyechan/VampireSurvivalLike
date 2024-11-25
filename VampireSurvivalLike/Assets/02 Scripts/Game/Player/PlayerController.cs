@@ -35,7 +35,7 @@ namespace Player
 
             _idleState = new PlayerIdleState(_movement);
             _moveState = new PlayerMoveState(_movement, so.speed);
-            _dieState = new PlayerDieState();
+            _dieState = new PlayerDieState(_movement);
 
             _stateMachine.ChangeState(_idleState);
         }

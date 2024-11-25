@@ -7,10 +7,11 @@ TagManager:
   - Ground
   - Enemy
   - Effect
-  - Bullet
   - Item
   - Boss
   - Area
+  - Hitter
+  - Shooter
   layers:
   - Default
   - TransparentFX
@@ -24,8 +25,8 @@ TagManager:
   - Boss
   - Item
   - Effect
-  - Bullet
-  - 
+  - Hitter
+  - Shooter
   - 
   - 
   - 

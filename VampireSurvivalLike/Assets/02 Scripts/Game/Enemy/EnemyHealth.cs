@@ -8,9 +8,9 @@ namespace Enemy
     {
         private EnemyBase _base;
 
-        protected override void Start()
+        protected override void OnEnable()
         {
-            base.Start();
+            base.OnEnable();
 
             _base = GetComponent<EnemyBase>();
 

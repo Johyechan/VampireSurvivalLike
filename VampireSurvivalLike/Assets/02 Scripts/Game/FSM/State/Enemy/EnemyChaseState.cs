@@ -19,7 +19,7 @@ namespace FSM
 
         public void Enter()
         {
-            Debug.Log("Enter Chase");
+            
         }
 
         public void Execute()
