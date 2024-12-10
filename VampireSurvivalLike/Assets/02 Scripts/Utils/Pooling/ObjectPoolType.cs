@@ -7,7 +7,8 @@ namespace Pool
     public enum ObjectPoolType
     {
         NormalEnemy,
-        Bullet
+        Bullet,
+        Money
     }
 }
 

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FSM;
+using Item;
 
 namespace Player
 {
@@ -14,6 +15,8 @@ namespace Player
         private PlayerMovement _movement;
 
         private PlayerHealth _health;
+
+        private PlayerWallet _wallet;
 
         private IState _idleState;
         private IState _moveState;
@@ -30,6 +33,8 @@ namespace Player
             _movement = GetComponent<PlayerMovement>();
 
             _health = GetComponent<PlayerHealth>();
+
+            _wallet = GetComponent<PlayerWallet>();
 
             _stateMachine = new StateMachine();
 
@@ -64,6 +69,15 @@ namespace Player
             }
 
             _stateMachine.UpdateExecute();
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if(collision.gameObject.CompareTag("Money"))
+            {
+                Money money = collision.GetComponent<Money>();
+                _wallet.AddMoney(money.moneyValue);
+            }
         }
     }
 }

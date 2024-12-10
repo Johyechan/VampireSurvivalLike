@@ -7,11 +7,11 @@ TagManager:
   - Ground
   - Enemy
   - Effect
-  - Item
   - Boss
   - Area
   - Hitter
   - Shooter
+  - Money
   layers:
   - Default
   - TransparentFX
@@ -23,7 +23,7 @@ TagManager:
   - Ground
   - Enemy
   - Boss
-  - Item
+  - Money
   - Effect
   - Hitter
   - Shooter
