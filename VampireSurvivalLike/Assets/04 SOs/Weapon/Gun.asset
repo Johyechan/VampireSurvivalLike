@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ffe8c31453e3d94d8b4e1359e6efec0, type: 3}
   m_Name: Gun
   m_EditorClassIdentifier: 
-  power: 0
-  attackCoolTime: 0
-  speed: 0
+  power: 0.5
+  attackCoolTime: 0.2
+  speed: 20
+  radius: 10
+  lifeTime: 5

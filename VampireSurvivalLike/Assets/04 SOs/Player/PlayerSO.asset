@@ -14,5 +14,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 10
   speed: 10
-  power: 5
-  attackCoolTime: 1

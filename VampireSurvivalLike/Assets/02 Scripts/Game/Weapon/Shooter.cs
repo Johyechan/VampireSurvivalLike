@@ -12,6 +12,8 @@ namespace Weapon
 
         [SerializeField] protected Transform _fireTrans;
 
+        [SerializeField] protected Transform _fireParent;
+
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.blue;
@@ -34,8 +36,22 @@ namespace Weapon
 
             Hitter hitter = obj.GetComponent<Hitter>();
             hitter.Damage = _so.power;
+            hitter.LifeTime = _so.lifeTime;
+            hitter.DeathCoolStart();
 
             return obj;
+        }
+
+        protected bool CheckEnemyInArea()
+        {
+            RaycastHit2D hit = Physics2D.CircleCast(transform.position, _so.radius, Vector2.zero, 0, LayerMask.GetMask("Enemy", "Boss"));
+
+            if(hit)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         protected GameObject FindCloseEnemyInArea()

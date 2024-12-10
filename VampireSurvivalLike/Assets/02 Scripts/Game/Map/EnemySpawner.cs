@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using Manager;
 using UnityEngine.Pool;
+using Cinemachine.Editor;
 
 namespace Map
 {
-    public class EnemySpawner : MonoBehaviour
+    public class EnemySpawner : BaseMap
     {
         [SerializeField] private Camera mainCamera;
 
@@ -15,9 +16,19 @@ namespace Map
         
         [SerializeField] private float _spawnCoolTime;
 
-        private void Start()
+        protected override void Start()
         {
+            base.Start();
             StartCoroutine(SpawnEnemyCo());
+        }
+
+        protected override void Update()
+        {
+            base.Update();
+            if(GameManager.Instance.groundMove)
+            {
+
+            }
         }
 
         private IEnumerator SpawnEnemyCo()
@@ -48,40 +59,6 @@ namespace Map
         {
             // 카메라 외곽 중 랜덤한 방향 선택
             int edge = Random.Range(0, 4); // 0: 좌, 1: 우, 2: 상, 3: 하
-
-            // 확률 보정이 필요함 그래서 플레이어가 가고 있는 방향으로 나오게 하기
-            if (Input.GetKey(KeyCode.W))
-            {
-                int rand = Random.Range(0, 5);
-                if(rand < 4)
-                {
-                    edge = 2;
-                }
-            }
-            if(Input.GetKey(KeyCode.A))
-            {
-                int rand = Random.Range(0, 5);
-                if (rand < 4)
-                {
-                    edge = 0;
-                }
-            }
-            if (Input.GetKey(KeyCode.S))
-            {
-                int rand = Random.Range(0, 5);
-                if (rand < 4)
-                {
-                    edge = 3;
-                }
-            }
-            if (Input.GetKey(KeyCode.D))
-            {
-                int rand = Random.Range(0, 5);
-                if (rand < 4)
-                {
-                    edge = 1;
-                }
-            }
 
             switch (edge)
             {

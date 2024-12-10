@@ -9,4 +9,5 @@ public class WeaponSO : ScriptableObject
     public float attackCoolTime;
     public float speed;
     public float radius;
+    public float lifeTime;
 }
