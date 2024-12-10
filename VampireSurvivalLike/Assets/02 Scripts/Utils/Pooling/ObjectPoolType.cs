@@ -8,7 +8,8 @@ namespace Pool
     {
         NormalEnemy,
         Bullet,
-        Money
+        Money,
+        Slot
     }
 }
 
