@@ -7,4 +7,6 @@ public class PlayerSO : ScriptableObject
 {
     public float hp;
     public float speed;
+    public int x;
+    public int y;
 }

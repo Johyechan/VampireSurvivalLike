@@ -9,7 +9,8 @@ namespace Pool
         NormalEnemy,
         Bullet,
         Money,
-        Slot
+        Slot,
+        GunIcon
     }
 }
 

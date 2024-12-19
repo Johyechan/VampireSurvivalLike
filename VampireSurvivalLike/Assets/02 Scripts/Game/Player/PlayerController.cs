@@ -18,6 +18,8 @@ namespace Player
 
         private PlayerWallet _wallet;
 
+        private PlayerBackpack _backpack;
+
         private IState _idleState;
         private IState _moveState;
         private IState _dieState;
@@ -25,16 +27,23 @@ namespace Player
         private bool _isMoving;
         private bool _isDead;
 
-        void Start()
+        private void Awake()
         {
-            _isMoving = false;
-            _isDead = false;
-            
             _movement = GetComponent<PlayerMovement>();
 
             _health = GetComponent<PlayerHealth>();
 
             _wallet = GetComponent<PlayerWallet>();
+
+            _backpack = GetComponent<PlayerBackpack>();
+            _backpack.X = so.x;
+            _backpack.Y = so.y;
+        }
+
+        void Start()
+        {
+            _isMoving = false;
+            _isDead = false;
 
             _stateMachine = new StateMachine();
 

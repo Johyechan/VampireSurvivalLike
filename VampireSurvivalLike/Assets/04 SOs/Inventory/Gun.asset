@@ -9,10 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5e712379796fee4f9ae285435f9eb13, type: 3}
-  m_Name: PlayerSO
+  m_Script: {fileID: 11500000, guid: 8074ef712ed0e804d8f44941cd2f0c5e, type: 3}
+  m_Name: Gun
   m_EditorClassIdentifier: 
-  hp: 10
-  speed: 10
-  x: 1
-  y: 2
+  sprite: {fileID: 21300000, guid: 0e989f568bbcc1743aaa92d96f7608dd, type: 3}
+  itemName: Gun
+  price: 5
+  width: 1
+  height: 2
+  shape:
+  - {x: 0, y: 0}
+  - {x: 0, y: 1}

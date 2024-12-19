@@ -12,6 +12,7 @@ TagManager:
   - Hitter
   - Shooter
   - Money
+  - Slot
   layers:
   - Default
   - TransparentFX

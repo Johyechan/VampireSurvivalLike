@@ -24,6 +24,7 @@ namespace FSM
             _currentState?.Enter();
         }
 
+        // 공격 상태의 쿨타임을 주기 위해 만든 함수
         public void ChangeStateWithCoolTime(IState newState, float coolTime)
         {
             if(_lastState != _currentState)

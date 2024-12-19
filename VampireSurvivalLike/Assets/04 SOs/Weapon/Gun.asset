@@ -17,3 +17,5 @@ MonoBehaviour:
   speed: 20
   radius: 10
   lifeTime: 5
+  price: 10
+  Image: {fileID: 0}
