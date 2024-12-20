@@ -89,6 +89,7 @@ namespace Manager
                 {
                     GameObject slotObj = ObjectPoolManager.Instance.GetObject(type, parent);
                     uis[i,j] = slotObj;
+                    // 이 부분이 배치하는 부분인데.....
                     slotObj.GetComponent<RectTransform>().localPosition = new Vector3(120 * i, 120 * -j, 0);
                 }
             }
