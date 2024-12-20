@@ -15,6 +15,10 @@ namespace Inventory
 
         private GameObject _followIcon;
 
+        private RectTransform _followIconRectTransform;
+
+        private InventoryItem _followIconItem;
+
         protected override void Awake()
         {
             base.Awake();
@@ -24,7 +28,8 @@ namespace Inventory
         {
             _followIcon = new GameObject("FollowIcon");
             _followIcon.transform.SetParent(_canvas.transform);
-            _followIcon.AddComponent<InventoryItem>();
+            _followIconItem = _followIcon.AddComponent<InventoryItem>();
+            _followIconItem.so = _so;
             _shape = _so.shape;
 
             Image followIconImage = _followIcon.AddComponent<Image>();
@@ -32,16 +37,16 @@ namespace Inventory
             followIconImage.color = new Color(followIconImage.color.r, followIconImage.color.g, followIconImage.color.b, 0.5f);
             followIconImage.raycastTarget = false;
 
-            _rectTransform = followIconImage.GetComponent<RectTransform>();
-            _rectTransform.sizeDelta = new Vector2(_so.width * _multiply, _so.height * _multiply);
-            _rectTransform.pivot = new Vector2(0.5f, 0.5f);
+            _followIconRectTransform = followIconImage.GetComponent<RectTransform>();
+            _followIconRectTransform.sizeDelta = new Vector2(_so.width * _multiply, _so.height * _multiply);
+            _followIconRectTransform.pivot = new Vector2(0.5f, 0.5f);
 
-            UpdateFollowIconPosition(eventData);
+            UpdateFollowIconPosition(eventData, _followIconRectTransform);
         }
 
         public void OnDrag(PointerEventData eventData)
         {
-            UpdateFollowIconPosition(eventData);
+            UpdateFollowIconPosition(eventData, _followIconRectTransform);
         }
 
         public void OnEndDrag(PointerEventData eventData)
@@ -50,19 +55,24 @@ namespace Inventory
             if(slotObj != null)
             {
                 InventorySlot slot = slotObj.GetComponent<InventorySlot>();
-                Debug.Log(slot.IsOccupied);
-                Debug.Log($"X: {slot.X}");
-                Debug.Log($"Y: {slot.Y}");
-                if(!PlaceItem(_followIcon, slot, _shape))
+                if(!PlaceItem(_followIcon, slot, _shape, _followIconItem))
                 {
                     Destroy(_followIcon);
+                    _followIconRectTransform = null;
+                    _followIconItem = null;
                 }
+                Image followIconImage = _followIcon.GetComponent<Image>();
+                followIconImage.raycastTarget = true;
+                _followIcon = null;
+                _followIconRectTransform = null;
+                _followIconItem = null;
             }
             else
             {
                 Destroy(_followIcon);
+                _followIconRectTransform = null;
+                _followIconItem = null;
             }
-            
         }
     }
 }

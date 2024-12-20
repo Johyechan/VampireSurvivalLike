@@ -10,8 +10,6 @@ namespace Inventory
 {
     public class UIItem : MonoBehaviour
     {
-        protected RectTransform _rectTransform;
-
         protected Canvas _canvas;
 
         protected GraphicRaycaster _raycaster;
@@ -24,11 +22,11 @@ namespace Inventory
             _raycaster = _canvas.GetComponent<GraphicRaycaster>();
         }
 
-        protected void UpdateFollowIconPosition(PointerEventData eventData)
+        protected void UpdateFollowIconPosition(PointerEventData eventData, RectTransform rectTransform)
         {
             RectTransformUtility.ScreenPointToLocalPointInRectangle(_canvas.transform as RectTransform, eventData.position, _canvas.worldCamera, out Vector2 localPoint);
 
-            _rectTransform.localPosition = localPoint;
+            rectTransform.localPosition = localPoint;
         }
 
         protected GameObject UIMousePos()
@@ -113,7 +111,7 @@ namespace Inventory
             itemTransform.position = averagePosition;
         }
 
-        public bool PlaceItem(GameObject item, InventorySlot slot, Vector2Int[] shape)
+        public bool PlaceItem(GameObject item, InventorySlot slot, Vector2Int[] shape, InventoryItem inventoryItem)
         {
             // 배치 가능한 기준점 찾기
             Vector2Int? validOrigin = CanPlaceItem(slot, shape);
@@ -126,7 +124,11 @@ namespace Inventory
                 {
                     int targetX = slot.X + offset.x - validOrigin.Value.x;
                     int targetY = slot.Y + offset.y - validOrigin.Value.y;
+
                     InventoryManager.Instance.Grid[targetX, targetY].IsOccupied = true;
+
+                    Debug.Log(inventoryItem.Slots);
+                    inventoryItem.Slots.Add(new Vector2Int(targetX, targetY));
                 }
 
                 // UI 위치 계산
@@ -138,12 +140,11 @@ namespace Inventory
             return false;
         }
 
-        public void RemoveItem(GameObject item, InventorySlot slot, Vector2Int[] shape)
+        public void RemoveItem(List<Vector2Int> slots)
         {
-            Destroy(item);
-            for (int i = 0; i < shape.Length; i++)
+            foreach(Vector2Int slot in slots)
             {
-                InventoryManager.Instance.Grid[slot.X + shape[i].x, slot.Y + shape[i].y].IsOccupied = false;
+                InventoryManager.Instance.Grid[slot.x, slot.y].IsOccupied = false;
             }
         }
     }
