@@ -6,33 +6,16 @@ namespace Player
 {
     public class PlayerBackpack : MonoBehaviour
     {
-        private int _x;
-
-        public int X
+        private int[,] _backpackArr = new int[9,6];
+        public int[,] BackpackArr
         {
             get
             {
-                return _x;
+                return _backpackArr;
             }
-
             set
             {
-                _x = value;
-            }
-        }
-
-        private int _y;
-
-        public int Y
-        {
-            get
-            {
-                return _y;
-            }
-
-            set
-            {
-                _y = value;
+                _backpackArr = value;
             }
         }
     }

@@ -36,8 +36,7 @@ namespace Player
             _wallet = GetComponent<PlayerWallet>();
 
             _backpack = GetComponent<PlayerBackpack>();
-            _backpack.X = so.x;
-            _backpack.Y = so.y;
+            _backpack.BackpackArr = so.backpackArr;
         }
 
         void Start()

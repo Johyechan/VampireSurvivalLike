@@ -9,6 +9,10 @@ namespace Manager
         public GameObject player;
 
         public bool groundMove = false;
+
+        public int x = 9;
+
+        public int y = 6;
     }
 }
 

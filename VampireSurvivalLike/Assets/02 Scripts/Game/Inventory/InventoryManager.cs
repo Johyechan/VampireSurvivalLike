@@ -28,15 +28,18 @@ namespace Inventory
         private void Start()
         {
             _maker = GetComponent<InventoryMaker>();
-            _grid = new InventorySlot[_maker.BackpackX, _maker.BackpackY];
-            for (int i = 0; i < _maker.BackpackX; i++)
+            _grid = new InventorySlot[GameManager.Instance.x, GameManager.Instance.y];
+            for (int i = 0; i < _grid.GetLength(0); i++)
             {
-                for (int j = 0; j < _maker.BackpackY; j++)
+                for (int j = 0; j < _grid.GetLength(1); j++)
                 {
                     _grid[i, j] = _maker.Slots[i, j].GetComponent<InventorySlot>();
-                    _grid[i, j].IsOccupied = false;
-                    _grid[i, j].X = i;
-                    _grid[i, j].Y = j;
+                    if (_grid[i, j].IsUsing)
+                    {
+                        _grid[i, j].IsOccupied = false;
+                        _grid[i, j].X = i;
+                        _grid[i, j].Y = j;
+                    }
                 }
             }
         }

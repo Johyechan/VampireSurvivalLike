@@ -11,6 +11,8 @@ namespace Inventory
         public int Y { get; set; }
 
         public bool IsOccupied { get; set; }
+
+        public bool IsUsing { get; set; }
     }
 }
 

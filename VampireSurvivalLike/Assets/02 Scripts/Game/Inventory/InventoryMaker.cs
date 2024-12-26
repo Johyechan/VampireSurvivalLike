@@ -16,22 +16,7 @@ namespace Inventory
         [SerializeField] private int _storeY;
         [SerializeField] private int _backgroundAlphaValue;
         [SerializeField] private int _slotAlphaValue;
-        private int _backpackX;
-        public int BackpackX
-        {
-            get
-            {
-                return _backpackX;
-            }
-        }
-        private int _backpackY;
-        public int BackpackY
-        {
-            get
-            {
-                return _backpackY;
-            }
-        }
+
         private int[] _alphaTargets;
 
         [SerializeField] private float _delay;
@@ -58,18 +43,23 @@ namespace Inventory
             _isOpen = false;
 
             _backpack = GameManager.Instance.player.GetComponent<PlayerBackpack>();
-            _backpackX = _backpack.X;
-            _backpackY = _backpack.Y;
 
             UIManager.Instance.AddUI(ObjectPoolType.GunIcon, _shopParent, _storeX, _storeY);
-            _slots = UIManager.Instance.AddUI(ObjectPoolType.Slot, _backpackParent, _backpackX, _backpackY);
+            _slots = UIManager.Instance.AddUI(ObjectPoolType.Slot, _backpackParent, GameManager.Instance.x, GameManager.Instance.y, _backpack.BackpackArr);
             _uiImages = _parentPanel.GetComponentsInChildren<Image>(true);
             _alphaTargets = new int[_uiImages.Length];
             for (int i = 0; i < _uiImages.Length; i++)
             {
                 if (_uiImages[i].gameObject.name == "Slot(Clone)")
                 {
-                    _alphaTargets[i] = _slotAlphaValue;
+                    if (!_uiImages[i].GetComponent<InventorySlot>().IsUsing)
+                    {
+                        _alphaTargets[i] = -1;
+                    }
+                    else
+                    {
+                        _alphaTargets[i] = _slotAlphaValue;
+                    }
                 }
                 else
                 {
