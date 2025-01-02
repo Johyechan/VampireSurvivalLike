@@ -1,3 +1,4 @@
+using Pool;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,5 +12,6 @@ public class InventoryItemSO : ScriptableObject
     public int price;
     public int width;
     public int height;
+    public ObjectPoolType type;
     public Vector2Int[] shape;
 }

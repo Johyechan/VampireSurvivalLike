@@ -17,8 +17,6 @@ namespace Inventory
         [SerializeField] private int _backgroundAlphaValue;
         [SerializeField] private int _slotAlphaValue;
 
-        private int[] _alphaTargets;
-
         [SerializeField] private float _delay;
 
         [SerializeField] private GameObject _parentPanel;
@@ -34,8 +32,6 @@ namespace Inventory
         [SerializeField] private Transform _shopParent;
         [SerializeField] private Transform _backpackParent;
 
-        private Image[] _uiImages;
-
         private bool _isOpen;
 
         private void Start()
@@ -46,24 +42,24 @@ namespace Inventory
 
             UIManager.Instance.AddUI(ObjectPoolType.GunIcon, _shopParent, _storeX, _storeY);
             _slots = UIManager.Instance.AddUI(ObjectPoolType.Slot, _backpackParent, GameManager.Instance.x, GameManager.Instance.y, _backpack.BackpackArr);
-            _uiImages = _parentPanel.GetComponentsInChildren<Image>(true);
-            _alphaTargets = new int[_uiImages.Length];
-            for (int i = 0; i < _uiImages.Length; i++)
+            Image[] images = _parentPanel.GetComponentsInChildren<Image>(true);
+            for(int i = 0; i < images.Length; i++)
             {
-                if (_uiImages[i].gameObject.name == "Slot(Clone)")
+                UIManager.Instance.UIImages.Add(images[i]);
+                if (images[i].name == "Slot(Clone)")
                 {
-                    if (!_uiImages[i].GetComponent<InventorySlot>().IsUsing)
+                    if (!images[i].GetComponent<InventorySlot>().IsUsing)
                     {
-                        _alphaTargets[i] = -1;
+                        UIManager.Instance.AlphaTargets.Add(-1);
                     }
                     else
                     {
-                        _alphaTargets[i] = _slotAlphaValue;
+                        UIManager.Instance.AlphaTargets.Add(_slotAlphaValue);
                     }
                 }
                 else
                 {
-                    _alphaTargets[i] = _backgroundAlphaValue;
+                    UIManager.Instance.AlphaTargets.Add(_backgroundAlphaValue);
                 }
             }
         }
@@ -75,12 +71,12 @@ namespace Inventory
                 if (!_isOpen)
                 {
                     Time.timeScale = 0;
-                    UIManager.Instance.Appear(_uiImages, _delay, _alphaTargets, _parentPanel);
+                    UIManager.Instance.Appear(UIManager.Instance.GetUIImages(), _delay, UIManager.Instance.GetAlphaTargets(), _parentPanel);
                     _isOpen = true;
                 }
                 else
                 {
-                    UIManager.Instance.Disappear(_uiImages, _delay, _parentPanel);
+                    UIManager.Instance.Disappear(UIManager.Instance.GetUIImages(), _delay, _parentPanel);
                     _isOpen = false;
                 }
             }

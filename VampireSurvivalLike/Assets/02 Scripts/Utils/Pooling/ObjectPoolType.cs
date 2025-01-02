@@ -10,7 +10,8 @@ namespace Pool
         Bullet,
         Money,
         Slot,
-        GunIcon
+        GunIcon,
+        Gun
     }
 }
 

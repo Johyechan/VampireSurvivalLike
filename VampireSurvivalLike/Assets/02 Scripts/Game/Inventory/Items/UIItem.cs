@@ -127,12 +127,12 @@ namespace Inventory
 
                     InventoryManager.Instance.Grid[targetX, targetY].IsOccupied = true;
 
-                    Debug.Log(inventoryItem.Slots);
                     inventoryItem.Slots.Add(new Vector2Int(targetX, targetY));
                 }
 
                 // UI 위치 계산
                 CalculateUIPos(item, slot, shape, validOrigin.Value);
+                // 여기서 이제 uiImage랑 alphaTarget에 장착되는 UI 추가
                 return true;
             }
 

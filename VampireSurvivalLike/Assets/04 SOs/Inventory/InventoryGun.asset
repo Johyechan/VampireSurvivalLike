@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8074ef712ed0e804d8f44941cd2f0c5e, type: 3}
-  m_Name: Gun
+  m_Name: InventoryGun
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 0e989f568bbcc1743aaa92d96f7608dd, type: 3}
   itemName: Gun
