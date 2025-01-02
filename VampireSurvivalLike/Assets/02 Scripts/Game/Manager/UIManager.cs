@@ -69,9 +69,9 @@ namespace Manager
             _animation.Disappear(images, delay, parent);
         }
 
-        public GameObject[,] AddUI(ObjectPoolType type, Transform parent, int x, int y, int[,] backpackArr = null)
+        public GameObject[,] AddUI(ObjectPoolType type, Transform parent, int x, int y, int width, int height, float spacing, int[,] backpackArr = null)
         {
-            return _maker.AddUI(type, parent, x, y, backpackArr);
+            return _maker.AddUI(type, parent, x, y, width, height, spacing, backpackArr);
         }
 
         public void RemoveUI(ObjectPoolType type, Transform parent)

@@ -70,7 +70,6 @@ namespace Inventory
                 InventorySlot slot = slotObj.GetComponent<InventorySlot>();
                 if(!PlaceItem(_followIcon, slot, _shape, _followIconItem))
                 {
-                    // 다시 이 UI 보이기
                     UIManager.Instance.Appear(new Image[] { _image }, 0.1f, new int[] { 255 });
                     Destroy(_followIcon);
                     _followIconRectTransform = null;
@@ -81,8 +80,6 @@ namespace Inventory
                 _followIcon = null;
                 _followIconRectTransform = null;
                 _followIconItem = null;
-                // 이 UI 삭제 
-                // 문제는 이게 없어지는 게 아니라는 거임 그냥 수치가 같은 어떤 것이 없어지기 때문에 이걸 고쳐야 함
                 UIManager.Instance.UIImages.Remove(_image);
                 UIManager.Instance.AlphaTargets.Remove(255);
                 ObjectPoolManager.Instance.ReturnObject(ObjectPoolType.GunIcon, gameObject);

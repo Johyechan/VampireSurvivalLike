@@ -167,10 +167,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbd94d14d9bc4b74c98a806d1a199b1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _storeX: 2
-  _storeY: 2
   _backgroundAlphaValue: 255
   _slotAlphaValue: 30
+  _slotWidth: 100
+  _slotHeight: 100
+  _slotSpacing: 10
+  _shopX: 2
+  _shopY: 2
+  _shopWidth: 100
+  _shopHeight: 100
+  _shopSpacing: 50
   _delay: 1
   _parentPanel: {fileID: 551247737}
   _shopParent: {fileID: 1499023045}
@@ -1404,7 +1410,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1499023045}
-  - component: {fileID: 1499023046}
   m_Layer: 5
   m_Name: ShopSlots
   m_TagString: Untagged
@@ -1431,30 +1436,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1499023046
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1499023044}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Padding:
-    m_Left: 0
-    m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
-  m_ChildAlignment: 4
-  m_StartCorner: 0
-  m_StartAxis: 0
-  m_CellSize: {x: 100, y: 100}
-  m_Spacing: {x: 5, y: 5}
-  m_Constraint: 2
-  m_ConstraintCount: 2
 --- !u!1 &1691747671
 GameObject:
   m_ObjectHideFlags: 0
@@ -1464,7 +1445,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1691747672}
-  - component: {fileID: 1691747673}
   m_Layer: 5
   m_Name: BackpackSlots
   m_TagString: Untagged
@@ -1491,30 +1471,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1691747673
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1691747671}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Padding:
-    m_Left: 0
-    m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
-  m_ChildAlignment: 4
-  m_StartCorner: 0
-  m_StartAxis: 0
-  m_CellSize: {x: 100, y: 100}
-  m_Spacing: {x: 10, y: 10}
-  m_Constraint: 1
-  m_ConstraintCount: 9
 --- !u!1 &1809698251
 GameObject:
   m_ObjectHideFlags: 0

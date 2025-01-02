@@ -12,14 +12,25 @@ namespace Inventory
     {
         private PlayerBackpack _backpack;
 
-        [SerializeField] private int _storeX;
-        [SerializeField] private int _storeY;
+        [Header("Alpha")]
         [SerializeField] private int _backgroundAlphaValue;
         [SerializeField] private int _slotAlphaValue;
 
+        [Header("PlayerBackpack Inventory")]
+        [SerializeField] private int _slotWidth;
+        [SerializeField] private int _slotHeight;
+        [SerializeField] private float _slotSpacing;
+
+        [Header("Shop")]
+        [SerializeField] private int _shopX;
+        [SerializeField] private int _shopY;
+        [SerializeField] private int _shopWidth;
+        [SerializeField] private int _shopHeight;
+        [SerializeField] private float _shopSpacing;
+
+        [Header("Time")]
         [SerializeField] private float _delay;
 
-        [SerializeField] private GameObject _parentPanel;
         private GameObject[,] _slots;
         public GameObject[,] Slots
         {
@@ -29,6 +40,8 @@ namespace Inventory
             }
         }
 
+        [Header("Parent")]
+        [SerializeField] private GameObject _parentPanel;
         [SerializeField] private Transform _shopParent;
         [SerializeField] private Transform _backpackParent;
 
@@ -40,8 +53,8 @@ namespace Inventory
 
             _backpack = GameManager.Instance.player.GetComponent<PlayerBackpack>();
 
-            UIManager.Instance.AddUI(ObjectPoolType.GunIcon, _shopParent, _storeX, _storeY);
-            _slots = UIManager.Instance.AddUI(ObjectPoolType.Slot, _backpackParent, GameManager.Instance.x, GameManager.Instance.y, _backpack.BackpackArr);
+            UIManager.Instance.AddUI(ObjectPoolType.GunIcon, _shopParent, _shopX, _shopY, _shopWidth, _shopHeight, _shopSpacing);
+            _slots = UIManager.Instance.AddUI(ObjectPoolType.Slot, _backpackParent, GameManager.Instance.x, GameManager.Instance.y, _slotWidth, _slotHeight, _slotSpacing, _backpack.BackpackArr);
             Image[] images = _parentPanel.GetComponentsInChildren<Image>(true);
             for(int i = 0; i < images.Length; i++)
             {

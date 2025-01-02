@@ -8,7 +8,7 @@ namespace MyUI
 {
     public class UIMaker : MonoBehaviour
     {
-        public GameObject[,] AddUI(ObjectPoolType type, Transform parent, int x, int y, int[,] backpackArr = null)
+        public GameObject[,] AddUI(ObjectPoolType type, Transform parent, int x, int y, int width, int height, float spacing, int[,] backpackArr = null)
         {
             GameObject[,] uis = new GameObject[x, y];
 
@@ -28,13 +28,9 @@ namespace MyUI
             float leftPositionX = panelPosX - panelWidth * pivotX;
             float topPositionY = panelPosY + panelHeight * pivotY;
 
-            float slotWidth = 100f;
-            float slotHeight = 100f;
-            float slotSpacing = 10f;
-
             // 슬롯의 anchoredPosition이 중앙이기 때문에 실질적으로 확인할 때는 맨끝의 반반이 빠지기 때문에 총 하나가 빠진 것과 같다 그렇기에 실제로 슬롯이 x개 있어도 x - 1개로 위치 계산을 해야한다 이거지 세로도 똑같고
-            float totalWidth = (x - 1) * slotWidth + (x - 1) * slotSpacing;
-            float totalHeight = (y - 1) * slotHeight + (y - 1) * slotSpacing;
+            float totalWidth = (x - 1) * width + (x - 1) * spacing;
+            float totalHeight = (y - 1) * height + (y - 1) * spacing;
 
             // 중앙 배치를 위한 오프셋 계산
             float offsetX = (panelWidth - totalWidth) / 2;
@@ -58,13 +54,12 @@ namespace MyUI
                             {
                                 slot.IsUsing = false;
                             }
-                            float posX = leftPositionX + offsetX + i * (slotWidth + slotSpacing);
-                            float posY = topPositionY - offsetY - j * (slotHeight + slotSpacing);
-
-                            obj.GetComponent<RectTransform>().anchoredPosition = new Vector2(posX, posY);
                         }
                     }
+                    float posX = leftPositionX + offsetX + i * (width + spacing);
+                    float posY = topPositionY - offsetY - j * (height + spacing);
 
+                    obj.GetComponent<RectTransform>().anchoredPosition = new Vector2(posX, posY);
                     uis[i, j] = obj;
                 }
             }
