@@ -1,3 +1,4 @@
+using Manager;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,10 +11,16 @@ namespace Inventory
     {
         public InventoryItemSO so { get; set; }
 
+        private bool _isShop;
+
+        public bool IsShop { get { return _isShop; } set { _isShop = value; } }
+
         private List<Vector2Int> _slots = new List<Vector2Int>();
         public List<Vector2Int> Slots { get { return _slots; } set { _slots = value; } }
 
         private RectTransform _rectTransform;
+
+        private Vector3 _origin;
 
         protected override void Awake()
         {
@@ -22,45 +29,66 @@ namespace Inventory
 
         public void OnBeginDrag(PointerEventData eventData)
         {
-            _shape = so.shape;
-            RemoveItem(_slots);
-            _slots.RemoveAll(slot => slot != null);
+            if(!_isShop)
+            {
+                _shape = so.shape;
+                RemoveItem(_slots);
+                _slots.RemoveAll(slot => slot != null);
 
-            _rectTransform = GetComponent<RectTransform>();
+                _rectTransform = GetComponent<RectTransform>();
+                _origin = _rectTransform.localPosition;
 
-            Image followIconImage = GetComponent<Image>();
-            followIconImage.raycastTarget = false;
+                Image followIconImage = GetComponent<Image>();
+                followIconImage.raycastTarget = false;
 
-            UpdateFollowIconPosition(eventData, _rectTransform);
+                UpdateFollowIconPosition(eventData, _rectTransform);
+            }
         }
 
         public void OnDrag(PointerEventData eventData)
         {
-            UpdateFollowIconPosition(eventData, _rectTransform);
+            if(!_isShop)
+            {
+                UpdateFollowIconPosition(eventData, _rectTransform);
+            }
         }
 
         public void OnEndDrag(PointerEventData eventData)
         {
-            GameObject slotObj = UIMousePos();
-
-            if (slotObj != null)
+            if(!_isShop)
             {
-                InventorySlot slot = slotObj.GetComponent<InventorySlot>();
+                GameObject slotObj = UIMousePos("Shop");
 
-                if (!PlaceItem(gameObject, slot, _shape, this))
+                if (slotObj != null)
                 {
-                    Destroy(gameObject);
+                    if(slotObj.CompareTag("Shop"))
+                    {
+                        Image image = transform.GetComponent<Image>();
+                        UIManager.Instance.UIImages.Remove(image);
+                        UIManager.Instance.AlphaTargets.Remove(255);
+                        Destroy(gameObject);
+                        // µ· ´Ã¾î³ª´Â ÄÚµå Ãß°¡
+                    }
+                    else
+                    {
+                        InventorySlot slot = slotObj.GetComponent<InventorySlot>();
+
+                        if (!PlaceItem(gameObject, slot, _shape, this))
+                        {
+                            _rectTransform.localPosition = _origin;
+                        }
+                        Image followIconImage = GetComponent<Image>();
+                        followIconImage.raycastTarget = true;
+                        _rectTransform = null;
+                    }
+                }
+                else
+                {
+                    _rectTransform.localPosition = _origin;
+                    Image followIconImage = GetComponent<Image>();
+                    followIconImage.raycastTarget = true;
                     _rectTransform = null;
                 }
-
-                Image followIconImage = GetComponent<Image>();
-                followIconImage.raycastTarget = true;
-                _rectTransform = null;
-            }
-            else
-            {
-                Destroy(gameObject);
-                _rectTransform = null;
             }
         }
     }

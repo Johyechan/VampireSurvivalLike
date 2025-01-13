@@ -13,6 +13,7 @@ TagManager:
   - Shooter
   - Money
   - Slot
+  - Shop
   layers:
   - Default
   - TransparentFX

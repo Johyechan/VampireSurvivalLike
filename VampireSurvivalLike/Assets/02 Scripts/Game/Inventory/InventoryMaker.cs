@@ -90,6 +90,13 @@ namespace Inventory
                 else
                 {
                     UIManager.Instance.Disappear(UIManager.Instance.GetUIImages(), _delay, _parentPanel);
+                    _backpack.GetBackpackWeapon();
+                    GameObject[] weapons = new GameObject[GameManager.Instance.player.transform.childCount];
+                    for(int i = 0; i < weapons.Length; i++)
+                    {
+                        weapons[i] = GameManager.Instance.player.transform.GetChild(i).gameObject;
+                    }
+                    _backpack.CalculateWeaponPos(weapons, 2);
                     _isOpen = false;
                 }
             }

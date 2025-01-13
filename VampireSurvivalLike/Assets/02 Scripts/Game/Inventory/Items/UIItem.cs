@@ -29,7 +29,7 @@ namespace Inventory
             rectTransform.localPosition = localPoint;
         }
 
-        protected GameObject UIMousePos()
+        protected GameObject UIMousePos(string exceptionName = null)
         {
             PointerEventData pointer = new PointerEventData(EventSystem.current)
             {
@@ -42,6 +42,14 @@ namespace Inventory
 
             foreach(RaycastResult result in results)
             {
+                if(exceptionName != null)
+                {
+                    if (result.gameObject.CompareTag(exceptionName))
+                    {
+                        return result.gameObject;
+                    }
+                }
+
                 InventorySlot slot = result.gameObject.GetComponent<InventorySlot>();
                 if(slot != null)
                 {
@@ -68,7 +76,8 @@ namespace Inventory
                     if (checkX < 0 || checkY < 0 ||
                         checkX >= InventoryManager.Instance.Grid.GetLength(0) ||
                         checkY >= InventoryManager.Instance.Grid.GetLength(1) ||
-                        InventoryManager.Instance.Grid[checkX, checkY].IsOccupied)
+                        InventoryManager.Instance.Grid[checkX, checkY].IsOccupied ||
+                        !InventoryManager.Instance.Grid[checkX, checkY].gameObject.activeSelf)
                     {
                         canPlace = false;
                         break;
@@ -115,7 +124,7 @@ namespace Inventory
         {
             // 배치 가능한 기준점 찾기
             Vector2Int? validOrigin = CanPlaceItem(slot, shape);
-
+         
             // 배치 가능한 기준점이 있다면
             if (validOrigin.HasValue)
             {
@@ -133,6 +142,7 @@ namespace Inventory
                 // UI 위치 계산
                 CalculateUIPos(item, slot, shape, validOrigin.Value);
                 // 여기서 이제 uiImage랑 alphaTarget에 장착되는 UI 추가
+                inventoryItem.IsShop = false;
                 return true;
             }
 

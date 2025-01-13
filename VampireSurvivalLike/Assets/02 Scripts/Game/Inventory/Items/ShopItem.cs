@@ -40,6 +40,7 @@ namespace Inventory
             _followIconItem = _followIcon.AddComponent<InventoryItem>();
             _followIconItem.so = _so;
             _followIconItem.so.type = _so.type;
+            _followIconItem.IsShop = true;
             _shape = _so.shape;
 
             Image followIconImage = _followIcon.AddComponent<Image>();
@@ -65,6 +66,7 @@ namespace Inventory
         public void OnEndDrag(PointerEventData eventData)
         {
             GameObject slotObj = UIMousePos();
+            
             if(slotObj != null)
             {
                 InventorySlot slot = slotObj.GetComponent<InventorySlot>();
@@ -75,17 +77,21 @@ namespace Inventory
                     _followIconRectTransform = null;
                     _followIconItem = null;
                 }
-                Image followIconImage = _followIcon.GetComponent<Image>();
-                followIconImage.raycastTarget = true;
-                _followIcon = null;
-                _followIconRectTransform = null;
-                _followIconItem = null;
-                UIManager.Instance.UIImages.Remove(_image);
-                UIManager.Instance.AlphaTargets.Remove(255);
-                ObjectPoolManager.Instance.ReturnObject(ObjectPoolType.GunIcon, gameObject);
+                else
+                {
+                    Image followIconImage = _followIcon.GetComponent<Image>();
+                    followIconImage.raycastTarget = true;
+                    _followIcon = null;
+                    _followIconRectTransform = null;
+                    _followIconItem = null;
+                    UIManager.Instance.UIImages.Remove(_image);
+                    UIManager.Instance.AlphaTargets.Remove(255);
+                    ObjectPoolManager.Instance.ReturnObject(ObjectPoolType.GunIcon, gameObject);
+                }
             }
             else
             {
+                UIManager.Instance.Appear(new Image[] { _image }, 0.1f, new int[] { 255 });
                 Destroy(_followIcon);
                 _followIconRectTransform = null;
                 _followIconItem = null;
