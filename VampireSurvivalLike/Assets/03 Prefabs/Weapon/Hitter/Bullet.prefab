@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce3092602aca01a4f88b67201dca6dfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _type: 0
+  type: 0
   _isCanDestroy: 0
 --- !u!50 &5977835385597188258
 Rigidbody2D:
@@ -176,5 +176,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22cb33e2368c90c49b5b744449c7e12d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _type: 1
+  type: 1
   _isCanDestroy: 1

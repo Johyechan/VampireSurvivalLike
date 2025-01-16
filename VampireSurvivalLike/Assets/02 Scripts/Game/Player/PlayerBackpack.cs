@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Weapon;
 
 namespace Player
 {
@@ -37,6 +38,14 @@ namespace Player
                         InventoryItem item = images[i].GetComponent<InventoryItem>();
                         GameObject itemObj = ObjectPoolManager.Instance.GetObject(item.so.type, transform);
                     }
+                }
+            }
+
+            if(count < transform.childCount)
+            {
+                for(int i = transform.childCount - 1; i >= count; i--)
+                {
+                    ObjectPoolManager.Instance.ReturnObject(transform.GetChild(i).GetComponent<WeaponBase>().type, transform.GetChild(i).gameObject);
                 }
             }
         }

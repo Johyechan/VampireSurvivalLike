@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Weapon
 {
-    public abstract class Shooter : MonoBehaviour
+    public abstract class Shooter : WeaponBase
     {
         [SerializeField] protected WeaponSO _so;
 

@@ -5,10 +5,8 @@ using UnityEngine;
 
 namespace Weapon
 {
-    public class Hitter : MonoBehaviour
+    public class Hitter : WeaponBase
     {
-        [SerializeField] ObjectPoolType _type;
-
         [SerializeField] private bool _isCanDestroy;
 
         private float _damage;
@@ -57,7 +55,7 @@ namespace Weapon
         private IEnumerator DeathCoolCo()
         {
             yield return new WaitForSeconds(_lifeTime);
-            ObjectPoolManager.Instance.ReturnObject(_type, gameObject);
+            ObjectPoolManager.Instance.ReturnObject(type, gameObject);
         }
 
         protected virtual void OnTriggerEnter2D(Collider2D collision)
@@ -70,7 +68,7 @@ namespace Weapon
 
                 if(_isCanDestroy)
                 {
-                    ObjectPoolManager.Instance.ReturnObject(_type, gameObject);
+                    ObjectPoolManager.Instance.ReturnObject(type, gameObject);
                 }
             }
         }
