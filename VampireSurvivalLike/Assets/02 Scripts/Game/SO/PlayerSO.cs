@@ -9,6 +9,8 @@ public class PlayerSO : ScriptableObject
     public float hp;
     public float speed;
 
+    public int startMoney;
+
     public int[,] backpackArr;
 
     [SerializeField]

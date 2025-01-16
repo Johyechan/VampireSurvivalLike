@@ -1,4 +1,5 @@
 using Manager;
+using Player;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -67,7 +68,8 @@ namespace Inventory
                         UIManager.Instance.UIImages.Remove(image);
                         UIManager.Instance.AlphaTargets.Remove(255);
                         Destroy(gameObject);
-                        // µ· ´Ã¾î³ª´Â ÄÚµå Ãß°¡
+                        PlayerWallet wallet = GameManager.Instance.player.GetComponent<PlayerWallet>();
+                        wallet.AddMoney(so.price);
                     }
                     else
                     {

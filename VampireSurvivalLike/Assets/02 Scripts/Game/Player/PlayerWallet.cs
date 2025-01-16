@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using Manager;
 
 namespace Player
 {
     public class PlayerWallet : MonoBehaviour
     {
+        [SerializeField] private TMP_Text _tmpText;
+
         private int _currentMoney;
         public int currentMoney
         {
@@ -17,24 +21,28 @@ namespace Player
 
         private void Start()
         {
-            _currentMoney = 0;
+            _currentMoney = GameManager.Instance.player.GetComponent<PlayerController>().so.startMoney;
+            _tmpText.text = "X " + _currentMoney.ToString();
         }
 
         public void AddMoney(int moneyValue)
         {
             _currentMoney += moneyValue;
             Debug.Log($"current Money: {_currentMoney}$");
+            _tmpText.text = "X " + _currentMoney.ToString();
         }
 
-        public void RemoveMoney(int moneyValue)
+        public bool UseMoney(int moneyValue)
         {
             if(_currentMoney < moneyValue)
             {
                 Debug.Log("You need more money");
-                return;
+                return false;
             }
 
             _currentMoney -= moneyValue;
+            _tmpText.text = "X " + _currentMoney.ToString();
+            return true;
         }
     }
 }

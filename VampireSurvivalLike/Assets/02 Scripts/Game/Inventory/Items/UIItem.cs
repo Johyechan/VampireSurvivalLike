@@ -26,7 +26,10 @@ namespace Inventory
         {
             RectTransformUtility.ScreenPointToLocalPointInRectangle(_canvas.transform as RectTransform, eventData.position, _canvas.worldCamera, out Vector2 localPoint);
 
-            rectTransform.localPosition = localPoint;
+            if(rectTransform != null)
+            {
+                rectTransform.localPosition = localPoint;
+            }
         }
 
         protected GameObject UIMousePos(string exceptionName = null)

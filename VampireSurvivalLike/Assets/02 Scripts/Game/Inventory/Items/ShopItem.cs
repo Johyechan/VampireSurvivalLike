@@ -1,4 +1,5 @@
 using Manager;
+using Player;
 using Pool;
 using System.Collections;
 using System.Collections.Generic;
@@ -25,6 +26,8 @@ namespace Inventory
 
         private Image _image;
 
+        private bool _isBuy;
+
         protected override void Awake()
         {
             base.Awake();
@@ -33,7 +36,15 @@ namespace Inventory
 
         public void OnBeginDrag(PointerEventData eventData)
         {
+            _isBuy = true;
             // 이 Ui 아이템 Image 숨기기
+            PlayerWallet wallet = GameManager.Instance.player.GetComponent<PlayerWallet>();
+            if(!wallet.UseMoney(_so.price))
+            {
+                _isBuy = false;
+                return;
+            }
+
             UIManager.Instance.Disappear(new Image[] { _image }, 0.1f);
             _followIcon = new GameObject("InventoryItem");
             _followIcon.transform.SetParent(_canvas.transform);
@@ -60,11 +71,21 @@ namespace Inventory
 
         public void OnDrag(PointerEventData eventData)
         {
+            if(!_isBuy)
+            {
+                return;
+            }
+
             UpdateFollowIconPosition(eventData, _followIconRectTransform);
         }
 
         public void OnEndDrag(PointerEventData eventData)
         {
+            if(!_isBuy)
+            {
+                return;
+            }
+
             GameObject slotObj = UIMousePos();
             
             if(slotObj != null)
