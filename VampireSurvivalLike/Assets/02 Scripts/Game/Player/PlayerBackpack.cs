@@ -26,16 +26,15 @@ namespace Player
 
         public void GetBackpackWeapon()
         {
-            Image[] images = UIManager.Instance.GetUIImages();
             int count = 0;
-            for(int i = 0; i < images.Length; i++)
+            foreach(var uis in UIManager.Instance.UIs)
             {
-                if (images[i].gameObject.name == "InventoryItem")
+                if(uis.Key.Contains("InventoryItem"))
                 {
                     count++;
                     if (transform.childCount < count)
                     {
-                        InventoryItem item = images[i].GetComponent<InventoryItem>();
+                        InventoryItem item = uis.Value.gameObject.GetComponent<InventoryItem>();
                         GameObject itemObj = ObjectPoolManager.Instance.GetObject(item.so.type, transform);
                     }
                 }

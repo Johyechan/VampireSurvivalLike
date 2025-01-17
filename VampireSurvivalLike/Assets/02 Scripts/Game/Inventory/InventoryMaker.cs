@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Pool;
+using MyUI;
 
 namespace Inventory
 {
@@ -27,9 +28,6 @@ namespace Inventory
         [SerializeField] private int _shopWidth;
         [SerializeField] private int _shopHeight;
         [SerializeField] private float _shopSpacing;
-
-        [Header("Time")]
-        [SerializeField] private float _delay;
 
         private GameObject[,] _slots;
         public GameObject[,] Slots
@@ -55,24 +53,21 @@ namespace Inventory
 
             UIManager.Instance.AddUI(ObjectPoolType.GunIcon, _shopParent, _shopX, _shopY, _shopWidth, _shopHeight, _shopSpacing);
             _slots = UIManager.Instance.AddUI(ObjectPoolType.Slot, _backpackParent, GameManager.Instance.x, GameManager.Instance.y, _slotWidth, _slotHeight, _slotSpacing, _backpack.BackpackArr);
-            Image[] images = _parentPanel.GetComponentsInChildren<Image>(true);
-            for(int i = 0; i < images.Length; i++)
+
+            UIController[] uis = _parentPanel.GetComponentsInChildren<UIController>(true);
+            for(int i = 0; i < uis.Length; i++)
             {
-                UIManager.Instance.UIImages.Add(images[i]);
-                if (images[i].name == "Slot(Clone)")
+                UIManager.Instance.UIs.Add(uis[i].name, uis[i]);
+            }
+            foreach(var ui in UIManager.Instance.UIs)
+            {
+                if(ui.Key.Contains("Slot"))
                 {
-                    if (!images[i].GetComponent<InventorySlot>().IsUsing)
+                    InventorySlot slot = ui.Value.gameObject.GetComponent<InventorySlot>();
+                    if(!slot.IsUsing)
                     {
-                        UIManager.Instance.AlphaTargets.Add(-1);
+                        slot.gameObject.SetActive(false);
                     }
-                    else
-                    {
-                        UIManager.Instance.AlphaTargets.Add(_slotAlphaValue);
-                    }
-                }
-                else
-                {
-                    UIManager.Instance.AlphaTargets.Add(_backgroundAlphaValue);
                 }
             }
         }
@@ -84,12 +79,22 @@ namespace Inventory
                 if (!_isOpen)
                 {
                     Time.timeScale = 0;
-                    UIManager.Instance.Appear(UIManager.Instance.GetUIImages(), _delay, UIManager.Instance.GetAlphaTargets(), _parentPanel);
+                    UIManager.Instance.IsRunning = true;
+                    _parentPanel.SetActive(true);
                     _isOpen = true;
+                    foreach (var uis in UIManager.Instance.UIs)
+                    {
+                        uis.Value.ChangeAlpha(true);
+                    }
+                    UIManager.Instance.End(UIManager.Instance.delay);
                 }
                 else
                 {
-                    UIManager.Instance.Disappear(UIManager.Instance.GetUIImages(), _delay, _parentPanel);
+                    foreach(var uis in UIManager.Instance.UIs)
+                    {
+                        uis.Value.ChangeAlpha(false);
+                    }
+                    UIManager.Instance.FadeOutEnd(UIManager.Instance.delay, _parentPanel);
                     _backpack.GetBackpackWeapon();
                     GameObject[] weapons = new GameObject[GameManager.Instance.player.transform.childCount];
                     for(int i = 0; i < weapons.Length; i++)

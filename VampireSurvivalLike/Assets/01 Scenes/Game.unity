@@ -177,7 +177,6 @@ MonoBehaviour:
   _shopWidth: 100
   _shopHeight: 100
   _shopSpacing: 50
-  _delay: 1
   _parentPanel: {fileID: 551247737}
   _shopParent: {fileID: 1499023045}
   _backpackParent: {fileID: 1691747672}
@@ -239,6 +238,7 @@ GameObject:
   - component: {fileID: 204984683}
   - component: {fileID: 204984685}
   - component: {fileID: 204984684}
+  - component: {fileID: 204984686}
   m_Layer: 5
   m_Name: BackpackBackground
   m_TagString: Untagged
@@ -304,6 +304,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 204984682}
   m_CullTransparentMesh: 1
+--- !u!114 &204984686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 204984682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7196dec67a9ee3946a516bbe51107188, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isImage: 1
+  alphaValue: 255
 --- !u!1 &210745544
 GameObject:
   m_ObjectHideFlags: 0
@@ -1183,6 +1197,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2645d4a2a5663bb458d8952379589e95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  delay: 0.5
 --- !u!114 &1044404443
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1218,6 +1233,7 @@ GameObject:
   - component: {fileID: 1057300347}
   - component: {fileID: 1057300349}
   - component: {fileID: 1057300348}
+  - component: {fileID: 1057300350}
   m_Layer: 5
   m_Name: MoneyIcon
   m_TagString: Untagged
@@ -1282,6 +1298,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1057300346}
   m_CullTransparentMesh: 1
+--- !u!114 &1057300350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1057300346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7196dec67a9ee3946a516bbe51107188, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isImage: 1
+  alphaValue: 255
 --- !u!1 &1072265377
 GameObject:
   m_ObjectHideFlags: 0
@@ -1424,6 +1454,7 @@ MonoBehaviour:
   groundMove: 0
   x: 9
   y: 6
+  itemNum: 0
 --- !u!4 &1250136794
 Transform:
   m_ObjectHideFlags: 0
@@ -1450,8 +1481,9 @@ GameObject:
   - component: {fileID: 1481945434}
   - component: {fileID: 1481945436}
   - component: {fileID: 1481945435}
+  - component: {fileID: 1481945437}
   m_Layer: 5
-  m_Name: OutLine
+  m_Name: BackpackOutLine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1514,6 +1546,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1481945433}
   m_CullTransparentMesh: 1
+--- !u!114 &1481945437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1481945433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7196dec67a9ee3946a516bbe51107188, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isImage: 1
+  alphaValue: 255
 --- !u!1 &1499023044
 GameObject:
   m_ObjectHideFlags: 0
@@ -1628,6 +1674,7 @@ GameObject:
   - component: {fileID: 1854953741}
   - component: {fileID: 1854953743}
   - component: {fileID: 1854953742}
+  - component: {fileID: 1854953744}
   m_Layer: 5
   m_Name: MoneyText
   m_TagString: Untagged
@@ -1751,6 +1798,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1854953740}
   m_CullTransparentMesh: 1
+--- !u!114 &1854953744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1854953740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7196dec67a9ee3946a516bbe51107188, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isImage: 0
+  alphaValue: 255
 --- !u!1 &1882271374
 GameObject:
   m_ObjectHideFlags: 0
@@ -2023,6 +2084,7 @@ GameObject:
   - component: {fileID: 2038327270}
   - component: {fileID: 2038327272}
   - component: {fileID: 2038327271}
+  - component: {fileID: 2038327273}
   m_Layer: 5
   m_Name: ShopBackground
   m_TagString: Shop
@@ -2088,6 +2150,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2038327269}
   m_CullTransparentMesh: 1
+--- !u!114 &2038327273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2038327269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7196dec67a9ee3946a516bbe51107188, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isImage: 1
+  alphaValue: 255
 --- !u!1 &2062955332
 GameObject:
   m_ObjectHideFlags: 0
@@ -2423,8 +2499,9 @@ GameObject:
   - component: {fileID: 2139950532}
   - component: {fileID: 2139950534}
   - component: {fileID: 2139950533}
+  - component: {fileID: 2139950535}
   m_Layer: 5
-  m_Name: OutLine
+  m_Name: ShopOutLine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2487,6 +2564,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2139950531}
   m_CullTransparentMesh: 1
+--- !u!114 &2139950535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2139950531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7196dec67a9ee3946a516bbe51107188, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isImage: 1
+  alphaValue: 255
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

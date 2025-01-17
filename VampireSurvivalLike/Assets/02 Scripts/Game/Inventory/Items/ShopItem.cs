@@ -1,4 +1,5 @@
 using Manager;
+using MyUI;
 using Player;
 using Pool;
 using System.Collections;
@@ -21,6 +22,8 @@ namespace Inventory
         private RectTransform _followIconRectTransform;
 
         private InventoryItem _followIconItem;
+
+        private UIController _followIconController;
 
         private int _followIconAlpha = 255;
 
@@ -45,14 +48,20 @@ namespace Inventory
                 return;
             }
 
-            UIManager.Instance.Disappear(new Image[] { _image }, 0.1f);
-            _followIcon = new GameObject("InventoryItem");
+            UIManager.Instance.UIs[_image.gameObject.name].ChangeAlpha(false, 0.1f);
+            _followIcon = new GameObject("InventoryItem" + GameManager.Instance.itemNum);
+            GameManager.Instance.itemNum++;
+
             _followIcon.transform.SetParent(_canvas.transform);
             _followIconItem = _followIcon.AddComponent<InventoryItem>();
             _followIconItem.so = _so;
             _followIconItem.so.type = _so.type;
             _followIconItem.IsShop = true;
             _shape = _so.shape;
+
+            _followIconController = _followIcon.AddComponent<UIController>();
+            _followIconController.isImage = true;
+            _followIconController.alphaValue = 255;
 
             Image followIconImage = _followIcon.AddComponent<Image>();
             followIconImage.sprite = _so.sprite;
@@ -63,8 +72,7 @@ namespace Inventory
             _followIconRectTransform.sizeDelta = new Vector2(_so.width * _multiply, _so.height * _multiply);
             _followIconRectTransform.pivot = new Vector2(0.5f, 0.5f);
 
-            UIManager.Instance.UIImages.Add(followIconImage);
-            UIManager.Instance.AlphaTargets.Add(_followIconAlpha);
+            UIManager.Instance.UIs.Add(_followIcon.name, _followIconController);
 
             UpdateFollowIconPosition(eventData, _followIconRectTransform);
         }
@@ -93,7 +101,7 @@ namespace Inventory
                 InventorySlot slot = slotObj.GetComponent<InventorySlot>();
                 if(!PlaceItem(_followIcon, slot, _shape, _followIconItem))
                 {
-                    UIManager.Instance.Appear(new Image[] { _image }, 0.1f, new int[] { 255 });
+                    UIManager.Instance.UIs[_image.gameObject.name].ChangeAlpha(true, 0.1f);
                     Destroy(_followIcon);
                     _followIconRectTransform = null;
                     _followIconItem = null;
@@ -105,14 +113,13 @@ namespace Inventory
                     _followIcon = null;
                     _followIconRectTransform = null;
                     _followIconItem = null;
-                    UIManager.Instance.UIImages.Remove(_image);
-                    UIManager.Instance.AlphaTargets.Remove(255);
+                    UIManager.Instance.UIs.Remove(_image.gameObject.name);
                     ObjectPoolManager.Instance.ReturnObject(ObjectPoolType.GunIcon, gameObject);
                 }
             }
             else
             {
-                UIManager.Instance.Appear(new Image[] { _image }, 0.1f, new int[] { 255 });
+                UIManager.Instance.UIs[_image.gameObject.name].ChangeAlpha(true, 0.1f);
                 Destroy(_followIcon);
                 _followIconRectTransform = null;
                 _followIconItem = null;

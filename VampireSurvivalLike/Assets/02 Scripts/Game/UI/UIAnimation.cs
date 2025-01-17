@@ -1,6 +1,7 @@
 using Manager;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,78 +9,73 @@ namespace MyUI
 {
     public class UIAnimation : MonoBehaviour
     {
-        public void Appear(Image[] images, float delay, int[] targets, GameObject parent = null)
+        public void FadeInOut(Image image, float delay, int target)
         {
-            StartCoroutine(ApperDisappearCo(images, images.Length, delay, targets, parent));
+            StartCoroutine(FadeInOutCo(image, delay, target));
         }
 
-        public void Disappear(Image[] images, float delay, GameObject parent = null)
+        public void FadeInOut(TMP_Text tmpText, float delay, int target)
         {
-            int[] targets = new int[images.Length];
-            for (int i = 0; i < images.Length; i++)
-            {
-                targets[i] = 0;
-            }
-            StartCoroutine(ApperDisappearCo(images, images.Length, delay, targets, parent));
+            StartCoroutine(FadeInOutCo(tmpText, delay, target));
         }
 
-        private IEnumerator ApperDisappearCo(Image[] images, int count, float delay, int[] targets, GameObject parent = null)
+        public void FadeOutEnd(float delay, GameObject parent)
         {
-            UIManager.Instance.IsRunning = true;
-            if (targets[0] != 0)
-            {
-                if (parent != null)
-                {
-                    parent.SetActive(true);
-                }
-            }
+            StartCoroutine(FadeOutEndCo(delay, parent));
+        }
 
+        public void AnimationEnd(float delay)
+        {
+            StartCoroutine(EndCo(delay));
+        }
+
+        private IEnumerator FadeInOutCo(Image image, float delay, int target = 0)
+        {
             float curTime = 0;
-            Color32[] colors = new Color32[count];
-
-            for (int i = 0; i < count; i++)
-            {
-                colors[i] = images[i].color;
-            }
+            Color32 color = image.color;
 
             while (curTime < delay)
             {
                 curTime += Time.unscaledDeltaTime;
                 float t = Mathf.Clamp01(curTime / delay);
-                for (int i = 0; i < count; i++)
-                {
-                    if (colors[i] != Color.magenta && targets[i] != -1)
-                    {
-                        images[i].color = Color32.Lerp(colors[i], new Color32(colors[i].r, colors[i].g, colors[i].b, (byte)targets[i]), t);
-                    }
-                    else
-                    {
-                        if (images[i].gameObject.activeSelf)
-                        {
-                            images[i].gameObject.SetActive(false);
-                        }
-                    }
-                }
+                image.color = Color32.Lerp(color, new Color32(color.r, color.g, color.b, (byte)target), t);
                 yield return null;
             }
 
-            for (int i = 0; i < count; i++)
+            image.color = new Color32(color.r, color.g, color.b, (byte)target);
+            
+        }
+
+        private IEnumerator FadeInOutCo(TMP_Text tmpText, float delay, int target = 0)
+        {
+            float curTime = 0;
+            Color32 color = tmpText.color;
+
+            while (curTime < delay)
             {
-                if (colors[i] != Color.magenta && targets[i] != -1)
-                {
-                    images[i].color = new Color32(colors[i].r, colors[i].g, colors[i].b, (byte)targets[i]);
-                }
+                curTime += Time.unscaledDeltaTime;
+                float t = Mathf.Clamp01(curTime / delay);
+                tmpText.color = Color32.Lerp(color, new Color32(color.r, color.g, color.b, (byte)target), t);
+                yield return null;
             }
 
-            if (targets[0] == 0)
-            {
-                if (parent != null)
-                {
-                    parent.SetActive(false);
-                    Time.timeScale = 1;
-                }
-            }
+            tmpText.color = new Color32(color.r, color.g, color.b, (byte)target);
 
+        }
+
+        private IEnumerator EndCo(float delay)
+        {
+            yield return new WaitForSecondsRealtime(delay);
+
+            UIManager.Instance.IsRunning = false;
+        }
+
+        private IEnumerator FadeOutEndCo(float delay, GameObject parent)
+        {
+            yield return new WaitForSecondsRealtime(delay);
+
+            parent.SetActive(false);
+            Time.timeScale = 1;
             UIManager.Instance.IsRunning = false;
         }
     }

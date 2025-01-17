@@ -1,4 +1,5 @@
 using Inventory;
+using Manager;
 using Pool;
 using System.Collections;
 using System.Collections.Generic;
@@ -41,6 +42,10 @@ namespace MyUI
                 for (int j = 0; j < y; j++)
                 {
                     GameObject obj = ObjectPoolManager.Instance.GetObject(type, parent);
+                    obj.name += GameManager.Instance.itemNum++;
+                    UIController controller = obj.AddComponent<UIController>();
+                    controller.isImage = true;
+                    controller.alphaValue = 255;
                     if (backpackArr != null)
                     {
                         if (type == ObjectPoolType.Slot)
@@ -49,10 +54,12 @@ namespace MyUI
                             if (backpackArr[i, j] == 1)
                             {
                                 slot.IsUsing = true;
+                                controller.alphaValue = 30;
                             }
                             else
                             {
                                 slot.IsUsing = false;
+                                controller.alphaValue = 0;
                             }
                         }
                     }

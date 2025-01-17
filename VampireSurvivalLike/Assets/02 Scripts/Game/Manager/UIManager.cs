@@ -3,6 +3,7 @@ using MyUI;
 using Pool;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,14 +12,13 @@ namespace Manager
 {
     public class UIManager : MonoSingleton<UIManager>
     {
+        public float delay;
+
         private bool _isRunning = false;
         public bool IsRunning { get { return _isRunning; } set { _isRunning = value; } }
 
-        private List<Image> _uiImages = new List<Image>();
-        public List<Image> UIImages { get { return _uiImages; } }
-
-        private List<int> _alphaTargets = new List<int>();
-        public List<int> AlphaTargets { get { return _alphaTargets; } }
+        private Dictionary<string, UIController> _uis = new Dictionary<string, UIController>();
+        public Dictionary<string, UIController> UIs { get { return _uis; } }
 
         private UIAnimation _animation;
         private UIMaker _maker;
@@ -31,42 +31,24 @@ namespace Manager
             _maker = GetComponent<UIMaker>();
         }
 
-        public Image[] GetUIImages()
+        public void FadeInOut(Image image, float delay, int target)
         {
-            Image[] images = new Image[_uiImages.Count];
-            int count = 0;
-
-            foreach(var image in _uiImages)
-            {
-                images[count] = image;
-                count++;
-            }
-
-            return images;
+            _animation.FadeInOut(image, delay, target);
         }
 
-        public int[] GetAlphaTargets()
+        public void FadeInOut(TMP_Text tmpText, float delay, int target)
         {
-            int[] alphas = new int[_alphaTargets.Count];
-            int count = 0;
-
-            foreach(var alpha in _alphaTargets)
-            {
-                alphas[count] = alpha;
-                count++;
-            }
-
-            return alphas;
+            _animation.FadeInOut(tmpText, delay, target);
         }
 
-        public void Appear(Image[] images, float delay, int[] targets, GameObject parent = null)
+        public void FadeOutEnd(float delay, GameObject parent)
         {
-            _animation.Appear(images, delay, targets, parent);
+            _animation.FadeOutEnd(delay, parent);
         }
 
-        public void Disappear(Image[] images, float delay, GameObject parent = null)
+        public void End(float delay)
         {
-            _animation.Disappear(images, delay, parent);
+            _animation.AnimationEnd(delay);
         }
 
         public GameObject[,] AddUI(ObjectPoolType type, Transform parent, int x, int y, int width, int height, float spacing, int[,] backpackArr = null)

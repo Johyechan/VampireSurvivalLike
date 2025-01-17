@@ -65,8 +65,7 @@ namespace Inventory
                     if(slotObj.CompareTag("Shop"))
                     {
                         Image image = transform.GetComponent<Image>();
-                        UIManager.Instance.UIImages.Remove(image);
-                        UIManager.Instance.AlphaTargets.Remove(255);
+                        UIManager.Instance.UIs.Remove(image.name);
                         Destroy(gameObject);
                         PlayerWallet wallet = GameManager.Instance.player.GetComponent<PlayerWallet>();
                         wallet.AddMoney(so.price);
