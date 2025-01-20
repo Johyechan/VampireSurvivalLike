@@ -176,7 +176,7 @@ MonoBehaviour:
   _shopY: 2
   _shopWidth: 100
   _shopHeight: 100
-  _shopSpacing: 50
+  _shopSpacing: 70
   _parentPanel: {fileID: 551247737}
   _shopParent: {fileID: 1499023045}
   _backpackParent: {fileID: 1691747672}

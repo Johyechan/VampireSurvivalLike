@@ -13,7 +13,7 @@ namespace Inventory
 {
     public class ShopItem : UIItem, IBeginDragHandler, IEndDragHandler, IDragHandler
     {
-        [SerializeField] private InventoryItemSO _so;
+        public InventoryItemSO so;
 
         [SerializeField] private float _multiply;
 
@@ -24,6 +24,8 @@ namespace Inventory
         private InventoryItem _followIconItem;
 
         private UIController _followIconController;
+
+        private PlayerWallet _wallet;
 
         private int _followIconAlpha = 255;
 
@@ -41,35 +43,36 @@ namespace Inventory
         {
             _isBuy = true;
             // 이 Ui 아이템 Image 숨기기
-            PlayerWallet wallet = GameManager.Instance.player.GetComponent<PlayerWallet>();
-            if(!wallet.UseMoney(_so.price))
+            _wallet = GameManager.Instance.player.GetComponent<PlayerWallet>();
+            if(!_wallet.UseMoney(so.price))
             {
                 _isBuy = false;
                 return;
             }
 
             UIManager.Instance.UIs[_image.gameObject.name].ChangeAlpha(false, 0.1f);
+            UIManager.Instance.UIs[_image.transform.GetChild(0).name].ChangeAlpha(false, 0.1f);
             _followIcon = new GameObject("InventoryItem" + GameManager.Instance.itemNum);
             GameManager.Instance.itemNum++;
 
             _followIcon.transform.SetParent(_canvas.transform);
             _followIconItem = _followIcon.AddComponent<InventoryItem>();
-            _followIconItem.so = _so;
-            _followIconItem.so.type = _so.type;
+            _followIconItem.so = so;
+            _followIconItem.so.type = so.type;
             _followIconItem.IsShop = true;
-            _shape = _so.shape;
+            _shape = so.shape;
 
             _followIconController = _followIcon.AddComponent<UIController>();
             _followIconController.isImage = true;
             _followIconController.alphaValue = 255;
 
             Image followIconImage = _followIcon.AddComponent<Image>();
-            followIconImage.sprite = _so.sprite;
+            followIconImage.sprite = so.sprite;
             followIconImage.color = new Color(followIconImage.color.r, followIconImage.color.g, followIconImage.color.b, _followIconAlpha);
             followIconImage.raycastTarget = false;
 
             _followIconRectTransform = followIconImage.GetComponent<RectTransform>();
-            _followIconRectTransform.sizeDelta = new Vector2(_so.width * _multiply, _so.height * _multiply);
+            _followIconRectTransform.sizeDelta = new Vector2(so.width * _multiply, so.height * _multiply);
             _followIconRectTransform.pivot = new Vector2(0.5f, 0.5f);
 
             UIManager.Instance.UIs.Add(_followIcon.name, _followIconController);
@@ -119,7 +122,9 @@ namespace Inventory
             }
             else
             {
+                _wallet.AddMoney(so.price);
                 UIManager.Instance.UIs[_image.gameObject.name].ChangeAlpha(true, 0.1f);
+                UIManager.Instance.UIs[_image.transform.GetChild(0).name].ChangeAlpha(true, 0.1f);
                 Destroy(_followIcon);
                 _followIconRectTransform = null;
                 _followIconItem = null;

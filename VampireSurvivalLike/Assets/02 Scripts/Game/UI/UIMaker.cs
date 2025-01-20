@@ -3,6 +3,7 @@ using Manager;
 using Pool;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 namespace MyUI
@@ -43,9 +44,15 @@ namespace MyUI
                 {
                     GameObject obj = ObjectPoolManager.Instance.GetObject(type, parent);
                     obj.name += GameManager.Instance.itemNum++;
-                    UIController controller = obj.AddComponent<UIController>();
-                    controller.isImage = true;
-                    controller.alphaValue = 255;
+                    UIController controller = obj.GetComponent<UIController>();
+                    if(obj.transform.childCount > 0)
+                    {
+                        GameObject childObj = obj.transform.GetChild(0).gameObject;
+                        childObj.name += GameManager.Instance.itemNum;
+                        TMP_Text tmpText = childObj.GetComponent<TMP_Text>();
+                        ShopItem shopItem = obj.GetComponent<ShopItem>();
+                        tmpText.text = shopItem.so.price + "$";
+                    }
                     if (backpackArr != null)
                     {
                         if (type == ObjectPoolType.Slot)
@@ -54,7 +61,6 @@ namespace MyUI
                             if (backpackArr[i, j] == 1)
                             {
                                 slot.IsUsing = true;
-                                controller.alphaValue = 30;
                             }
                             else
                             {
