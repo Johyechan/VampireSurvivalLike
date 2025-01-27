@@ -51,6 +51,7 @@ namespace Inventory
 
             _backpack = GameManager.Instance.player.GetComponent<PlayerBackpack>();
 
+            InventoryManager.Instance.shopCount = _shopX + _shopY;
             UIManager.Instance.AddUI(ObjectPoolType.GunIcon, _shopParent, _shopX, _shopY, _shopWidth, _shopHeight, _shopSpacing);
             _slots = UIManager.Instance.AddUI(ObjectPoolType.Slot, _backpackParent, GameManager.Instance.x, GameManager.Instance.y, _slotWidth, _slotHeight, _slotSpacing, _backpack.BackpackArr);
 
@@ -67,6 +68,26 @@ namespace Inventory
                     if(!slot.IsUsing)
                     {
                         slot.gameObject.SetActive(false);
+                    }
+                }
+            }
+        }
+
+        private void Update()
+        {
+            if(InventoryManager.Instance.shopCount <= 0)
+            {
+                InventoryManager.Instance.shopCount = _shopX + _shopY;
+                UIManager.Instance.AddUI(ObjectPoolType.GunIcon, _shopParent, _shopX, _shopY, _shopWidth, _shopHeight, _shopSpacing);
+
+                UIController[] uis = _parentPanel.GetComponentsInChildren<UIController>(true);
+                for (int i = 0; i < uis.Length; i++)
+                {
+                    if(!UIManager.Instance.UIs.ContainsKey(uis[i].name))
+                    {
+                        UIManager.Instance.UIs.Add(uis[i].name, uis[i]);
+                        UIController controller = uis[i].GetComponent<UIController>();
+                        controller.ChangeAlpha(true);
                     }
                 }
             }

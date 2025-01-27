@@ -20,6 +20,8 @@ namespace Inventory
             }
         }
 
+        public int shopCount;
+
         protected override void Awake()
         {
             base.Awake();
