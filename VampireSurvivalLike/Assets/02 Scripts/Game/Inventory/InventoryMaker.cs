@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Pool;
 using MyUI;
+using System.Linq;
 
 namespace Inventory
 {
@@ -77,18 +78,42 @@ namespace Inventory
         {
             if(InventoryManager.Instance.shopCount <= 0)
             {
-                InventoryManager.Instance.shopCount = _shopX + _shopY;
-                UIManager.Instance.AddUI(ObjectPoolType.GunIcon, _shopParent, _shopX, _shopY, _shopWidth, _shopHeight, _shopSpacing);
+                FillShopItem();
+            }
+        }
 
-                UIController[] uis = _parentPanel.GetComponentsInChildren<UIController>(true);
-                for (int i = 0; i < uis.Length; i++)
+        public void FillShopItem(bool reroll = false)
+        {
+            if(reroll)
+            {
+                RemoveShopItem();
+            }
+
+            InventoryManager.Instance.shopCount = _shopX + _shopY;
+            UIManager.Instance.AddUI(ObjectPoolType.GunIcon, _shopParent, _shopX, _shopY, _shopWidth, _shopHeight, _shopSpacing);
+
+            UIController[] uis = _parentPanel.GetComponentsInChildren<UIController>(true);
+            for (int i = 0; i < uis.Length; i++)
+            {
+                if (!UIManager.Instance.UIs.ContainsKey(uis[i].name))
                 {
-                    if(!UIManager.Instance.UIs.ContainsKey(uis[i].name))
-                    {
-                        UIManager.Instance.UIs.Add(uis[i].name, uis[i]);
-                        UIController controller = uis[i].GetComponent<UIController>();
-                        controller.ChangeAlpha(true);
-                    }
+                    UIManager.Instance.UIs.Add(uis[i].name, uis[i]);
+                    UIController controller = uis[i].GetComponent<UIController>();
+                    controller.ChangeAlpha(true);
+                }
+            }
+        }
+
+        private void RemoveShopItem()
+        {
+            foreach(var ui in UIManager.Instance.UIs.ToList())
+            {
+                if(ui.Key.Contains("ShopItem_"))
+                {
+                    UIManager.Instance.UIs[ui.Key].ChangeAlpha(false, 0.1f);
+                    UIManager.Instance.UIs[ui.Value.transform.GetChild(0).name].ChangeAlpha(false, 0.1f);
+                    UIManager.Instance.UIs.Remove(ui.Key);
+                    ObjectPoolManager.Instance.ReturnObject(ObjectPoolType.GunIcon, ui.Value.gameObject);
                 }
             }
         }
