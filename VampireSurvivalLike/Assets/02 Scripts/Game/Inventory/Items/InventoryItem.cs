@@ -23,16 +23,23 @@ namespace Inventory
 
         private Vector3 _origin;
 
+        private Vector2Int[] _currentShape;
+
         protected override void Awake()
         {
             base.Awake();
+        }
+
+        private void Start()
+        {
+            _currentShape = so.shape;
         }
 
         public void OnBeginDrag(PointerEventData eventData)
         {
             if(!_isShop)
             {
-                _shape = so.shape;
+                _shape = _currentShape;
                 RemoveItem(_slots);
                 _slots.RemoveAll(slot => slot != null);
 

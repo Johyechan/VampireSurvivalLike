@@ -8,11 +8,13 @@ namespace Manager
     {
         public GameObject player;
 
-        public bool groundMove = false;
+        [HideInInspector] public bool groundMove = false;
 
-        public int x = 9;
+        [HideInInspector] public int x = 9;
 
-        public int y = 6;
+        [HideInInspector] public int y = 6;
+
+        [HideInInspector] public int stage = 0;
 
         // 아이템 구분을 위한 식별번호
         [HideInInspector] public int itemNum = 0;

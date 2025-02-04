@@ -30,6 +30,8 @@ namespace Inventory
             {
                 rectTransform.localPosition = localPoint;
             }
+
+            // q를 누르면 왼쪽으로 90도 회전 e를 누르면 오른쪽으로 90도 회전
         }
 
         protected GameObject UIMousePos(string exceptionName = null)

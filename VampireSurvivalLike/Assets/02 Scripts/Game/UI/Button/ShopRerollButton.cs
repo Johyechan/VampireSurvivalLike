@@ -1,22 +1,49 @@
 using Inventory;
 using Manager;
-using MyUI;
+using Player;
 using Pool;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
-public class ShopRerollButton : BaseButton
+namespace MyUI
 {
-    [SerializeField] private InventoryMaker _maker;
-
-    protected override void Start()
+    public class ShopRerollButton : BaseButton
     {
-        base.Start();
-    }
+        [SerializeField] private InventoryMaker _maker;
 
-    public override void OnCliked()
-    {
-        _maker.FillShopItem(true);
+        private PlayerWallet _wallet;
+
+        [SerializeField] private int _price;
+
+        private TMP_Text _tmpText; 
+
+        protected override void Start()
+        {
+            base.Start();
+            _wallet = GameManager.Instance.player.GetComponent<PlayerWallet>();
+            _tmpText = transform.GetChild(0).GetComponent<TMP_Text>();
+            _tmpText.text = "$" + _price;
+        }
+
+        protected override void Update()
+        {
+            base.Update();
+            if(GameManager.Instance.stage != 0 && GameManager.Instance.stage % 10 == 0)
+            {
+                _price *= 2;
+                _tmpText.text = "$" + _price;
+            }
+        }
+
+        public override void OnCliked()
+        {
+            if (_wallet.UseMoney(_price))
+            {
+                _maker.FillShopItem(true);
+            }
+        }
     }
 }
+
