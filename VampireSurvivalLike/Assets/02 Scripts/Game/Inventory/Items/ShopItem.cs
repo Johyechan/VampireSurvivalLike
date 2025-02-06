@@ -13,7 +13,8 @@ namespace Inventory
 {
     public class ShopItem : UIItem, IBeginDragHandler, IEndDragHandler, IDragHandler
     {
-        public InventoryItemSO so;
+        [SerializeField] private InventoryItemSO _so;
+        [HideInInspector] public InventoryItemSO copySO;
 
         [SerializeField] private float _multiply;
 
@@ -37,6 +38,34 @@ namespace Inventory
         {
             base.Awake();
             _image = GetComponent<Image>();
+            copySO = _so.DeepCopy();
+        }
+
+        protected override void Update()
+        {
+            base.Update();
+            if(_followIconRectTransform != null)
+            {
+                if (Input.GetKeyDown(KeyCode.Q))
+                {
+                    _followIconRectTransform.Rotate(0, 0, 90);
+                    _shape = RotateItem(_shape, false);
+                    //for (int i = 0; i < _shape.Length; i++)
+                    //{
+                    //    Debug.Log(_shape[i]);
+                    //}
+                }
+                else if (Input.GetKeyDown(KeyCode.E))
+                {
+                    _followIconRectTransform.Rotate(0, 0, -90);
+                    _shape = RotateItem(_shape);
+                    //for (int i = 0; i < _shape.Length; i++)
+                    //{
+                    //    Debug.Log(_shape[i]);
+                    //}
+                }
+            }
+            
         }
 
         public void OnBeginDrag(PointerEventData eventData)
@@ -44,7 +73,7 @@ namespace Inventory
             _isBuy = true;
             // 이 Ui 아이템 Image 숨기기
             _wallet = GameManager.Instance.player.GetComponent<PlayerWallet>();
-            if(!_wallet.UseMoney(so.price))
+            if(!_wallet.UseMoney(copySO.price))
             {
                 _isBuy = false;
                 return;
@@ -57,22 +86,22 @@ namespace Inventory
 
             _followIcon.transform.SetParent(_canvas.transform);
             _followIconItem = _followIcon.AddComponent<InventoryItem>();
-            _followIconItem.so = so;
-            _followIconItem.so.type = so.type;
+            _followIconItem.so = copySO;
+            _followIconItem.so.type = copySO.type;
             _followIconItem.IsShop = true;
-            _shape = so.shape;
+            _shape = copySO.shape;
 
             _followIconController = _followIcon.AddComponent<UIController>();
             _followIconController.isImage = true;
             _followIconController.alphaValue = 255;
 
             Image followIconImage = _followIcon.AddComponent<Image>();
-            followIconImage.sprite = so.sprite;
+            followIconImage.sprite = copySO.sprite;
             followIconImage.color = new Color(followIconImage.color.r, followIconImage.color.g, followIconImage.color.b, _followIconAlpha);
             followIconImage.raycastTarget = false;
 
             _followIconRectTransform = followIconImage.GetComponent<RectTransform>();
-            _followIconRectTransform.sizeDelta = new Vector2(so.width * _multiply, so.height * _multiply);
+            _followIconRectTransform.sizeDelta = new Vector2(copySO.width * _multiply, copySO.height * _multiply);
             _followIconRectTransform.pivot = new Vector2(0.5f, 0.5f);
 
             UIManager.Instance.UIs.Add(_followIcon.name, _followIconController);
@@ -105,6 +134,7 @@ namespace Inventory
                 if(!PlaceItem(_followIcon, slot, _shape, _followIconItem))
                 {
                     UIManager.Instance.UIs[_image.gameObject.name].ChangeAlpha(true, 0.1f);
+                    UIManager.Instance.UIs[_image.transform.GetChild(0).name].ChangeAlpha(true, 0.1f);
                     Destroy(_followIcon);
                     _followIconRectTransform = null;
                     _followIconItem = null;
@@ -123,7 +153,7 @@ namespace Inventory
             }
             else
             {
-                _wallet.AddMoney(so.price);
+                _wallet.AddMoney(copySO.price);
                 UIManager.Instance.UIs[_image.gameObject.name].ChangeAlpha(true, 0.1f);
                 UIManager.Instance.UIs[_image.transform.GetChild(0).name].ChangeAlpha(true, 0.1f);
                 Destroy(_followIcon);

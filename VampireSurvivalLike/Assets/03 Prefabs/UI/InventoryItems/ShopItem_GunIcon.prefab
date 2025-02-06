@@ -239,7 +239,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edc2a1bbbf0d8f44caa81d5c063be113, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  so: {fileID: 11400000, guid: f41cbea2911854a409d6ac1330a073f3, type: 2}
+  _so: {fileID: 11400000, guid: f41cbea2911854a409d6ac1330a073f3, type: 2}
+  copySO: {fileID: 0}
   _multiply: 80
 --- !u!114 &6041622285801420320
 MonoBehaviour:

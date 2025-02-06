@@ -23,23 +23,42 @@ namespace Inventory
 
         private Vector3 _origin;
 
-        private Vector2Int[] _currentShape;
-
         protected override void Awake()
         {
             base.Awake();
         }
 
-        private void Start()
+        protected override void Update()
         {
-            _currentShape = so.shape;
+            base.Update();
+            if (_rectTransform != null)
+            {
+                if (Input.GetKeyDown(KeyCode.Q))
+                {
+                    _rectTransform.Rotate(0, 0, 90);
+                    _shape = RotateItem(_shape, false);
+                    //for (int i = 0; i < _shape.Length; i++)
+                    //{
+                    //    Debug.Log(_shape[i]);
+                    //}
+                }
+                else if (Input.GetKeyDown(KeyCode.E))
+                {
+                    _rectTransform.Rotate(0, 0, -90);
+                    _shape = RotateItem(_shape);
+                    //for (int i = 0; i < _shape.Length; i++)
+                    //{
+                    //    Debug.Log(_shape[i]);
+                    //}
+                }
+            }
         }
 
         public void OnBeginDrag(PointerEventData eventData)
         {
             if(!_isShop)
             {
-                _shape = _currentShape;
+                _shape = so.shape;
                 RemoveItem(_slots);
                 _slots.RemoveAll(slot => slot != null);
 
@@ -48,7 +67,6 @@ namespace Inventory
 
                 Image followIconImage = GetComponent<Image>();
                 followIconImage.raycastTarget = false;
-
                 UpdateFollowIconPosition(eventData, _rectTransform);
             }
         }

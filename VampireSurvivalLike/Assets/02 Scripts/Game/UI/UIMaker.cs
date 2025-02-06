@@ -51,7 +51,7 @@ namespace MyUI
                         childObj.name += GameManager.Instance.itemNum;
                         TMP_Text tmpText = childObj.GetComponent<TMP_Text>();
                         ShopItem shopItem = obj.GetComponent<ShopItem>();
-                        tmpText.text = shopItem.so.price + "$";
+                        tmpText.text = shopItem.copySO.price + "$";
                     }
                     if (backpackArr != null)
                     {

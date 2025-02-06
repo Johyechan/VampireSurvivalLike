@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Manager;
 using UnityEngine.Pool;
-using Cinemachine.Editor;
 
 namespace Map
 {
