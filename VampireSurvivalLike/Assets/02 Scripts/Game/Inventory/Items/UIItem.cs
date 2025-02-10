@@ -85,111 +85,64 @@ namespace Inventory
             Vector2Int bigest = Vector2Int.zero;
             Vector2Int smallest = Vector2Int.zero;
 
-            if(right)
+            for (int i = 0; i < shape.Length; i++)
             {
-                for(int i = 0; i < shape.Length; i++)
+                if (right)
                 {
                     temp = shape[i].x;
                     shape[i].x = -shape[i].y;
                     shape[i].y = temp;
-
-                    if (xAdjust > 0)
-                    {
-                        xAdjust = CheckValueNeedAdjustX(shape[i]);
-                    }
-                    else if (xAdjust == 0)
-                    {
-                        if (shape[i].x < 0)
-                        {
-                            xAdjust = CheckValueNeedAdjustX(shape[i]);
-                        }
-                    }
-
-                    if (yAdjust > 0)
-                    {
-                        yAdjust = CheckValueNeedAdjustY(shape[i]);
-                    }
-                    else if (yAdjust == 0)
-                    {
-                        if (shape[i].y < 0)
-                        {
-                            yAdjust = CheckValueNeedAdjustY(shape[i]);
-                        }
-                    }
-
-                    bigest.x = CheckBigest(bigest.x, shape[i].x);
-                    bigest.y = CheckBigest(bigest.y, shape[i].y);
-
-                    smallest.x = CheckSmallest(smallest.x, shape[i].x);
-                    smallest.y = CheckSmallest(smallest.y, shape[i].y);
                 }
-
-                if(xAdjust != 0 ||  yAdjust != 0)
-                {
-                    for (int i = 0; i < shape.Length; i++)
-                    {
-                        if(xAdjust != 0)
-                        {
-                            shape[i].x += Adjust(bigest.x, smallest.x, xAdjust);
-                        }
-                        if(yAdjust != 0)
-                        {
-                            shape[i].y += Adjust(bigest.y, smallest.y, yAdjust);
-                        }
-                    }
-                }
-            }
-            else
-            {
-                for (int i = 0; i < shape.Length; i++)
+                else
                 {
                     temp = shape[i].x;
                     shape[i].x = shape[i].y;
                     shape[i].y = -temp;
+                }
 
-                    if (xAdjust > 0)
+
+                if (xAdjust > 0)
+                {
+                    xAdjust = CheckValueNeedAdjustX(shape[i]);
+                }
+                else if (xAdjust == 0)
+                {
+                    if (shape[i].x < 0)
                     {
                         xAdjust = CheckValueNeedAdjustX(shape[i]);
                     }
-                    else if(xAdjust == 0)
-                    {
-                        if (shape[i].x < 0)
-                        {
-                            xAdjust = CheckValueNeedAdjustX(shape[i]);
-                        }
-                    }
+                }
 
-                    if (yAdjust > 0)
+                if (yAdjust > 0)
+                {
+                    yAdjust = CheckValueNeedAdjustY(shape[i]);
+                }
+                else if (yAdjust == 0)
+                {
+                    if (shape[i].y < 0)
                     {
                         yAdjust = CheckValueNeedAdjustY(shape[i]);
                     }
-                    else if(yAdjust == 0)
-                    {
-                        if (shape[i].y < 0)
-                        {
-                            yAdjust = CheckValueNeedAdjustY(shape[i]);
-                        }
-                    }
-
-                    bigest.x = CheckBigest(bigest.x, shape[i].x);
-                    bigest.y = CheckBigest(bigest.y, shape[i].y);
-
-                    smallest.x = CheckSmallest(smallest.x, shape[i].x);
-                    smallest.y = CheckSmallest(smallest.y, shape[i].y);
                 }
 
-                if (xAdjust != 0 || yAdjust != 0)
+                bigest.x = CheckBigest(bigest.x, shape[i].x);
+                bigest.y = CheckBigest(bigest.y, shape[i].y);
+
+                smallest.x = CheckSmallest(smallest.x, shape[i].x);
+                smallest.y = CheckSmallest(smallest.y, shape[i].y);
+            }
+
+            if (xAdjust != 0 || yAdjust != 0)
+            {
+                for (int i = 0; i < shape.Length; i++)
                 {
-                    for (int i = 0; i < shape.Length; i++)
+                    if (xAdjust != 0)
                     {
-                        if (xAdjust != 0)
-                        {
-                            shape[i].x += Adjust(bigest.x, smallest.x, xAdjust);
-                        }
-                        if (yAdjust != 0)
-                        {
-                            shape[i].y += Adjust(bigest.y, smallest.y, yAdjust);
-                        }
+                        shape[i].x += Adjust(bigest.x, smallest.x, xAdjust);
+                    }
+                    if (yAdjust != 0)
+                    {
+                        shape[i].y += Adjust(bigest.y, smallest.y, yAdjust);
                     }
                 }
             }
