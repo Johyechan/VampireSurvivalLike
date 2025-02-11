@@ -29,6 +29,27 @@ namespace MyUI
             StartCoroutine(EndCo(delay));
         }
 
+        public void UIMoveAnimation(RectTransform rectTrans, float x, float y, float delay)
+        {
+            StartCoroutine(UIMoveAnimationCo(rectTrans, x, y, delay));
+        }
+
+        private IEnumerator UIMoveAnimationCo(RectTransform rectTrans, float x, float y, float delay)
+        {
+            float curTime = 0;
+            Vector3 originPos = rectTrans.position;
+            Vector3 targetPos = new Vector3(x, y);
+            while(curTime < delay)
+            {
+                curTime += Time.unscaledDeltaTime;
+                float t = Mathf.Clamp01(curTime / delay);
+                rectTrans.position = Vector3.Lerp(originPos, targetPos, t);
+                yield return null;
+            }
+
+            rectTrans.position = targetPos;
+        }
+
         private IEnumerator FadeInOutCo(Image image, float delay, int target = 0)
         {
             float curTime = 0;

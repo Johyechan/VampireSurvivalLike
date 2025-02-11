@@ -51,6 +51,11 @@ namespace Manager
             _animation.AnimationEnd(delay);
         }
 
+        public void MoveUI(RectTransform rectTrans, float x, float y, float delay)
+        {
+            _animation.UIMoveAnimation(rectTrans, x, y, delay);
+        }
+
         public GameObject[,] AddUI(ObjectPoolType type, Transform parent, int x, int y, int width, int height, float spacing, int[,] backpackArr = null)
         {
             return _maker.AddUI(type, parent, x, y, width, height, spacing, backpackArr);

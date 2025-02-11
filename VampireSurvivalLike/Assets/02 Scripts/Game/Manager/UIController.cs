@@ -9,6 +9,8 @@ namespace MyUI
 {
     public class UIController : MonoBehaviour
     {
+        public bool isNotStartEnable;
+
         public bool isImage;
 
         public int alphaValue;

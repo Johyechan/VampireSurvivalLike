@@ -99,7 +99,10 @@ namespace Inventory
                 {
                     UIManager.Instance.UIs.Add(uis[i].name, uis[i]);
                     UIController controller = uis[i].GetComponent<UIController>();
-                    controller.ChangeAlpha(true);
+                    if(!controller.isNotStartEnable)
+                    {
+                        controller.ChangeAlpha(true);
+                    }
                 }
             }
         }
@@ -130,7 +133,10 @@ namespace Inventory
                     _isOpen = true;
                     foreach (var uis in UIManager.Instance.UIs)
                     {
-                        uis.Value.ChangeAlpha(true);
+                        if(!uis.Value.isNotStartEnable)
+                        {
+                            uis.Value.ChangeAlpha(true);
+                        }
                     }
                     UIManager.Instance.End(UIManager.Instance.delay);
                 }
