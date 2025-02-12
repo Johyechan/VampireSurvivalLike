@@ -23,6 +23,8 @@ namespace Manager
         private UIAnimation _animation;
         private UIMaker _maker;
 
+        public Transform inventoryUIParent;
+
         protected override void Awake()
         {
             base.Awake();

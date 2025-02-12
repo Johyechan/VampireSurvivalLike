@@ -42,8 +42,6 @@ public class SaveBox : MonoBehaviour, IPointerClickHandler
             _resetTime += Time.deltaTime;
             if (_resetTime > _interval)
             {
-                Debug.Log(_resetTime);
-                Debug.Log(_interval);
                 ResetDoubleClickTime();
             }
         }
@@ -52,13 +50,11 @@ public class SaveBox : MonoBehaviour, IPointerClickHandler
     public void OpenBox()
     {
         UIManager.Instance.MoveUI(_rectTransform, _rectTransform.position.x, 15, _delay);
-        _myUIController.ChangeAlpha(true, _delay);
     }
 
     private void CloseBox()
     {
         UIManager.Instance.MoveUI(_rectTransform, _rectTransform.position.x, -210, _delay);
-        _myUIController.ChangeAlpha(false, _delay);
         _buttonController.ChangeAlpha(true, _delay);
     }
 

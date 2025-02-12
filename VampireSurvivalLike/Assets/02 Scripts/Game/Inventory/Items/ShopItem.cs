@@ -20,6 +20,8 @@ namespace Inventory
 
         private GameObject _followIcon;
 
+        private GameObject _mousePointerObj;
+
         private RectTransform _followIconRectTransform;
 
         private InventoryItem _followIconItem;
@@ -44,26 +46,17 @@ namespace Inventory
         protected override void Update()
         {
             base.Update();
+
+            _mousePointerObj = UIMousePos(new List<string> { "SaveBox" });
+
             if(_followIconRectTransform != null)
             {
-                if (Input.GetKeyDown(KeyCode.Q))
+                if (_mousePointerObj != null && _followIcon != null)
                 {
-                    _followIconRectTransform.Rotate(0, 0, 90);
-                    _shape = RotateItem(_shape, false);
-                    //for (int i = 0; i < _shape.Length; i++)
-                    //{
-                    //    Debug.Log(_shape[i]);
-                    //}
+                    ChangeParentAndScale(_mousePointerObj, _followIcon.transform, _followIconRectTransform, copySO, _multiply);
                 }
-                else if (Input.GetKeyDown(KeyCode.E))
-                {
-                    _followIconRectTransform.Rotate(0, 0, -90);
-                    _shape = RotateItem(_shape);
-                    //for (int i = 0; i < _shape.Length; i++)
-                    //{
-                    //    Debug.Log(_shape[i]);
-                    //}
-                }
+
+                ItemRotate(_followIconRectTransform, _shape);
             }
             
         }
@@ -89,6 +82,7 @@ namespace Inventory
             _followIconItem.so = copySO;
             _followIconItem.so.type = copySO.type;
             _followIconItem.IsShop = true;
+            _followIconItem.Multiply = _multiply;
             _shape = copySO.shape;
 
             _followIconController = _followIcon.AddComponent<UIController>();
@@ -126,20 +120,9 @@ namespace Inventory
                 return;
             }
 
-            GameObject slotObj = UIMousePos();
-            
-            if(slotObj != null)
+            if(_mousePointerObj != null)
             {
-                InventorySlot slot = slotObj.GetComponent<InventorySlot>();
-                if(!PlaceItem(_followIcon, slot, _shape, _followIconItem))
-                {
-                    UIManager.Instance.UIs[_image.gameObject.name].ChangeAlpha(true, 0.1f);
-                    UIManager.Instance.UIs[_image.transform.GetChild(0).name].ChangeAlpha(true, 0.1f);
-                    Destroy(_followIcon);
-                    _followIconRectTransform = null;
-                    _followIconItem = null;
-                }
-                else
+                if(_mousePointerObj.CompareTag("SaveBox"))
                 {
                     Image followIconImage = _followIcon.GetComponent<Image>();
                     followIconImage.raycastTarget = true;
@@ -150,9 +133,37 @@ namespace Inventory
                     ObjectPoolManager.Instance.ReturnObject(ObjectPoolType.GunIcon, gameObject);
                     InventoryManager.Instance.shopCount--;
                 }
+                else
+                {
+                    InventorySlot slot = _mousePointerObj.GetComponent<InventorySlot>();
+                    if (!PlaceItem(_followIcon, slot, _shape, _followIconItem))
+                    {
+                        // 이미 차지하고 있는 아이템이 있는 곳에 뒀을 때
+                        _wallet.AddMoney(copySO.price);
+                        UIManager.Instance.UIs[_image.gameObject.name].ChangeAlpha(true, 0.1f);
+                        UIManager.Instance.UIs[_image.transform.GetChild(0).name].ChangeAlpha(true, 0.1f);
+                        Destroy(_followIcon);
+                        _followIconRectTransform = null;
+                        _followIconItem = null;
+                    }
+                    else
+                    {
+                        // 인벤토리 슬롯에 납뒀을 경우
+                        Image followIconImage = _followIcon.GetComponent<Image>();
+                        followIconImage.raycastTarget = true;
+                        _followIcon = null;
+                        _followIconRectTransform = null;
+                        _followIconItem = null;
+                        UIManager.Instance.UIs.Remove(_image.gameObject.name);
+                        ObjectPoolManager.Instance.ReturnObject(ObjectPoolType.GunIcon, gameObject);
+                        InventoryManager.Instance.shopCount--;
+                    }
+                }
+                
             }
             else
             {
+                // 구매 실패 - 인벤토리 슬롯이나 저장소에 두지 않은 경우
                 _wallet.AddMoney(copySO.price);
                 UIManager.Instance.UIs[_image.gameObject.name].ChangeAlpha(true, 0.1f);
                 UIManager.Instance.UIs[_image.transform.GetChild(0).name].ChangeAlpha(true, 0.1f);

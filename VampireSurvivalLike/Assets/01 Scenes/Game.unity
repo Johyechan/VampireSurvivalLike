@@ -1352,6 +1352,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delay: 0.5
+  inventoryUIParent: {fileID: 551247738}
 --- !u!114 &1044404443
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1716,7 +1717,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7196dec67a9ee3946a516bbe51107188, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isNotStartEnable: 1
+  isNotStartEnable: 0
   isImage: 1
   alphaValue: 255
 --- !u!114 &1332334255
