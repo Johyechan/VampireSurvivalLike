@@ -28,7 +28,6 @@ namespace Player
         public void AddMoney(int moneyValue)
         {
             _currentMoney += moneyValue;
-            Debug.Log($"current Money: {_currentMoney}$");
             _tmpText.text = "X " + _currentMoney.ToString();
         }
 

@@ -31,11 +31,14 @@ namespace Player
             {
                 if(uis.Key.Contains("InventoryItem"))
                 {
-                    count++;
-                    if (transform.childCount < count)
+                    if(!uis.Value.transform.parent.gameObject.CompareTag("SaveBox"))
                     {
-                        InventoryItem item = uis.Value.gameObject.GetComponent<InventoryItem>();
-                        GameObject itemObj = ObjectPoolManager.Instance.GetObject(item.so.type, transform);
+                        count++;
+                        if (transform.childCount < count)
+                        {
+                            InventoryItem item = uis.Value.gameObject.GetComponent<InventoryItem>();
+                            GameObject itemObj = ObjectPoolManager.Instance.GetObject(item.so.type, transform);
+                        }
                     }
                 }
             }

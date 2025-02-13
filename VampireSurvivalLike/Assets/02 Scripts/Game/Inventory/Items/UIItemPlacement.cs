@@ -4,7 +4,7 @@ namespace Inventory
 {
     public class UIItemPlacement : MonoBehaviour
     {
-        private Vector2Int? CanPlaceItem(InventorySlot slot, Vector2Int[] shape)
+        public Vector2Int? CanPlaceItem(InventorySlot slot, Vector2Int[] shape)
         {
             // 모든 기준점에 대해 배치 가능 여부 확인
             foreach (Vector2Int origin in shape)
@@ -64,7 +64,7 @@ namespace Inventory
             itemTransform.position = averagePosition;
         }
 
-        public bool PlaceItem(GameObject item, InventorySlot slot, Vector2Int[] shape, InventoryItem inventoryItem)
+        public void PlaceItem(GameObject item, InventorySlot slot, Vector2Int[] shape, InventoryItem inventoryItem)
         {
             // 배치 가능한 기준점 찾기
             Vector2Int? validOrigin = CanPlaceItem(slot, shape);
@@ -87,11 +87,7 @@ namespace Inventory
                 CalculateUIPos(item, slot, shape, validOrigin.Value);
                 // 여기서 이제 uiImage랑 alphaTarget에 장착되는 UI 추가
                 inventoryItem.IsShop = false;
-                return true;
             }
-
-            // 배치 불가능하면 false 반환
-            return false;
         }
     }
 }

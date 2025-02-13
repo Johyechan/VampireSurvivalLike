@@ -50,14 +50,16 @@ namespace Inventory
 
         protected void ItemRotate(RectTransform rectTrans, Vector2Int[] shape)
         {
+            //string debugLog = "";
             if (Input.GetKeyDown(KeyCode.Q))
             {
                 rectTrans.Rotate(0, 0, 90);
                 shape = RotateItem(shape, false);
                 //for (int i = 0; i < _shape.Length; i++)
                 //{
-                //    Debug.Log(_shape[i]);
+                //    debugLog += _shape[i] + " ";
                 //}
+                //Debug.Log("Q: 90도 회전" + debugLog);
             }
             else if (Input.GetKeyDown(KeyCode.E))
             {
@@ -65,8 +67,9 @@ namespace Inventory
                 shape = RotateItem(shape);
                 //for (int i = 0; i < _shape.Length; i++)
                 //{
-                //    Debug.Log(_shape[i]);
+                //    debugLog += _shape[i] + " ";
                 //}
+                //Debug.Log("E: -90도 회전" + debugLog);
             }
         }
 
@@ -85,16 +88,29 @@ namespace Inventory
             return _mouseHandler.UIMousePos(exceptionNames);
         }
 
-        protected bool PlaceItem(GameObject item, InventorySlot slot, Vector2Int[] shape, InventoryItem inventoryItem)
+        protected bool CanPlaceItem(InventorySlot slot, Vector2Int[] shape)
         {
-            return _itemPlacement.PlaceItem(item, slot, shape, inventoryItem);
+            return _itemPlacement.CanPlaceItem(slot, shape) != null ? true : false;
         }
 
-        public void RemoveItem(List<Vector2Int> slots)
+        protected void PlaceItem(GameObject item, InventorySlot slot, Vector2Int[] shape, InventoryItem inventoryItem)
+        {
+            _itemPlacement.PlaceItem(item, slot, shape, inventoryItem);
+        }
+
+        protected void RemoveItem(List<Vector2Int> slots)
+        {
+            foreach (Vector2Int slot in slots)
+            {
+                InventoryManager.Instance.Grid[slot.x, slot.y].IsOccupied = false;
+            }
+        }
+
+        protected void GetBackItem(List<Vector2Int> slots)
         {
             foreach(Vector2Int slot in slots)
             {
-                InventoryManager.Instance.Grid[slot.x, slot.y].IsOccupied = false;
+                InventoryManager.Instance.Grid[slot.x, slot.y].IsOccupied = true;
             }
         }
     }

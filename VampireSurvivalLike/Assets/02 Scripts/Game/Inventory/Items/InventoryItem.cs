@@ -16,21 +16,23 @@ namespace Inventory
         private float _multiply;
         public float Multiply { get { return _multiply; } set { _multiply = value; } }
 
+        private bool _isInSaveBox = false;
         private bool _isShop;
         public bool IsShop { get { return _isShop; } set { _isShop = value; } }
 
-
+        private List<Vector2Int> _tempSaveList;
         private List<Vector2Int> _slots = new List<Vector2Int>();
         public List<Vector2Int> Slots { get { return _slots; } set { _slots = value; } }
 
-
         private RectTransform _rectTransform;
 
-        
         private Vector3 _origin;
 
-        
         private GameObject _mousePointerObj;
+
+        private Vector2Int[] _tempShape;
+
+        private Quaternion _tempQuaternion;
 
         protected override void Awake()
         {
@@ -43,7 +45,7 @@ namespace Inventory
 
             if (!_isShop && _rectTransform != null)
             {
-                _mousePointerObj = UIMousePos(new List<string> { "Shop", "SaveBox" });
+                _mousePointerObj = UIMousePos(new List<string> { "Shop", "SaveBox", "Untagged" });
 
                 if(_mousePointerObj != null)
                 {
@@ -59,11 +61,23 @@ namespace Inventory
             if(!_isShop)
             {
                 _shape = so.shape;
+                _tempSaveList = new List<Vector2Int>(_slots);
                 RemoveItem(_slots);
                 _slots.RemoveAll(slot => slot != null);
 
                 _rectTransform = GetComponent<RectTransform>();
-                _origin = _rectTransform.localPosition;
+                DeepCopyShape();
+                _shape = so.shape;
+                if (transform.parent.CompareTag("SaveBox"))
+                {
+                    _isInSaveBox = true;
+                    _origin = _rectTransform.position;
+                }
+                else
+                {
+                    _isInSaveBox = false;
+                    _origin = _rectTransform.localPosition;
+                }
 
                 Image followIconImage = GetComponent<Image>();
                 followIconImage.raycastTarget = false;
@@ -83,7 +97,7 @@ namespace Inventory
         {
             if(!_isShop)
             {
-                if (_mousePointerObj != null)
+                if (!_mousePointerObj.CompareTag("Untagged"))
                 {
                     if(_mousePointerObj.CompareTag("Shop"))
                     {
@@ -97,34 +111,85 @@ namespace Inventory
                     else if(_mousePointerObj.CompareTag("SaveBox"))
                     {
                         // 성공적으로 SaveBox에 옮겼을 경우
-                        Image followIconImage = GetComponent<Image>();
-                        followIconImage.raycastTarget = true;
-                        _rectTransform = null;
+                        ItemPlaceSet();
                     }
                     else
                     {
                         InventorySlot slot = _mousePointerObj.GetComponent<InventorySlot>();
-
-                        if (!PlaceItem(gameObject, slot, _shape, this))
+                        if(!CanPlaceItem(slot, _shape))
                         {
-                            // 이미 차지하는 아이템이 있는 곳에 뒀을 때
-                            _rectTransform.localPosition = _origin;
+                            ItemRePlaceFailed();
+                            CheckParentIsSaveBox();
                         }
-                        // 성공적으로 옮겼을 경우
-                        Image followIconImage = GetComponent<Image>();
-                        followIconImage.raycastTarget = true;
-                        _rectTransform = null;
+                        else
+                        {
+                            // 성공적으로 옮겼을 경우
+                            PlaceItem(gameObject, slot, _shape, this);
+                        }
+                        ItemPlaceSet();
                     }
                 }
                 else
                 {
-                    // 슬롯에 두지 않았을 때
-                    _rectTransform.localPosition = _origin;
-                    Image followIconImage = GetComponent<Image>();
-                    followIconImage.raycastTarget = true;
-                    _rectTransform = null;
+                    ItemRePlaceFailed();
+                    CheckParentIsSaveBox();
+                    ItemPlaceSet();
                 }
             }
+        }
+
+        private void ItemRePlaceFailed()
+        {
+            GetBackItem(_tempSaveList);
+            GetBackShape();
+            _slots.Clear();
+            _slots.AddRange(_tempSaveList);
+        }
+
+        private void CheckParentIsSaveBox()
+        {
+            //Debug.Log($"bool: {_isInSaveBox}, Pos: {_origin}");
+            if (_isInSaveBox)
+            {
+                // 저장소에서 옮겼을 경우 구현
+                _rectTransform.sizeDelta = new Vector2(so.width * (_multiply / 2), so.height * (_multiply / 2));
+                _rectTransform.position = _origin;
+            }
+            else
+            {
+                // 슬롯에 두지 않았을 때
+                _rectTransform.localPosition = _origin;
+            }
+        }
+
+        private void DeepCopyShape()
+        {
+            _tempQuaternion = new Quaternion(_rectTransform.localRotation.x, _rectTransform.localRotation.y, _rectTransform.localRotation.z, _rectTransform.localRotation.w);
+
+            _tempShape = new Vector2Int[_shape.Length];
+            for (int i = 0; i < _shape.Length; i++)
+            {
+                _tempShape[i] = new Vector2Int(_shape[i].x, _shape[i].y);
+            }
+        }
+
+        private void GetBackShape()
+        {
+            _rectTransform.localRotation = new Quaternion(_tempQuaternion.x, _tempQuaternion.y, _tempQuaternion.z, _tempQuaternion.w);
+
+            _shape = new Vector2Int[_tempShape.Length];
+            for (int i = 0; i < _tempShape.Length; i++)
+            {
+                _shape[i] = new Vector2Int(_tempShape[i].x, _tempShape[i].y);
+            }
+            so.shape = _shape;
+        }
+
+        private void ItemPlaceSet()
+        {
+            Image followIconImage = GetComponent<Image>();
+            followIconImage.raycastTarget = true;
+            _rectTransform = null;
         }
     }
 }
