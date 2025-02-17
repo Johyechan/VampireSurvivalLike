@@ -34,6 +34,8 @@ namespace Inventory
 
         private Quaternion _tempQuaternion;
 
+        private Transform _saveBoxTrans;
+
         protected override void Awake()
         {
             base.Awake();
@@ -72,11 +74,13 @@ namespace Inventory
                 {
                     _isInSaveBox = true;
                     _origin = _rectTransform.position;
+                    _saveBoxTrans = transform.parent;
                 }
                 else
                 {
                     _isInSaveBox = false;
                     _origin = _rectTransform.localPosition;
+                    _saveBoxTrans = null;
                 }
 
                 Image followIconImage = GetComponent<Image>();
@@ -118,8 +122,8 @@ namespace Inventory
                         InventorySlot slot = _mousePointerObj.GetComponent<InventorySlot>();
                         if(!CanPlaceItem(slot, _shape))
                         {
-                            ItemRePlaceFailed();
                             CheckParentIsSaveBox();
+                            ItemRePlaceFailed();
                         }
                         else
                         {
@@ -154,6 +158,7 @@ namespace Inventory
                 // 저장소에서 옮겼을 경우 구현
                 _rectTransform.sizeDelta = new Vector2(so.width * (_multiply / 2), so.height * (_multiply / 2));
                 _rectTransform.position = _origin;
+                transform.SetParent(_saveBoxTrans); 
             }
             else
             {
