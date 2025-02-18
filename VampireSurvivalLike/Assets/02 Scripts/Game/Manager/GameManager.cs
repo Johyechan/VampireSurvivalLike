@@ -6,6 +6,8 @@ namespace Manager
 {
     public class GameManager : MonoSingleton<GameManager>
     {
+        private Calculator _calculator;
+
         public GameObject player;
 
         [HideInInspector] public bool groundMove = false;
@@ -24,6 +26,17 @@ namespace Manager
             base.Awake();
             groundMove = false;
             itemNum = 0;
+            _calculator = GetComponent<Calculator>();
+        }
+
+        public float CalculatePercentageToFloat(float value, float probability)
+        {
+            return _calculator.CalculatePercentageToFloat(value, probability);
+        }
+
+        public bool CalculatePercentageToBool(float probability)
+        {
+            return _calculator.CalculatePercentageToBool(probability);
         }
     }
 }
