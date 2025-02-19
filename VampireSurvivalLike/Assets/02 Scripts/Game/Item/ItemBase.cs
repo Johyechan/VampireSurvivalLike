@@ -5,10 +5,10 @@ using UnityEngine;
 public abstract class ItemBase : MonoBehaviour
 {
     public ItemSO So { get; protected set; }
-    protected IAttackStrategy _attackStrategy;
-    protected IEffect _effect;
+    private IAttackStrategy _attackStrategy;
+    private IEffect _effect;
 
-    public ItemBase(ItemSO so, IAttackStrategy attackStrategy, IEffect effect)
+    public void Init(ItemSO so, IAttackStrategy attackStrategy, IEffect effect = null)
     {
         So = so;
         _attackStrategy = attackStrategy;
@@ -18,5 +18,10 @@ public abstract class ItemBase : MonoBehaviour
     public void Attack()
     {
         _attackStrategy.Attack(this);
+    }
+
+    public void ApplyEffect()
+    {
+        _effect.ApplyEffect(this);
     }
 }

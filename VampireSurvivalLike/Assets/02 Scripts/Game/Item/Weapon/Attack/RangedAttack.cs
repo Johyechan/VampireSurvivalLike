@@ -13,12 +13,12 @@ public class RangedAttack : AttackBase, IAttackStrategy
 
     private IEnumerator FireCo(ItemBase item)
     {
-        while(true) // 플레이어가 죽기 전까지
+        while (true) // 플레이어가 죽기 전까지
         {
             if(CheckEnemyInArea(item.So.Range))
             {
                 Fire(item.So.FireObj, item.So.Range, item.So.FireSpeed);
-                yield return null; // 공속
+                yield return new WaitForSeconds(0.5f); // 공속
             }
             yield return null;
         }

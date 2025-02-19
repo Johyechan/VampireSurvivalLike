@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 907ddb64bfbeb0f4dac27cee3eee27f0, type: 3}
+  m_Name: ItemGun
+  m_EditorClassIdentifier: 
+  FireObj: 1
+  FireSpeed: 20
+  No: 0
+  Name: Gun
+  Role: 0
+  AttackDamage: 0
+  AbilityPower: 0
+  SoulPower: 0
+  Range: 10
+  AccuracyRate: 0
+  AvoidanceRate: 0
+  CriticalHitRate: 0
+  AttackSpeed: 0
+  SpeedIncrease: 0
+  Defence: 0
+  Health: 0
+  Mana: 0
+  Soul: 0
+  HealingCost: 0
+  ManaCost: 0
+  HealingSteal: 0
+  ManaSteal: 0
+  HealingFactor: 0
+  ManaFactor: 0
+  Effect: 0
+  Price: 0
