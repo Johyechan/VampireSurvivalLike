@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class ItemGun : ItemBase
+public class Bow : ItemBase
 {
     [SerializeField] private ItemSO _so;
 

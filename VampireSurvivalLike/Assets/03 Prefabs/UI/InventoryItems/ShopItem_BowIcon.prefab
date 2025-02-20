@@ -147,6 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7196dec67a9ee3946a516bbe51107188, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isNotStartEnable: 0
   isImage: 0
   alphaValue: 255
 --- !u!1 &4594232782140400229
@@ -163,7 +164,7 @@ GameObject:
   - component: {fileID: 4473516823025772174}
   - component: {fileID: 6041622285801420320}
   m_Layer: 5
-  m_Name: ShopItem_GunIcon
+  m_Name: ShopItem_BowIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -254,5 +255,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7196dec67a9ee3946a516bbe51107188, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isNotStartEnable: 0
   isImage: 1
   alphaValue: 255

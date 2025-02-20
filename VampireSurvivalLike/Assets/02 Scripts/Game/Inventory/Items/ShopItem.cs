@@ -158,7 +158,7 @@ namespace Inventory
             _followIconRectTransform = null;
             _followIconItem = null;
             UIManager.Instance.UIs.Remove(_image.gameObject.name);
-            ObjectPoolManager.Instance.ReturnObject(ObjectPoolType.GunIcon, gameObject);
+            ObjectPoolManager.Instance.ReturnObject(ObjectPoolType.BowIcon, gameObject);
             InventoryManager.Instance.shopCount--;
         }
 

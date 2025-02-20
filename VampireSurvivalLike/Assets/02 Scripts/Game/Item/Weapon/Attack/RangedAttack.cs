@@ -17,29 +17,34 @@ public class RangedAttack : AttackBase, IAttackStrategy
         {
             if(CheckEnemyInArea(item.So.Range))
             {
-                Fire(item.So.FireObj, item.So.Range, item.So.FireSpeed);
+                Fire(item.So);
                 yield return new WaitForSeconds(0.5f); // 공속
             }
             yield return null;
         }
     }
 
-    private void Fire(ObjectPoolType type, float radius, float fireSpeed)
+    private void Fire(ItemSO so)
     {
         // Hitter 생성
-        GameObject bullet = ObjectPoolManager.Instance.GetObject(type);
-        bullet.transform.position = transform.position;
+        GameObject projectileObj = ObjectPoolManager.Instance.GetObject(so.FireObjType);
+
+        Projectile projectile = projectileObj.GetComponent<Projectile>();
+        projectile.Init(so.FireObjType, so.AttackDamage);
+        projectile.DeathCoolStart();
+
+        projectileObj.transform.position = transform.position;
         // 가까운 적 찾기
-        GameObject enemy = FindCloseEnemyInArea(radius);
+        GameObject enemy = FindCloseEnemyInArea(so.Range);
         // 가까운 적을 향하는 방향 찾기
-        Vector2 dir = (enemy.transform.position - bullet.transform.position).normalized;
+        Vector2 dir = (enemy.transform.position - projectileObj.transform.position).normalized;
         // 총구, 총알 돌리기
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         Quaternion rotate = Quaternion.Euler(0, 0, angle - 90);
         transform.rotation = rotate;
-        bullet.transform.rotation = transform.rotation;
+        projectileObj.transform.rotation = transform.rotation;
         // Hitter 찾은 방향으로 발사속도 만큼 날리기
-        Rigidbody2D rigid2D = bullet.GetComponent<Rigidbody2D>();
-        rigid2D.velocity = bullet.transform.up * fireSpeed;
+        Rigidbody2D rigid2D = projectileObj.GetComponent<Rigidbody2D>();
+        rigid2D.velocity = projectileObj.transform.up * so.FireSpeed;
     }
 }

@@ -6,7 +6,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ItemSO", menuName = "SO/Item", order = 0)]
 public class ItemSO : ScriptableObject
 {
-    public ObjectPoolType FireObj; // 발사체 (없으면 안 넣어도 됨)
+    public ObjectPoolType FireObjType; // 발사체 (없으면 안 넣어도 됨)
+    public ObjectPoolType ObjType;
     public float FireSpeed; // 발사체 속도 (없으면 안 넣어도 됨)
     public int No; // 아이템 번호
     public string Name; // 아이템 이름

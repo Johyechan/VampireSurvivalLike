@@ -9,12 +9,13 @@ TagManager:
   - Effect
   - Boss
   - Area
-  - Hitter
-  - Shooter
   - Money
   - Slot
   - Shop
   - SaveBox
+  - Undefined
+  - Bow
+  - Arrow
   layers:
   - Default
   - TransparentFX
@@ -28,8 +29,8 @@ TagManager:
   - Boss
   - Money
   - Effect
-  - Hitter
-  - Shooter
+  - Weapon
+  - 
   - 
   - 
   - 

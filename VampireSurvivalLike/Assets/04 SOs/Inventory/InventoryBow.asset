@@ -9,12 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ffe8c31453e3d94d8b4e1359e6efec0, type: 3}
-  m_Name: Gun
+  m_Script: {fileID: 11500000, guid: 8074ef712ed0e804d8f44941cd2f0c5e, type: 3}
+  m_Name: InventoryBow
   m_EditorClassIdentifier: 
-  power: 5
-  attackCoolTime: 0.2
-  speed: 20
-  radius: 10
-  lifeTime: 5
+  sprite: {fileID: 21300000, guid: 0e989f568bbcc1743aaa92d96f7608dd, type: 3}
+  itemName: Bow
+  price: 5
+  width: 1
+  height: 2
   type: 5
+  shape:
+  - {x: 0, y: 0}
+  - {x: 0, y: 1}

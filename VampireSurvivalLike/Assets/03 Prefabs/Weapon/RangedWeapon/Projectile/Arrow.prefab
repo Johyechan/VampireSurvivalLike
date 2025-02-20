@@ -10,13 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 4300481741474517422}
   - component: {fileID: 9097417835082284967}
-  - component: {fileID: 7605988687169840087}
   - component: {fileID: 5977835385597188258}
   - component: {fileID: 8863022416654493758}
-  - component: {fileID: -7889411560896069025}
+  - component: {fileID: 8655634510292679716}
   m_Layer: 12
-  m_Name: Bullet
-  m_TagString: Hitter
+  m_Name: Arrow
+  m_TagString: Arrow
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -88,20 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7605988687169840087
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4194251729218546598}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce3092602aca01a4f88b67201dca6dfa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 0
-  _isCanDestroy: 0
 --- !u!50 &5977835385597188258
 Rigidbody2D:
   serializedVersion: 4
@@ -164,7 +149,7 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1, y: 2}
   m_Direction: 0
---- !u!114 &-7889411560896069025
+--- !u!114 &8655634510292679716
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -173,8 +158,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 4194251729218546598}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22cb33e2368c90c49b5b744449c7e12d, type: 3}
+  m_Script: {fileID: 11500000, guid: bf866abbc36a6714f8ee6e38775ce886, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 1
-  _isCanDestroy: 1

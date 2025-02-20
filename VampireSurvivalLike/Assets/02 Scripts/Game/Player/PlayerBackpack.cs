@@ -1,11 +1,7 @@
 using Inventory;
 using Manager;
 using Pool;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using Weapon;
 
 namespace Player
 {
@@ -47,7 +43,7 @@ namespace Player
             {
                 for(int i = transform.childCount - 1; i >= count; i--)
                 {
-                    ObjectPoolManager.Instance.ReturnObject(transform.GetChild(i).GetComponent<WeaponBase>().type, transform.GetChild(i).gameObject);
+                    ObjectPoolManager.Instance.ReturnObject(transform.GetChild(i).GetComponent<ItemBase>().So.ObjType, transform.GetChild(i).gameObject);
                 }
             }
         }

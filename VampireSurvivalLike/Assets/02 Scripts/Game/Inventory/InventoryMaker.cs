@@ -53,7 +53,7 @@ namespace Inventory
             _backpack = GameManager.Instance.player.GetComponent<PlayerBackpack>();
 
             InventoryManager.Instance.shopCount = _shopX + _shopY;
-            UIManager.Instance.AddUI(ObjectPoolType.GunIcon, _shopParent, _shopX, _shopY, _shopWidth, _shopHeight, _shopSpacing);
+            UIManager.Instance.AddUI(ObjectPoolType.BowIcon, _shopParent, _shopX, _shopY, _shopWidth, _shopHeight, _shopSpacing);
             _slots = UIManager.Instance.AddUI(ObjectPoolType.Slot, _backpackParent, GameManager.Instance.x, GameManager.Instance.y, _slotWidth, _slotHeight, _slotSpacing, _backpack.BackpackArr);
 
             UIController[] uis = _parentPanel.GetComponentsInChildren<UIController>(true);
@@ -90,7 +90,7 @@ namespace Inventory
             }
 
             InventoryManager.Instance.shopCount = _shopX + _shopY;
-            UIManager.Instance.AddUI(ObjectPoolType.GunIcon, _shopParent, _shopX, _shopY, _shopWidth, _shopHeight, _shopSpacing);
+            UIManager.Instance.AddUI(ObjectPoolType.BowIcon, _shopParent, _shopX, _shopY, _shopWidth, _shopHeight, _shopSpacing);
 
             UIController[] uis = _parentPanel.GetComponentsInChildren<UIController>(true);
             for (int i = 0; i < uis.Length; i++)
@@ -116,7 +116,7 @@ namespace Inventory
                     UIManager.Instance.UIs[ui.Key].ChangeAlpha(false, 0.1f);
                     UIManager.Instance.UIs[ui.Value.transform.GetChild(0).name].ChangeAlpha(false, 0.1f);
                     UIManager.Instance.UIs.Remove(ui.Key);
-                    ObjectPoolManager.Instance.ReturnObject(ObjectPoolType.GunIcon, ui.Value.gameObject);
+                    ObjectPoolManager.Instance.ReturnObject(ObjectPoolType.BowIcon, ui.Value.gameObject);
                 }
             }
         }
