@@ -43,7 +43,7 @@ namespace Player
             {
                 for(int i = transform.childCount - 1; i >= count; i--)
                 {
-                    ObjectPoolManager.Instance.ReturnObject(transform.GetChild(i).GetComponent<ItemBase>().So.ObjType, transform.GetChild(i).gameObject);
+                    ObjectPoolManager.Instance.ReturnObject(transform.GetChild(i).GetComponent<ItemBase>().So.objType, transform.GetChild(i).gameObject);
                 }
             }
         }

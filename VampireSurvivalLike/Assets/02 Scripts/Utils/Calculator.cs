@@ -9,8 +9,8 @@ public class Calculator : MonoBehaviour
         return Random.value < (probability / 100);
     }
 
-    public float CalculatePercentageToFloat(float value, float probability)
+    public float AttackSpeedCalculate(float value, float probability)
     {
-        return value * (probability / 100);
+        return value * (1 + probability / 100);
     }
 }

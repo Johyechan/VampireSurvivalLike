@@ -29,9 +29,9 @@ namespace Manager
             _calculator = GetComponent<Calculator>();
         }
 
-        public float CalculatePercentageToFloat(float value, float probability)
+        public float AttackSpeedCalculate(float value, float probability)
         {
-            return _calculator.CalculatePercentageToFloat(value, probability);
+            return _calculator.AttackSpeedCalculate(value, probability);
         }
 
         public bool CalculatePercentageToBool(float probability)
