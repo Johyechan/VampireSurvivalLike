@@ -37,6 +37,8 @@ namespace Player
 
             _backpack = GetComponent<PlayerBackpack>();
             _backpack.BackpackArr = so.backpackArr;
+
+            StatManager.Instance.StatSet(so);
         }
 
         void Start()

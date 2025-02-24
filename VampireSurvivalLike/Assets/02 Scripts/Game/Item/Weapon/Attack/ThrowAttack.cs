@@ -16,9 +16,9 @@ public class ThrowAttack : AttackBase, IAttackStrategy
     {
         while(true) // 플레이어가 죽기 전까지
         {
-            if (CheckEnemyInArea(item.So.range))
+            if (CheckEnemyInArea(item.so.range))
             {
-                Fire(item.So);
+                Fire(item.so);
                 yield return null; // 공속
             }
             yield return null;
@@ -31,7 +31,26 @@ public class ThrowAttack : AttackBase, IAttackStrategy
         GameObject projectileObj = ObjectPoolManager.Instance.GetObject(so.fireObjType);
 
         Projectile projectile = projectileObj.GetComponent<Projectile>();
-        projectile.Init(so.fireObjType, so.attackDamage);
+        switch (so.role)
+        {
+            case RoleType.Knight:
+            case RoleType.Archer:
+            case RoleType.Rouge:
+                {
+                    projectile.Init(so.fireObjType, StatManager.Instance.ItemTotalStat().attackDamage + StatManager.Instance.PlayerStat.damage);
+                }
+                break;
+            case RoleType.Magician:
+                {
+                    projectile.Init(so.fireObjType, StatManager.Instance.ItemTotalStat().abilityPower + StatManager.Instance.PlayerStat.damage);
+                }
+                break;
+            case RoleType.Reaper:
+                {
+                    projectile.Init(so.fireObjType, StatManager.Instance.ItemTotalStat().soulPower + StatManager.Instance.PlayerStat.damage);
+                }
+                break;
+        }
         projectile.DeathCoolStart();
 
         projectileObj.transform.position = transform.position;

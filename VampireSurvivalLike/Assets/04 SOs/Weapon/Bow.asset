@@ -12,17 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 907ddb64bfbeb0f4dac27cee3eee27f0, type: 3}
   m_Name: Bow
   m_EditorClassIdentifier: 
-  fireObjType: 0
-  objType: 0
-  fireSpeed: 0
+  fireObjType: 1
+  objType: 5
+  fireSpeed: 10
   no: 0
-  itemName: 
-  role: 0
-  attackDamage: 0
+  itemName: "\uC624\uB798\uB41C \uD654\uC0B4"
+  role: 2
+  attackDamage: 2
   abilityPower: 0
   soulPower: 0
-  range: 0
-  accuracyRate: 0
+  range: 3
+  accuracyRate: 80
   avoidanceRate: 0
   criticalHitRate: 0
   attackSpeed: 0

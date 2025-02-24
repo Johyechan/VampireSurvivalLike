@@ -16,10 +16,12 @@ public class RangedAttack : AttackBase, IAttackStrategy
     {
         while (true) // 플레이어가 죽기 전까지
         {
-            if(CheckEnemyInArea(item.So.range))
+            if(CheckEnemyInArea(item.so.range))
             {
-                Fire(item.So);
-                yield return new WaitForSeconds(1 / GameManager.Instance.AttackSpeedCalculate(1.0f, item.So.attackSpeed)); // 공속
+                Fire(item.so);
+                // 효과 부르기
+                yield return new WaitForSeconds(1 / GameManager.Instance.AttackSpeedCalculate(1.0f,
+                    StatManager.Instance.ItemTotalStat().attackSpeed + StatManager.Instance.PlayerStat.attackSpeed)); // 공속
             }
             else
             {
@@ -34,7 +36,26 @@ public class RangedAttack : AttackBase, IAttackStrategy
         GameObject projectileObj = ObjectPoolManager.Instance.GetObject(so.fireObjType);
 
         Projectile projectile = projectileObj.GetComponent<Projectile>();
-        projectile.Init(so.fireObjType, so.attackDamage);
+        switch(so.role)
+        {
+            case RoleType.Knight:
+            case RoleType.Archer:
+            case RoleType.Rouge:
+                {
+                    projectile.Init(so.fireObjType, StatManager.Instance.ItemTotalStat().attackDamage + StatManager.Instance.PlayerStat.damage);
+                }
+                break;
+            case RoleType.Magician:
+                {
+                    projectile.Init(so.fireObjType, StatManager.Instance.ItemTotalStat().abilityPower + StatManager.Instance.PlayerStat.damage);
+                }
+                break;
+            case RoleType.Reaper:
+                {
+                    projectile.Init(so.fireObjType, StatManager.Instance.ItemTotalStat().soulPower + StatManager.Instance.PlayerStat.damage);
+                }
+                break;
+        }
         projectile.DeathCoolStart();
 
         projectileObj.transform.position = transform.position;
