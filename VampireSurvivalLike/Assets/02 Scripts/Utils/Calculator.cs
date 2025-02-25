@@ -11,6 +11,6 @@ public class Calculator : MonoBehaviour
 
     public float AttackSpeedCalculate(float value, float probability)
     {
-        return value * (1 + probability / 100);
+        return value * (1.0f + probability / 100.0f);
     }
 }

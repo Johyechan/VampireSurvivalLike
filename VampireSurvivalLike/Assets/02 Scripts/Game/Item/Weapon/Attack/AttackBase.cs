@@ -5,6 +5,11 @@ using UnityEngine;
 
 public class AttackBase : MonoBehaviour
 {
+    protected virtual void OnDisable()
+    {
+
+    }
+
     protected bool CheckEnemyInArea(float radius)
     {
         RaycastHit2D hit = Physics2D.CircleCast(transform.position, radius, Vector2.zero, 0, LayerMask.GetMask("Enemy", "Boss"));

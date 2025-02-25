@@ -6,8 +6,17 @@ using UnityEngine;
 
 public class RangedAttack : AttackBase, IAttackStrategy
 {
+    private ItemBase _item;
+
+    protected override void OnDisable()
+    {
+        base.OnDisable();
+        StopCoroutine(FireCo(_item));
+    }
+
     public void Attack(ItemBase item)
     {
+        _item = item;
         // 원거리 공격
         StartCoroutine(FireCo(item));
     }
@@ -19,7 +28,9 @@ public class RangedAttack : AttackBase, IAttackStrategy
             if(CheckEnemyInArea(item.so.range))
             {
                 Fire(item.so);
-                // 효과 부르기
+                item.ApplyEffect();
+                Debug.Log(1 / GameManager.Instance.AttackSpeedCalculate(1.0f,
+                    StatManager.Instance.ItemTotalStat().attackSpeed + StatManager.Instance.PlayerStat.attackSpeed));
                 yield return new WaitForSeconds(1 / GameManager.Instance.AttackSpeedCalculate(1.0f,
                     StatManager.Instance.ItemTotalStat().attackSpeed + StatManager.Instance.PlayerStat.attackSpeed)); // 공속
             }

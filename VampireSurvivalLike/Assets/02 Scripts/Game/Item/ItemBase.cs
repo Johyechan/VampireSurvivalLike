@@ -9,12 +9,11 @@ public abstract class ItemBase : MonoBehaviour
     public ItemSO so { get; protected set; }
 
     private ItemStat _stat;
+    private ItemStat _originStat;
 
     private IAttackStrategy _attackStrategy;
 
     private IEffect _effect;
-
-    private float _originAttackSpeed;
 
     private bool _isMaked = true;
 
@@ -31,15 +30,14 @@ public abstract class ItemBase : MonoBehaviour
         }
         else
         {
-            if(_attackStrategy != null)
-            {
-                Attack();
-            }
-            if(_effect != null)
-            {
-                ApplyEffect();
-            }
+            StatManager.Instance.ItemStatMap.Add(gameObject.name, _stat);
+            Attack();
         }
+    }
+
+    protected virtual void OnDisable()
+    {
+        StatManager.Instance.ItemStatMap.Remove(gameObject.name);
     }
 
     public void Init(ItemSO so, IAttackStrategy attackStrategy, IEffect effect = null)
@@ -48,40 +46,48 @@ public abstract class ItemBase : MonoBehaviour
         _attackStrategy = attackStrategy;
         _effect = effect;
         _stat = StatManager.Instance.StatSet(so);
-        StatManager.Instance.ItemStatMap.Add(gameObject.name, _stat);
-        _originAttackSpeed = _stat.attackSpeed;
+        _originStat = _stat;
     }
 
     public void IncreaseStat(string str, float value)
     {
-        Action action = str switch
+        switch(str)
         {
-            "AttackSpeed" => () =>
+            case "AttackSpeed":
             {
                 _stat.attackSpeed += value;
                 StatManager.Instance.ItemStatMap.Remove(gameObject.name);
                 StatManager.Instance.ItemStatMap.Add(gameObject.name, _stat);
-            },
-            "ReSetAttackSpeed" => () =>
+            }
+                break;
+            case "ResetAttackSpeed":
             {
-                _stat.attackSpeed = _originAttackSpeed;
+                _stat.attackSpeed = _originStat.attackSpeed;
                 StatManager.Instance.ItemStatMap.Remove(gameObject.name);
                 StatManager.Instance.ItemStatMap.Add(gameObject.name, _stat);
-            },
-            _ => () => 
+            }
+                break;
+            default:
             {
                 Debug.LogError("증가할 스탯을 모름");
             }
+                break;
         };
     }
 
-    private void Attack()
+    public void Attack()
     {
-        _attackStrategy.Attack(this);
+        if (_attackStrategy != null)
+        {
+            _attackStrategy.Attack(this);
+        }
     }
 
-    private void ApplyEffect()
+    public void ApplyEffect()
     {
-        _effect.ApplyEffect(this);
+        if(_effect != null)
+        {
+            _effect.ApplyEffect(this);
+        }
     }
 }

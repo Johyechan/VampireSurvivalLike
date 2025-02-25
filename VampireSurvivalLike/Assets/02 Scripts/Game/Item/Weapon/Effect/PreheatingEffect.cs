@@ -6,7 +6,6 @@ public class PreheatingEffect : IEffect
 {
     public void ApplyEffect(ItemBase item)
     {
-        Debug.Log("dd");
         item.IncreaseStat("AttackSpeed", 1.0f);
     }
 }
