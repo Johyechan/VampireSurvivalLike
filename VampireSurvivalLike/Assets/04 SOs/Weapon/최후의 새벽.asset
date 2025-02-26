@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 907ddb64bfbeb0f4dac27cee3eee27f0, type: 3}
-  m_Name: Bow
+  m_Name: "\uCD5C\uD6C4\uC758 \uC0C8\uBCBD"
   m_EditorClassIdentifier: 
-  fireObjType: 1
-  objType: 5
-  fireSpeed: 10
-  no: 0
-  itemName: "\uC624\uB798\uB41C \uD654\uC0B4"
-  role: 2
-  attackDamage: 2
+  fireObjType: 0
+  objType: 0
+  fireSpeed: 0
+  no: 4.4.5
+  itemName: "\uCD5C\uD6C4\uC758 \uC0C8\uBCBD"
+  role: 4
+  attackDamage: 0
   abilityPower: 0
   soulPower: 0
-  range: 3
-  accuracyRate: 80
+  range: 0
+  accuracyRate: 0
   avoidanceRate: 0
   criticalHitRate: 0
   attackSpeed: 0

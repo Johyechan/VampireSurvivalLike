@@ -29,8 +29,6 @@ public class RangedAttack : AttackBase, IAttackStrategy
             {
                 Fire(item.so);
                 item.ApplyEffect();
-                Debug.Log(1 / GameManager.Instance.AttackSpeedCalculate(1.0f,
-                    StatManager.Instance.ItemTotalStat().attackSpeed + StatManager.Instance.PlayerStat.attackSpeed));
                 yield return new WaitForSeconds(1 / GameManager.Instance.AttackSpeedCalculate(1.0f,
                     StatManager.Instance.ItemTotalStat().attackSpeed + StatManager.Instance.PlayerStat.attackSpeed)); // °ø¼Ó
             }
@@ -51,7 +49,7 @@ public class RangedAttack : AttackBase, IAttackStrategy
         {
             case RoleType.Knight:
             case RoleType.Archer:
-            case RoleType.Rouge:
+            case RoleType.Rogue:
                 {
                     projectile.Init(so.fireObjType, StatManager.Instance.ItemTotalStat().attackDamage + StatManager.Instance.PlayerStat.damage);
                 }

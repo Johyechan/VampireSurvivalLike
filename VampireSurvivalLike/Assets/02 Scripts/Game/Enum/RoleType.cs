@@ -8,6 +8,7 @@ public enum RoleType
     Knight,
     Archer,
     Magician,
-    Rouge,
-    Reaper
+    Rogue,
+    Reaper,
+    All
 }

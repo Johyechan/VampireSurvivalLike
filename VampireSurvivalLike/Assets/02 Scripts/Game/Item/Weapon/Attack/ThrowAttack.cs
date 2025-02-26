@@ -35,7 +35,7 @@ public class ThrowAttack : AttackBase, IAttackStrategy
         {
             case RoleType.Knight:
             case RoleType.Archer:
-            case RoleType.Rouge:
+            case RoleType.Rogue:
                 {
                     projectile.Init(so.fireObjType, StatManager.Instance.ItemTotalStat().attackDamage + StatManager.Instance.PlayerStat.damage);
                 }

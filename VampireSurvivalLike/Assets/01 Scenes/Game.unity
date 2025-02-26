@@ -1633,7 +1633,7 @@ GameObject:
   - component: {fileID: 1214146650}
   - component: {fileID: 1214146649}
   m_Layer: 0
-  m_Name: TestExcelReader
+  m_Name: ExcelReader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
