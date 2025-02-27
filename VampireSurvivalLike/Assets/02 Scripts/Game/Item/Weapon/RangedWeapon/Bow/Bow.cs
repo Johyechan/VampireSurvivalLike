@@ -24,4 +24,9 @@ public class Bow : ItemBase
     {
         base.OnEnable();
     }
+
+    protected override void OnDisable()
+    {
+        base.OnDisable();
+    }
 }

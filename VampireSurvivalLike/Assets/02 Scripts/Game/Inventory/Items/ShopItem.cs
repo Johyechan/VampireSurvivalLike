@@ -90,7 +90,7 @@ namespace Inventory
 
             Image followIconImage = _followIcon.AddComponent<Image>();
             followIconImage.sprite = copySO.sprite;
-            followIconImage.color = new Color(followIconImage.color.r, followIconImage.color.g, followIconImage.color.b, _followIconAlpha);
+            followIconImage.color = new Color(_image.color.r, _image.color.g, _image.color.b, _followIconAlpha);
             followIconImage.raycastTarget = false;
 
             _followIconRectTransform = followIconImage.GetComponent<RectTransform>();

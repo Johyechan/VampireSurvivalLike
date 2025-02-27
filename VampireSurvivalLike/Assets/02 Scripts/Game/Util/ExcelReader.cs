@@ -12,6 +12,8 @@ public class ExcelReader : MonoBehaviour
     private List<ItemSO> _itemSOList = new List<ItemSO>();
     public List<ItemSO> ItemSOList { get { return _itemSOList; } }
 
+    private string _itemLevel;
+
     private bool _isEnded = false;
     public bool IsEnded { get { return _isEnded; } }
 
@@ -41,6 +43,11 @@ public class ExcelReader : MonoBehaviour
                 if(currentRow != null)
                 {
                     _excelList.Clear();
+                    ICell itemLevelCell = currentRow.GetCell(1);
+                    if(itemLevelCell != null && itemLevelCell.ToString() != "")
+                    {
+                        _itemLevel = itemLevelCell.ToString();
+                    }
                     // 각 행의 모든 셀을 순회
                     for(int col = 0; col < currentRow.LastCellNum; col++)
                     {
@@ -77,6 +84,7 @@ public class ExcelReader : MonoBehaviour
         {
             return;
         }
+        newSO.itemLevel = _itemLevel;
         //Debug.Log($"{i}: {_excelList[i]}");
         for (int i = 2; i < _excelList.Count; i++)
         {

@@ -164,6 +164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   so: {fileID: 11400000, guid: fb2a55e50d2bac940bab09e1832c262a, type: 2}
+  _type: 1
   _outDistance: 30
 --- !u!114 &6103170321875355730
 MonoBehaviour:

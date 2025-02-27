@@ -10,7 +10,7 @@ namespace MyUI
 {
     public class UIMaker : MonoBehaviour
     {
-        public GameObject[,] AddUI(ObjectPoolType type, Transform parent, int x, int y, int width, int height, float spacing, int[,] backpackArr = null)
+        public GameObject[,] AddUI(List<ObjectPoolType> types, Transform parent, int x, int y, int width, int height, float spacing, int[,] backpackArr = null)
         {
             GameObject[,] uis = new GameObject[x, y];
 
@@ -42,6 +42,7 @@ namespace MyUI
             {
                 for (int j = 0; j < y; j++)
                 {
+                    ObjectPoolType type = RandomType(types);
                     GameObject obj = ObjectPoolManager.Instance.GetObject(type, parent);
                     obj.name += GameManager.Instance.itemNum++;
                     UIController controller = obj.GetComponent<UIController>();
@@ -78,6 +79,11 @@ namespace MyUI
             }
 
             return uis;
+        }
+
+        private ObjectPoolType RandomType(List<ObjectPoolType> types)
+        {
+            return types[Random.Range(0, types.Count)];
         }
 
         public void RemoveUI(ObjectPoolType type, Transform parent)

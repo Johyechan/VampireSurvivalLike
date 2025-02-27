@@ -9,6 +9,7 @@ public class ItemSO : ScriptableObject
     public ObjectPoolType fireObjType; // 발사체 (없으면 안 넣어도 됨)
     public ObjectPoolType objType;
     public float fireSpeed; // 발사체 속도 (없으면 안 넣어도 됨)
+    public string itemLevel;
     public string no; // 아이템 번호
     public string itemName; // 아이템 이름
     public RoleType role; // 사용가능한 캐릭터

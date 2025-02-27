@@ -6,12 +6,15 @@ namespace Pool
 {
     public enum ObjectPoolType
     {
+        None,
         NormalEnemy,
         Arrow,
         Money,
         Slot,
         BowIcon,
-        Bow
+        Bow,
+        SwordIcon,
+        Sword
     }
 }
 

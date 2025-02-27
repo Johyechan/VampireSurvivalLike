@@ -1,6 +1,7 @@
 #if UNITY_EDITOR
 using System.CodeDom;
 using System.Collections;
+using System.IO;
 using UnityEditor;
 using UnityEngine;
 
@@ -34,14 +35,27 @@ public class ExcelReadEditor : Editor
 
             foreach (var so in script.ItemSOList)
             {
-                string assetPath = "Assets/04 SOs/Weapon/" + so.itemName + ".asset";
+                string itemLevelFolderPath = "Assets/04 SOs/Weapon/" + so.itemLevel;
+                string roleFolderPath = itemLevelFolderPath + "/" + so.role.ToString();
+
+                if(!AssetDatabase.IsValidFolder(itemLevelFolderPath))
+                {
+                    AssetDatabase.CreateFolder("Assets/04 SOs/Weapon", so.itemLevel);
+                }
+
+                if(!AssetDatabase.IsValidFolder(roleFolderPath))
+                {
+                    AssetDatabase.CreateFolder(itemLevelFolderPath, so.role.ToString());
+                }
+
+                string assetPath = roleFolderPath + "/" + so.itemName + ".asset";
                 AssetDatabase.CreateAsset(so, assetPath);
                 AssetDatabase.SaveAssets();
 
                 EditorUtility.FocusProjectWindow();
                 Selection.activeObject = so;
 
-                Debug.Log($"{so.itemName} SO 만들기 성공");
+                //Debug.Log($"{so.itemName} SO 만들기 성공");
             }
         }
     }

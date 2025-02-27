@@ -8,6 +8,11 @@ public class RangedAttack : AttackBase, IAttackStrategy
 {
     private ItemBase _item;
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position, _item.so.range);
+    }
+
     protected override void OnDisable()
     {
         base.OnDisable();
