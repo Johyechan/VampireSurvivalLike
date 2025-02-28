@@ -7,26 +7,31 @@ using UnityEngine;
 public class RangedAttack : AttackBase, IAttackStrategy
 {
     private ItemBase _item;
-
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(transform.position, _item.so.range);
     }
 
+    protected override void Update()
+    {
+        base.Update();
+        FollowEnemy(_item.so, 10);
+    }
+
     protected override void OnDisable()
     {
         base.OnDisable();
-        StopCoroutine(FireCo(_item));
+        StopCoroutine(AttackCo(_item));
     }
 
     public void Attack(ItemBase item)
     {
         _item = item;
         // 원거리 공격
-        StartCoroutine(FireCo(item));
+        StartCoroutine(AttackCo(item));
     }
 
-    private IEnumerator FireCo(ItemBase item)
+    private IEnumerator AttackCo(ItemBase item)
     {
         while (true) // 플레이어가 죽기 전까지
         {
@@ -34,13 +39,9 @@ public class RangedAttack : AttackBase, IAttackStrategy
             {
                 Fire(item.so);
                 item.ApplyEffect();
-                yield return new WaitForSeconds(1 / GameManager.Instance.AttackSpeedCalculate(1.0f,
-                    StatManager.Instance.ItemTotalStat().attackSpeed + StatManager.Instance.PlayerStat.attackSpeed)); // 공속
+                yield return new WaitForSeconds(GameManager.Instance.GetAttackSpeed());
             }
-            else
-            {
-                yield return null;
-            }
+            yield return null;
         }
     }
 
@@ -72,17 +73,9 @@ public class RangedAttack : AttackBase, IAttackStrategy
         }
         projectile.DeathCoolStart();
 
+        FollowEnemy(so);
         projectileObj.transform.position = transform.position;
-        // 가까운 적 찾기
-        GameObject enemy = FindCloseEnemyInArea(so.range);
-        // 가까운 적을 향하는 방향 찾기
-        Vector2 dir = (enemy.transform.position - projectileObj.transform.position).normalized;
-        // 총구, 총알 돌리기
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        Quaternion rotate = Quaternion.Euler(0, 0, angle - 90);
-        transform.rotation = rotate;
         projectileObj.transform.rotation = transform.rotation;
-        // Hitter 찾은 방향으로 발사속도 만큼 날리기
         Rigidbody2D rigid2D = projectileObj.GetComponent<Rigidbody2D>();
         rigid2D.velocity = projectileObj.transform.up * so.fireSpeed;
     }

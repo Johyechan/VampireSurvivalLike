@@ -29,9 +29,10 @@ namespace Manager
             _calculator = GetComponent<Calculator>();
         }
 
-        public float AttackSpeedCalculate(float value, float probability)
+        public float GetAttackSpeed()
         {
-            return _calculator.AttackSpeedCalculate(value, probability);
+            return 1 / _calculator.AttackSpeedCalculate(1.0f, 
+                StatManager.Instance.ItemTotalStat().attackSpeed + StatManager.Instance.PlayerStat.attackSpeed);
         }
 
         public bool CalculatePercentageToBool(float probability)

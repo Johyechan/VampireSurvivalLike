@@ -10,6 +10,11 @@ public class AttackBase : MonoBehaviour
 
     }
 
+    protected virtual void Update()
+    {
+
+    }
+
     protected bool CheckEnemyInArea(float radius)
     {
         RaycastHit2D hit = Physics2D.CircleCast(transform.position, radius, Vector2.zero, 0, LayerMask.GetMask("Enemy", "Boss"));
@@ -25,6 +30,9 @@ public class AttackBase : MonoBehaviour
     protected GameObject FindCloseEnemyInArea(float radius)
     {
         RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, radius, Vector2.zero, 0, LayerMask.GetMask("Enemy", "Boss"));
+
+        if (hits.Length <= 0)
+            return null;
 
         float[] distances = new float[hits.Length];
 
@@ -47,5 +55,17 @@ public class AttackBase : MonoBehaviour
         }
 
         return hits[numChecker].collider.gameObject;
+    }
+
+    protected void FollowEnemy(ItemSO so, float speed = 1)
+    {
+        if (FindCloseEnemyInArea(so.range) == null)
+            return;
+
+        GameObject enemy = FindCloseEnemyInArea(so.range);
+        Vector2 dir = (enemy.transform.position - transform.position).normalized;
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        Quaternion rotate = Quaternion.Euler(0, 0, angle - 90);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotate, Time.deltaTime * speed);
     }
 }
