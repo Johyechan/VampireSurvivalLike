@@ -24,6 +24,7 @@ public class MeleeAttack : AttackBase, IAttackStrategy
     protected override void OnDisable()
     {
         base.OnDisable();
+        // 게임 종료가 아닐 경우에만 실행
         StopCoroutine(AttackCo(_item));
         StopCoroutine(AttackAnimationCo(_item));
         StopCoroutine(RotationAnimation(Quaternion.identity, targetQuaternion, 0.2f));
@@ -38,7 +39,7 @@ public class MeleeAttack : AttackBase, IAttackStrategy
 
     private IEnumerator AttackCo(ItemBase item)
     {
-        while(true) // 플레이어 죽기 전까지
+        while(!GameManager.Instance.playerDead) // 플레이어 죽기 전까지
         {
             if (CheckEnemyInArea(item.so.range))
             {

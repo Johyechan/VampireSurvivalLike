@@ -33,7 +33,7 @@ public class RangedAttack : AttackBase, IAttackStrategy
 
     private IEnumerator AttackCo(ItemBase item)
     {
-        while (true) // 플레이어가 죽기 전까지
+        while (!GameManager.Instance.playerDead) // 플레이어가 죽기 전까지
         {
             if(CheckEnemyInArea(item.so.range))
             {

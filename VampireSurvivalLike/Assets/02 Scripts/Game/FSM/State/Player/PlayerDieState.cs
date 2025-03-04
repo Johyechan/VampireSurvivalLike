@@ -1,3 +1,4 @@
+using Manager;
 using Player;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ namespace FSM
         public void Enter()
         {
             Debug.Log("Player Die");
+            GameManager.Instance.playerDead = true;
             _movement.StopImmediately();
         }
 

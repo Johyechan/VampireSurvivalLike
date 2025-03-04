@@ -1,3 +1,4 @@
+using Manager;
 using Pool;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ public class ThrowAttack : AttackBase, IAttackStrategy
 
     private IEnumerator ThrowCo(ItemBase item)
     {
-        while(true) // 플레이어가 죽기 전까지
+        while(!GameManager.Instance.playerDead) // 플레이어가 죽기 전까지
         {
             if (CheckEnemyInArea(item.so.range))
             {

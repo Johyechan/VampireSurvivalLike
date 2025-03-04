@@ -11,6 +11,7 @@ namespace Manager
         public GameObject player;
 
         [HideInInspector] public bool groundMove = false;
+        [HideInInspector] public bool playerDead = false;
 
         [HideInInspector] public int x = 9;
 
@@ -20,6 +21,7 @@ namespace Manager
 
         // 아이템 구분을 위한 식별번호
         [HideInInspector] public int itemNum = 0;
+
 
         protected override void Awake()
         {
