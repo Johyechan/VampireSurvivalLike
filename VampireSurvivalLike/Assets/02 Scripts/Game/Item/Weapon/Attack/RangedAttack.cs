@@ -15,7 +15,7 @@ public class RangedAttack : AttackBase, IAttackStrategy
     protected override void Update()
     {
         base.Update();
-        FollowEnemy(_item.so, 10);
+        FollowEnemy(10, 10);
     }
 
     protected override void OnDisable()
@@ -73,7 +73,6 @@ public class RangedAttack : AttackBase, IAttackStrategy
         }
         projectile.DeathCoolStart();
 
-        FollowEnemy(so);
         projectileObj.transform.position = transform.position;
         projectileObj.transform.rotation = transform.rotation;
         Rigidbody2D rigid2D = projectileObj.GetComponent<Rigidbody2D>();

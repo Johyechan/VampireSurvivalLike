@@ -2,16 +2,14 @@ using Manager;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 using static UnityEditor.Progress;
 
 public class MeleeAttack : AttackBase, IAttackStrategy
 {
     private ItemBase _item;
 
-    private Quaternion currentQuaternion;
     private Quaternion targetQuaternion;
-
-    private float _rotateSpeed = 45f;
 
     private void OnDrawGizmos()
     {
@@ -21,15 +19,14 @@ public class MeleeAttack : AttackBase, IAttackStrategy
     protected override void Update()
     {
         base.Update();
-        FollowEnemy(_item.so, _rotateSpeed);
     }
 
     protected override void OnDisable()
     {
         base.OnDisable();
         StopCoroutine(AttackCo(_item));
-        //StopCoroutine(AttackAnimationCo(_item));
-        StopCoroutine(RotationAnimation(currentQuaternion, targetQuaternion, 0.2f));
+        StopCoroutine(AttackAnimationCo(_item));
+        StopCoroutine(RotationAnimation(Quaternion.identity, targetQuaternion, 0.2f));
     }
 
     public void Attack(ItemBase item)
@@ -45,31 +42,48 @@ public class MeleeAttack : AttackBase, IAttackStrategy
         {
             if (CheckEnemyInArea(item.so.range))
             {
-                //StartCoroutine(AttackAnimationCo(item));
-                GameObject enemy = FindCloseEnemyInArea(item.so.range);
-                IDamageable damageable = enemy.GetComponent<IDamageable>();
-                damageable.TakeDamage(StatManager.Instance.PlayerStat.damage + StatManager.Instance.ItemTotalStat().attackDamage);
+                StartCoroutine(AttackAnimationCo(item));
                 yield return new WaitForSeconds(GameManager.Instance.GetAttackSpeed());
             }
             yield return null;
         }
     }
 
-    //private IEnumerator AttackAnimationCo(ItemBase item)
-    //{
-    //    GameObject enemy = FindCloseEnemyInArea(item.so.range);
-    //    IDamageable damageable = enemy.GetComponent<IDamageable>();
-    //    damageable.TakeDamage(StatManager.Instance.PlayerStat.damage + StatManager.Instance.ItemTotalStat().attackDamage);
-        
-    //    currentQuaternion = transform.rotation;
-    //    targetQuaternion = CheckDot(enemy);
+    private IEnumerator AttackAnimationCo(ItemBase item)
+    {
+        GameObject enemy = FindCloseEnemyInArea(item.so.range);
 
-    //    StartCoroutine(RotationAnimation(currentQuaternion, targetQuaternion, GameManager.Instance.GetAttackSpeed() / 2));
+        Vector2 dir = enemy.transform.position - transform.position;
 
-    //    yield return new WaitForSeconds(GameManager.Instance.GetAttackSpeed() / 2);
+        float angle = (Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg) - 90;
 
-    //    StartCoroutine(RotationAnimation(targetQuaternion, currentQuaternion, GameManager.Instance.GetAttackSpeed() / 2));
-    //}
+
+        if (Mathf.Abs(angle) < 90)
+        {
+            if (Vector2.Dot(Vector2.right, dir) < 0)
+            {
+                targetQuaternion = Quaternion.Euler(0, 0, 90);
+            }
+            else
+            {
+                targetQuaternion = Quaternion.Euler(0, 0, -90);
+            }
+        }
+        else
+        {
+            targetQuaternion = Quaternion.Euler(0, 0, angle);
+        }
+
+        StartCoroutine(RotationAnimation(Quaternion.identity, targetQuaternion, GameManager.Instance.GetAttackSpeed() / 2));
+
+        yield return new WaitForSeconds(GameManager.Instance.GetAttackSpeed() / 2);
+
+        IDamageable damageable = enemy.GetComponent<IDamageable>();
+        damageable.TakeDamage(StatManager.Instance.PlayerStat.damage + StatManager.Instance.ItemTotalStat().attackDamage);
+        item.ApplyEffect();
+
+        StartCoroutine(RotationAnimation(targetQuaternion, Quaternion.identity, GameManager.Instance.GetAttackSpeed() / 2));
+    }
 
     private IEnumerator RotationAnimation(Quaternion currentQuaternion, Quaternion targetQuaternion, float delay)
     {
@@ -81,5 +95,7 @@ public class MeleeAttack : AttackBase, IAttackStrategy
             currentTime += Time.deltaTime;
             yield return null;
         }
+
+        transform.rotation = targetQuaternion;
     }
 }

@@ -57,12 +57,12 @@ public class AttackBase : MonoBehaviour
         return hits[numChecker].collider.gameObject;
     }
 
-    protected void FollowEnemy(ItemSO so, float speed = 1)
+    protected void FollowEnemy(float range, float speed = 1)
     {
-        if (FindCloseEnemyInArea(so.range) == null)
+        if (FindCloseEnemyInArea(range) == null)
             return;
 
-        GameObject enemy = FindCloseEnemyInArea(so.range);
+        GameObject enemy = FindCloseEnemyInArea(range);
         Vector2 dir = (enemy.transform.position - transform.position).normalized;
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         Quaternion rotate = Quaternion.Euler(0, 0, angle - 90);
