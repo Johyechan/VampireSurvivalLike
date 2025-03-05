@@ -27,7 +27,7 @@ namespace Player
             {
                 if(uis.Key.Contains("InventoryItem"))
                 {
-                    if(!uis.Value.transform.parent.gameObject.CompareTag("SaveBox"))
+                    if(!uis.Value.transform.parent.gameObject.CompareTag("SaveBox") && !uis.Value.gameObject.CompareTag("OnlyInven"))
                     {
                         count++;
                         if (transform.childCount < count)
