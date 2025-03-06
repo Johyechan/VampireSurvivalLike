@@ -8,7 +8,7 @@ public class AttackSpeedIncreaseDecorator : EffectDecoratorBase
 
     public override void ApplyEffect()
     {
-        base.ApplyEffect();
+        _effect.ApplyEffect();
 
         Debug.Log("공격 속도 증가");
     }

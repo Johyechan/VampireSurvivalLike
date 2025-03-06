@@ -13,7 +13,6 @@ public class NewRangedAttack : NewAttackBase
 
     public override void Attack(ItemSO so, INewEffect effect)
     {
-        base.Attack(so, effect);
         StartCoroutine(AttackCo(so, effect));
     }
 
@@ -24,7 +23,10 @@ public class NewRangedAttack : NewAttackBase
             if (CheckEnemyInArea(so.range))
             {
                 Fire(so);
-                effect.ApplyEffect();
+
+                if(effect != null)
+                    effect.ApplyEffect();
+
                 yield return new WaitForSeconds(GameManager.Instance.GetAttackSpeed());
             }
             yield return null;

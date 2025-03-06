@@ -14,10 +14,9 @@ public class NewMeleeAttack : NewAttackBase
 
     public override void Attack(ItemSO so, INewEffect effect)
     {
-        base.Attack(so, effect);
-
         StartCoroutine(AttackCo(so, effect));
     }
+
     private IEnumerator AttackCo(ItemSO so, INewEffect effect)
     {
         while (!GameManager.Instance.playerDead) // 플레이어 죽기 전까지
@@ -62,7 +61,9 @@ public class NewMeleeAttack : NewAttackBase
 
         IDamageable damageable = enemy.GetComponent<IDamageable>();
         damageable.TakeDamage(StatManager.Instance.PlayerStat.damage + StatManager.Instance.ItemTotalStat().attackDamage);
-        effect.ApplyEffect();
+
+        if(effect != null)
+            effect.ApplyEffect();
 
         StartCoroutine(RotationAnimation(targetQuaternion, Quaternion.identity, GameManager.Instance.GetAttackSpeed() / 2));
     }

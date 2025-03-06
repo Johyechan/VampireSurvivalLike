@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewAttackBase : MonoBehaviour, INewItemAttackStrategy
+public abstract class NewAttackBase : MonoBehaviour, INewItemAttackStrategy
 {
     private ItemSO _so;
 
@@ -11,10 +11,7 @@ public class NewAttackBase : MonoBehaviour, INewItemAttackStrategy
         Gizmos.DrawWireSphere(transform.position, _so.range);
     }
 
-    public virtual void Attack(ItemSO so, INewEffect effect)
-    {
-        
-    }
+    public abstract void Attack(ItemSO so, INewEffect effect);
 
     protected bool CheckEnemyInArea(float radius)
     {

@@ -14,8 +14,9 @@ public class NewSword : CombatItem
     {
         base.Awake();
 
-        _attackStrategy = new NewMeleeAttack();
-        _effect = new EffectDecoratorBase(_effect);
+        _attackStrategy = GetComponent<NewMeleeAttack>();
+
+        _effect = new NoneEffect();
 
         Init(_so, _attackStrategy, _effect);
     }

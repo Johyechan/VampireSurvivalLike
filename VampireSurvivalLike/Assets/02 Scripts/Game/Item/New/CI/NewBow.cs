@@ -14,7 +14,9 @@ public class NewBow : CombatItem
     {
         base.Awake();
 
-        _strategy = new NewRangedAttack();
+        _strategy = GetComponent<NewRangedAttack>();
+
+        _effect = new NoneEffect();
         _effect = new AttackSpeedIncreaseDecorator(_effect);
 
         Init(_so, _strategy, _effect);

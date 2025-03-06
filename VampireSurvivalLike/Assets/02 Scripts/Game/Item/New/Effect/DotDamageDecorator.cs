@@ -8,7 +8,7 @@ public class DotDamageDecorator : EffectDecoratorBase
 
     public override void ApplyEffect()
     {
-        base.ApplyEffect();
+        _effect.ApplyEffect();
 
         Debug.Log("도트 데미지");
     }
