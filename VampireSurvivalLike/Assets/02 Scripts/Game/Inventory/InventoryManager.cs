@@ -4,8 +4,9 @@ using UnityEngine;
 using Manager;
 using Player;
 using UnityEngine.UI;
+using Inventory;
 
-namespace Inventory
+namespace Manager
 {
     public class InventoryManager : MonoSingleton<InventoryManager>
     {

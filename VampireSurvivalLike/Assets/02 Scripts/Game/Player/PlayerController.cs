@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using FSM;
 using Item;
+using MySO;
+using Manager;
 
 namespace Player
 {

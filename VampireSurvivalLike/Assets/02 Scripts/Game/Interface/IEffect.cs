@@ -2,7 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IEffect
+namespace MyInterface
 {
-    public void ApplyEffect(ItemBase item);
+    public interface IEffect
+    {
+        public void ApplyEffect();
+    }
 }
+

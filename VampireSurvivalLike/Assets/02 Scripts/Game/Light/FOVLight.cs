@@ -3,10 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FOVLight : MonoBehaviour
+namespace MyLight
 {
-    void Update()
+    public class FOVLight : MonoBehaviour
     {
-        transform.position = GameManager.Instance.player.transform.position;
+        void Update()
+        {
+            transform.position = GameManager.Instance.player.transform.position;
+        }
     }
 }
+

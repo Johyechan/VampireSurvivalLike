@@ -1,6 +1,6 @@
 using Manager;
+using MySO;
 using Player;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;

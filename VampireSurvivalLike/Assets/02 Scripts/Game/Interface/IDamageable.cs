@@ -2,7 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IDamageable
+namespace MyInterface
 {
-    void TakeDamage(float damage);
+    public interface IDamageable
+    {
+        void TakeDamage(float damage);
+    }
 }
+

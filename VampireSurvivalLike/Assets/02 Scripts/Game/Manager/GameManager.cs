@@ -22,7 +22,6 @@ namespace Manager
         // 아이템 구분을 위한 식별번호
         [HideInInspector] public int itemNum = 0;
 
-
         protected override void Awake()
         {
             base.Awake();
@@ -34,7 +33,7 @@ namespace Manager
         public float GetAttackSpeed()
         {
             return 1 / _calculator.AttackSpeedCalculate(1.0f, 
-                StatManager.Instance.ItemTotalStat().attackSpeed + StatManager.Instance.PlayerStat.attackSpeed);
+                StatManager.Instance.TotalItemStat.attackSpeed + StatManager.Instance.PlayerStat.attackSpeed);
         }
 
         public bool CalculatePercentageToBool(float probability)

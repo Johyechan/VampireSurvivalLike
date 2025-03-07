@@ -1,71 +1,73 @@
-using Pool;
-using System.Collections;
-using System.Collections.Generic;
+using MyInterface;
+using MySO;
 using UnityEngine;
 
-public class AttackBase : MonoBehaviour
+namespace AttackStrategy
 {
-    protected virtual void OnDisable()
+    public abstract class AttackBase : MonoBehaviour, IItemAttackStrategy
     {
+        private ItemSO _so;
 
-    }
-
-    protected virtual void Update()
-    {
-
-    }
-
-    protected bool CheckEnemyInArea(float radius)
-    {
-        RaycastHit2D hit = Physics2D.CircleCast(transform.position, radius, Vector2.zero, 0, LayerMask.GetMask("Enemy", "Boss"));
-
-        if (hit)
+        protected void OnDrawGizmos()
         {
-            return true;
+            Gizmos.DrawWireSphere(transform.position, _so.range);
         }
 
-        return false;
-    }
+        public abstract void Attack(ItemSO so, IEffect effect);
 
-    protected GameObject FindCloseEnemyInArea(float radius)
-    {
-        RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, radius, Vector2.zero, 0, LayerMask.GetMask("Enemy", "Boss"));
-
-        if (hits.Length <= 0)
-            return null;
-
-        float[] distances = new float[hits.Length];
-
-        for (int i = 0; i < hits.Length; i++)
+        protected bool CheckEnemyInArea(float radius)
         {
-            distances[i] = Vector2.Distance(transform.position, hits[i].collider.gameObject.transform.position);
-        }
+            RaycastHit2D hit = Physics2D.CircleCast(transform.position, radius, Vector2.zero, 0, LayerMask.GetMask("Enemy", "Boss"));
 
-        float shortdistance = float.MaxValue;
-        int numChecker = 0;
-
-        for (int i = 0; i < distances.Length; i++)
-        {
-            float temp = shortdistance;
-            shortdistance = Mathf.Min(shortdistance, distances[i]);
-            if (temp != shortdistance)
+            if (hit)
             {
-                numChecker = i;
+                return true;
             }
+
+            return false;
         }
 
-        return hits[numChecker].collider.gameObject;
-    }
+        protected GameObject FindCloseEnemyInArea(float radius)
+        {
+            RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, radius, Vector2.zero, 0, LayerMask.GetMask("Enemy", "Boss"));
 
-    protected void FollowEnemy(float range, float speed = 1)
-    {
-        if (FindCloseEnemyInArea(range) == null)
-            return;
+            if (hits.Length <= 0)
+                return null;
 
-        GameObject enemy = FindCloseEnemyInArea(range);
-        Vector2 dir = (enemy.transform.position - transform.position).normalized;
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        Quaternion rotate = Quaternion.Euler(0, 0, angle - 90);
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotate, Time.deltaTime * speed);
+            float[] distances = new float[hits.Length];
+
+            for (int i = 0; i < hits.Length; i++)
+            {
+                distances[i] = Vector2.Distance(transform.position, hits[i].collider.gameObject.transform.position);
+            }
+
+            float shortdistance = float.MaxValue;
+            int numChecker = 0;
+
+            for (int i = 0; i < distances.Length; i++)
+            {
+                float temp = shortdistance;
+                shortdistance = Mathf.Min(shortdistance, distances[i]);
+                if (temp != shortdistance)
+                {
+                    numChecker = i;
+                }
+            }
+
+            return hits[numChecker].collider.gameObject;
+        }
+
+        protected void FollowEnemy(float range, float speed = 1)
+        {
+            if (FindCloseEnemyInArea(range) == null)
+                return;
+
+            GameObject enemy = FindCloseEnemyInArea(range);
+            Vector2 dir = (enemy.transform.position - transform.position).normalized;
+            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            Quaternion rotate = Quaternion.Euler(0, 0, angle - 90);
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotate, Time.deltaTime * speed);
+        }
     }
 }
+

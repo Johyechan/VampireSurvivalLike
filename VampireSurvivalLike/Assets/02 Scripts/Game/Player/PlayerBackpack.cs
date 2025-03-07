@@ -1,4 +1,5 @@
 using Inventory;
+using Item;
 using Manager;
 using Pool;
 using UnityEngine;

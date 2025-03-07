@@ -1,5 +1,6 @@
 #if UNITY_EDITOR
 using Manager;
+using MySO;
 using UnityEditor;
 using UnityEngine;
 

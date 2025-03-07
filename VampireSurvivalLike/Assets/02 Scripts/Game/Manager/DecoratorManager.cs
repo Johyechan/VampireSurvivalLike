@@ -1,26 +1,32 @@
+using EffectDecorator;
 using Manager;
+using MyInterface;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DecoratorManager : MonoSingleton<DecoratorManager>
+namespace Manager
 {
-    public INewEffect RemoveEffect<T>(INewEffect effect) where T : EffectDecoratorBase
+    public class DecoratorManager : MonoSingleton<DecoratorManager>
     {
-        if(effect is T)
+        public IEffect RemoveEffect<T>(IEffect effect) where T : EffectDecoratorBase
         {
-            return ((EffectDecoratorBase)effect).GetBaseEffect();
-        }
-        else if(effect is EffectDecoratorBase decorator)
-        {
-            INewEffect newEffect = RemoveEffect<T>(decorator.GetBaseEffect());
-            if(newEffect != decorator.GetBaseEffect())
+            if (effect is T)
             {
-                return Activator.CreateInstance(decorator.GetType(), newEffect) as INewEffect;
+                return ((EffectDecoratorBase)effect).GetBaseEffect();
             }
-        }
+            else if (effect is EffectDecoratorBase decorator)
+            {
+                IEffect newEffect = RemoveEffect<T>(decorator.GetBaseEffect());
+                if (newEffect != decorator.GetBaseEffect())
+                {
+                    return Activator.CreateInstance(decorator.GetType(), newEffect) as IEffect;
+                }
+            }
 
-        return effect;
+            return effect;
+        }
     }
 }
+
