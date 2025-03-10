@@ -164,7 +164,7 @@ GameObject:
   - component: {fileID: 4473516823025772174}
   - component: {fileID: 6041622285801420320}
   m_Layer: 5
-  m_Name: ShopItem_TouchIcon
+  m_Name: ShopItem_TorchIcon
   m_TagString: OnlyInven
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

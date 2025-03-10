@@ -6,13 +6,6 @@ namespace AttackStrategy
 {
     public abstract class AttackBase : MonoBehaviour, IItemAttackStrategy
     {
-        private ItemSO _so;
-
-        protected void OnDrawGizmos()
-        {
-            Gizmos.DrawWireSphere(transform.position, _so.range);
-        }
-
         public abstract void Attack(ItemSO so, IEffect effect);
 
         protected bool CheckEnemyInArea(float radius)

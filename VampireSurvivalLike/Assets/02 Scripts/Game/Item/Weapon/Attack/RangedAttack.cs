@@ -16,6 +16,11 @@ namespace AttackStrategy
             StopAllCoroutines();
         }
 
+        private void Update()
+        {
+            FollowEnemy(10);
+        }
+
         public override void Attack(ItemSO so, IEffect effect)
         {
             StartCoroutine(AttackCo(so, effect));

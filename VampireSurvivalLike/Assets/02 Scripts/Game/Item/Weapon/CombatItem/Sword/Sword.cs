@@ -1,5 +1,6 @@
 using AttackStrategy;
 using EffectDecorator;
+using Manager;
 using MyInterface;
 using MySO;
 using UnityEngine;
@@ -12,6 +13,11 @@ namespace CombatItem
 
         private IEffect _effect;
 
+        protected void OnDrawGizmos()
+        {
+            Gizmos.DrawWireSphere(transform.position, so.range);
+        }
+
         protected override void Awake()
         {
             base.Awake();
@@ -19,12 +25,18 @@ namespace CombatItem
             _attackStrategy = GetComponent<MeleeAttack>();
 
             _effect = new NoneEffect();
-
-            Init(so, _attackStrategy, _effect);
         }
 
         protected override void OnEnable()
         {
+            if (_isMaked)
+            {
+                _isMaked = false;
+                return;
+            }
+
+            Init(so, _attackStrategy, _effect);
+
             base.OnEnable();
         }
 

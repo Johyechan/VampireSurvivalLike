@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using MySO;
 using MyStat;
+using UnityEngine;
 
 namespace Manager
 {
@@ -24,12 +25,60 @@ namespace Manager
         {
             _itemStatMap.Add(itemName, stat);
             _totalItemStat = ItemTotalStat();
+            //Debug.Log(_totalItemStat.attackDamage);
+            //Debug.Log(_totalItemStat.abilityPower);
+            //Debug.Log(_totalItemStat.soulPower);
+            //Debug.Log(_totalItemStat.range);
+            //Debug.Log(_totalItemStat.accuracyRate);
+            //Debug.Log(_totalItemStat.avoidanceRate);
+            //Debug.Log(_totalItemStat.criticalHitRate);
+            //Debug.Log(_totalItemStat.attackSpeed);
+            //Debug.Log(_totalItemStat.speedIncrease);
+            //Debug.Log(_totalItemStat.defence);
+            //Debug.Log(_totalItemStat.health);
+            //Debug.Log(_totalItemStat.mana);
+            //Debug.Log(_totalItemStat.soul);
+            //Debug.Log(_totalItemStat.healingCost);
+            //Debug.Log(_totalItemStat.manaCost);
+            //Debug.Log(_totalItemStat.healingSteal);
+            //Debug.Log(_totalItemStat.manaSteal);
+            //Debug.Log(_totalItemStat.healingFactor);
+            //Debug.Log(_totalItemStat.manaFactor);
+        }
+
+        public bool FindItemStat(string itemName)
+        {
+            if(_itemStatMap.ContainsKey(itemName))
+            {
+                return true;
+            }
+
+            return false;
         }
 
         public void RemoveItemStat(string itemName)
         {
             _itemStatMap.Remove(itemName);
             _totalItemStat = ItemTotalStat();
+            //Debug.Log(_totalItemStat.attackDamage);
+            //Debug.Log(_totalItemStat.abilityPower);
+            //Debug.Log(_totalItemStat.soulPower);
+            //Debug.Log(_totalItemStat.range);
+            //Debug.Log(_totalItemStat.accuracyRate);
+            //Debug.Log(_totalItemStat.avoidanceRate);
+            //Debug.Log(_totalItemStat.criticalHitRate);
+            //Debug.Log(_totalItemStat.attackSpeed);
+            //Debug.Log(_totalItemStat.speedIncrease);
+            //Debug.Log(_totalItemStat.defence);
+            //Debug.Log(_totalItemStat.health);
+            //Debug.Log(_totalItemStat.mana);
+            //Debug.Log(_totalItemStat.soul);
+            //Debug.Log(_totalItemStat.healingCost);
+            //Debug.Log(_totalItemStat.manaCost);
+            //Debug.Log(_totalItemStat.healingSteal);
+            //Debug.Log(_totalItemStat.manaSteal);
+            //Debug.Log(_totalItemStat.healingFactor);
+            //Debug.Log(_totalItemStat.manaFactor);
         }
 
         private ItemStat ItemTotalStat()
@@ -40,7 +89,7 @@ namespace Manager
             {
                 stat.attackDamage += itemStat.Value.attackDamage; // 물리 데미지
                 stat.abilityPower += itemStat.Value.abilityPower; // 마법 데미지
-                stat.soulPower += itemStat.Value.soulPower; // 소울 파워?
+                stat.soulPower += itemStat.Value.soulPower; // 소울 파워
                 stat.range += itemStat.Value.range; // 공격범위
                 stat.accuracyRate += itemStat.Value.accuracyRate; // 명중률 - 확률 계산기
                 stat.avoidanceRate += itemStat.Value.avoidanceRate; // 회피률 - 확률 계산기
@@ -50,7 +99,7 @@ namespace Manager
                 stat.defence += itemStat.Value.defence; // 방어력
                 stat.health += itemStat.Value.health; // 체력
                 stat.mana += itemStat.Value.mana; // 마나
-                stat.soul += itemStat.Value.soul; // 소울?
+                stat.soul += itemStat.Value.soul; // 소울
                 stat.healingCost += itemStat.Value.healingCost; // 체력 코스트
                 stat.manaCost += itemStat.Value.manaCost; // 마나 코스트
                 stat.healingSteal += itemStat.Value.healingSteal; // 피흡 - 비율 증감 계산기
@@ -62,7 +111,7 @@ namespace Manager
             return stat;
         }
 
-        public void StatSet(PlayerSO so)
+        public void SetStat(PlayerSO so)
         {
             PlayerStat stat = new PlayerStat();
 
@@ -80,7 +129,7 @@ namespace Manager
             _playerStat = stat;
         }
 
-        public ItemStat StatSet(ItemSO so)
+        public ItemStat SetStat(ItemSO so)
         {
             ItemStat stat = new ItemStat();
 

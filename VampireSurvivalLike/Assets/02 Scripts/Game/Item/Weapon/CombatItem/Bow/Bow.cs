@@ -2,6 +2,7 @@ using AttackStrategy;
 using EffectDecorator;
 using MyInterface;
 using MySO;
+using NPOI.OpenXmlFormats.Vml.Office;
 using UnityEngine;
 
 namespace CombatItem
@@ -12,6 +13,11 @@ namespace CombatItem
 
         private IEffect _effect;
 
+        protected void OnDrawGizmos()
+        {
+            Gizmos.DrawWireSphere(transform.position, so.range);
+        }
+
         protected override void Awake()
         {
             base.Awake();
@@ -20,12 +26,18 @@ namespace CombatItem
 
             _effect = new NoneEffect();
             _effect = new AttackSpeedIncreaseDecorator(_effect, 1.0f);
-
-            Init(so, _strategy, _effect);
         }
 
         protected override void OnEnable()
         {
+            if (_isMaked)
+            {
+                _isMaked = false;
+                return;
+            }
+
+            Init(so, _strategy, _effect);
+
             base.OnEnable();
         }
 

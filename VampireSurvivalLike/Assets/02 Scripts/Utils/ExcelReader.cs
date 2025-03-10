@@ -80,7 +80,7 @@ public class ExcelReader : MonoBehaviour
 
     private void MakeSO()
     {
-        ItemSO newSO = ScriptableObject.CreateInstance<ItemSO>();
+        ItemSO newSO = ScriptableObject.CreateInstance<MySO.ItemSO>(); // 네임스페이스를 추가해서 적용해야됨
 
         if (_excelList[2] == "0" || _excelList[2] == "No" || _excelList[2] == "")
         {

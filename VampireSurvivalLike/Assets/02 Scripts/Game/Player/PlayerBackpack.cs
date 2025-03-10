@@ -31,9 +31,12 @@ namespace Player
                     if(!uis.Value.transform.parent.gameObject.CompareTag("SaveBox") && !uis.Value.gameObject.CompareTag("OnlyInven"))
                     {
                         count++;
+                        // 여기서 문제가 있는 거 같음 분명 InventoryItem에서는 Type이 정확한데 여기서 Type 달라짐
+                        // 가설 1: 다 못 읽고 이전 마지막 InventoryItem까지만 읽고 끝나는 경우일 것이다
                         if (transform.childCount < count)
                         {
                             InventoryItem item = uis.Value.gameObject.GetComponent<InventoryItem>();
+                            Debug.Log(item.so.type);
                             GameObject itemObj = ObjectPoolManager.Instance.GetObject(item.so.type, transform);
                         }
                     }
