@@ -2,6 +2,8 @@ using Inventory;
 using Item;
 using Manager;
 using Pool;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Player
@@ -21,33 +23,55 @@ namespace Player
             }
         }
 
+        private Dictionary<string, GameObject> _backpackWeaponMap = new Dictionary<string, GameObject>();
+        private Dictionary<string, bool> _callCheckMap = new Dictionary<string, bool>();
+
+        private void Awake()
+        {
+            _backpackWeaponMap.Clear();
+            _callCheckMap.Clear();
+        }
+
         public void GetBackpackWeapon()
         {
-            int count = 0;
+            // 불렸는지 체크하는 딕셔너리를 전부 안 불림 상태 즉 false로 초기화
+            foreach (var check in _callCheckMap.ToList())
+            {
+                _callCheckMap[check.Key] = false;
+            }
+
             foreach(var uis in UIManager.Instance.UIs)
             {
                 if(uis.Key.Contains("InventoryItem"))
                 {
                     if(!uis.Value.transform.parent.gameObject.CompareTag("SaveBox") && !uis.Value.gameObject.CompareTag("OnlyInven"))
                     {
-                        count++;
-                        // 여기서 문제가 있는 거 같음 분명 InventoryItem에서는 Type이 정확한데 여기서 Type 달라짐
-                        // 가설 1: 다 못 읽고 이전 마지막 InventoryItem까지만 읽고 끝나는 경우일 것이다
-                        if (transform.childCount < count)
+                        if(!_backpackWeaponMap.ContainsKey(uis.Value.gameObject.name))
                         {
                             InventoryItem item = uis.Value.gameObject.GetComponent<InventoryItem>();
-                            Debug.Log(item.so.type);
                             GameObject itemObj = ObjectPoolManager.Instance.GetObject(item.so.type, transform);
+                            _backpackWeaponMap.Add(item.gameObject.name, itemObj);
+                            _callCheckMap.Add(item.gameObject.name, true);
+                        }
+                        else
+                        {
+                            _callCheckMap[uis.Value.gameObject.name] = true;
                         }
                     }
                 }
             }
 
-            if(count < transform.childCount)
+            foreach(var check in _callCheckMap.ToList())
             {
-                for(int i = transform.childCount - 1; i >= count; i--)
+                if (!_callCheckMap[check.Key])
                 {
-                    ObjectPoolManager.Instance.ReturnObject(transform.GetChild(i).GetComponent<ItemBase>().so.objType, transform.GetChild(i).gameObject);
+                    ItemBase item = _backpackWeaponMap[check.Key].GetComponent(typeof(ItemBase)) as ItemBase;
+                    if (item != null)
+                    {
+                        ObjectPoolManager.Instance.ReturnObject(item.so.objType, item.gameObject);
+                    }
+                    _callCheckMap.Remove(check.Key);
+                    _backpackWeaponMap.Remove(check.Key);
                 }
             }
         }

@@ -41,6 +41,16 @@ namespace Inventory
             base.Awake();
         }
 
+        private void OnEnable()
+        {
+            
+        }
+
+        private void OnDisable()
+        {
+            
+        }
+
         protected override void Update()
         {
             base.Update();
@@ -62,7 +72,6 @@ namespace Inventory
         {
             if(!_isShop)
             {
-                Debug.Log(so.type);
                 _shape = so.shape;
                 _tempSaveList = new List<Vector2Int>(_slots);
                 RemoveItem(_slots);
