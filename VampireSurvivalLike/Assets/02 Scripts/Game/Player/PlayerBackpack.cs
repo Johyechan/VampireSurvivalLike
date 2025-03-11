@@ -24,6 +24,8 @@ namespace Player
         }
 
         private Dictionary<string, GameObject> _backpackWeaponMap = new Dictionary<string, GameObject>();
+        public Dictionary<string, GameObject> BackpackWeaponMap { get { return _backpackWeaponMap; } }
+
         private Dictionary<string, bool> _callCheckMap = new Dictionary<string, bool>();
 
         private void Awake()

@@ -6,7 +6,7 @@ namespace MyInterface
 {
     public interface IEffect
     {
-        public void ApplyEffect();
+        public void ApplyEffect(GameObject enemy);
     }
 }
 

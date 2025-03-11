@@ -8,29 +8,30 @@ namespace EffectDecorator
 {
     public class DotDamageDecorator : EffectDecoratorBase
     {
-        private IDamageable _damageable;
-
         private float _duration;
         private float _damage;
 
-        public DotDamageDecorator(IEffect effect, IDamageable damageable, float duration, float damage) : base(effect)
+        public DotDamageDecorator(IEffect effect, float duration, float damage) : base(effect)
         {
-            _damageable = damageable;
+            _duration = duration;
+            _damage = damage;
         }
 
-        public override void ApplyEffect()
+        public override void ApplyEffect(GameObject enemy)
         {
-            _effect.ApplyEffect();
+            _effect.ApplyEffect(enemy);
 
-            GameManager.Instance.StartCoroutine(DotDamage());
+            IDamageable damageable = enemy.GetComponent<IDamageable>();
+            GameManager.Instance.StartCoroutine(DotDamage(damageable));
         }
 
-        private IEnumerator DotDamage()
+        private IEnumerator DotDamage(IDamageable damageable)
         {
             float currentTime = 0;
             while (currentTime < _duration)
             {
-                _damageable.TakeDamage(_damage);
+                damageable.TakeDamage(_damage);
+                Debug.Log($"도트 데미지 {_damage} 피해");
                 currentTime += 1.0f;
                 yield return new WaitForSeconds(1.0f);
             }

@@ -47,6 +47,11 @@ namespace CombatItem
             _effect = effect;
         }
 
+        public void SetEffect(IEffect effect)
+        {
+            _effect = effect;
+        }
+
         private void Attack()
         {
             if (_attackStrategy != null)

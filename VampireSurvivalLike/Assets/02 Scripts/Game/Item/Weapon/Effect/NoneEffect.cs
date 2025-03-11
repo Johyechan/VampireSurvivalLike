@@ -7,7 +7,7 @@ namespace EffectDecorator
 {
     public class NoneEffect : IEffect
     {
-        public void ApplyEffect() { }
+        public void ApplyEffect(GameObject enemy) { }
     }
 }
 

@@ -17,6 +17,8 @@ namespace Manager
         [SerializeField] private float _waveringMinValue;
         [SerializeField] private float _waveringDelay;
 
+        public float FovLightRadius { get { return _fovLight.pointLightOuterRadius; } }
+
         protected override void Awake()
         {
             base.Awake();

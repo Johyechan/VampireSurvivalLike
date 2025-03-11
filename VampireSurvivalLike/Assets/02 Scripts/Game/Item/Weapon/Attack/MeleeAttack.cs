@@ -66,7 +66,7 @@ namespace AttackStrategy
             damageable.TakeDamage(StatManager.Instance.PlayerStat.damage + StatManager.Instance.TotalItemStat.attackDamage);
 
             if (effect != null)
-                effect.ApplyEffect();
+                effect.ApplyEffect(enemy);
 
             StartCoroutine(RotationAnimation(targetQuaternion, Quaternion.identity, GameManager.Instance.GetAttackSpeed() / 2));
         }

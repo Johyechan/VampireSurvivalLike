@@ -16,9 +16,10 @@ namespace EffectDecorator
             _increaseValue = increaseValue;
         }
 
-        public override void ApplyEffect()
+        public override void ApplyEffect(GameObject enemy)
         {
-            _effect.ApplyEffect();
+            Debug.Log($"공속 {_increaseValue} 증가");
+            _effect.ApplyEffect(enemy);
 
             ItemStat stat = StatManager.Instance.TotalItemStat;
             stat.attackSpeed += _increaseValue;

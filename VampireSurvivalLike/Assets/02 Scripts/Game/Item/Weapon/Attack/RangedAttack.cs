@@ -35,7 +35,7 @@ namespace AttackStrategy
                     Fire(so);
 
                     if (effect != null)
-                        effect.ApplyEffect();
+                        effect.ApplyEffect(FindCloseEnemyInArea(so.range));
 
                     yield return new WaitForSeconds(GameManager.Instance.GetAttackSpeed());
                 }

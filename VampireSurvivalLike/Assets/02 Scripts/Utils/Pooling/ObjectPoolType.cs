@@ -14,7 +14,8 @@ namespace Pool
         BowIcon,
         Bow,
         SwordIcon,
-        Sword
+        Sword,
+        Torch
     }
 }
 

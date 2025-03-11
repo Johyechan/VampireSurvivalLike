@@ -75,9 +75,17 @@ namespace Inventory
 
             UIManager.Instance.UIs[_image.gameObject.name].ChangeAlpha(false, 0.1f);
             UIManager.Instance.UIs[_image.transform.GetChild(0).name].ChangeAlpha(false, 0.1f);
-            _followIcon = new GameObject("InventoryItem" + GameManager.Instance.itemNum);
-            GameManager.Instance.itemNum++;
+            _followIcon = new GameObject("InventoryItem" + GameManager.Instance.itemNum++);
 
+            // Torch를 추가해야하는데 이런 애들은 어떻게 추가를 해야하는 가 이것은 고민이다
+            // 만약 이것의 Tag가 OnlyInven이라면 _followIcon의 Tag도 OnlyInven으로 만든다
+            // 그리고 이게 가지고 있던 UIController와 ShopItem이외의 스크립트를 그대로 _followIcon에 넣어주면 된다
+            if(gameObject.tag == "OnlyInven")
+            {
+                _followIcon.tag = "OnlyInven";
+                NonCombatItemBase nonCombat = gameObject.GetComponent<NonCombatItemBase>();
+                _followIcon.AddComponent(nonCombat.GetType());
+            }
             _followIcon.transform.SetParent(_canvas.transform);
             _followIconItem = _followIcon.AddComponent<InventoryItem>();
             _followIconItem.so = _so.DeepCopy();

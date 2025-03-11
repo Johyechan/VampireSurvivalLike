@@ -14,7 +14,7 @@ namespace EffectDecorator
             _effect = effect;
         }
 
-        public abstract void ApplyEffect();
+        public abstract void ApplyEffect(GameObject enemy);
 
         public IEffect GetBaseEffect()
         {

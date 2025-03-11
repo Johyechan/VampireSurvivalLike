@@ -10,7 +10,6 @@ namespace Inventory
 {
     public class InventoryItem : UIItem, IBeginDragHandler, IEndDragHandler, IDragHandler
     {
-
         public InventoryItemSO so { get; set; }
 
         private float _multiply;
