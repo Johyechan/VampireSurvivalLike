@@ -44,10 +44,8 @@ namespace Inventory
             copySO = _so.DeepCopy();
         }
 
-        protected override void Update()
+        protected void Update()
         {
-            base.Update();
-
             _mousePointerObj = UIMousePos(new List<string> { "Shop", "SaveBox", "Untagged" });
 
             if(_followIconRectTransform != null)

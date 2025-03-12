@@ -50,9 +50,8 @@ namespace Inventory
             
         }
 
-        protected override void Update()
+        protected void Update()
         {
-            base.Update();
 
             if (!_isShop && _rectTransform != null)
             {

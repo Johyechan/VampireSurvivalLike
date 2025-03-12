@@ -31,11 +31,6 @@ namespace Inventory
             _mouseHandler = new ItemMouseHandler(_canvas, _raycaster);
         }
 
-        protected virtual void Update()
-        {
-
-        }
-
         protected void ChangeParentAndScale(GameObject obj, Transform trans, RectTransform rectTrans, InventoryItemSO so, float multiply)
         {
             if (obj.CompareTag("SaveBox"))
