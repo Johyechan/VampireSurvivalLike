@@ -19,28 +19,29 @@ namespace Player
             }
         }
 
+        private MoneyEvent _onMoneyEvent;
+
         private void Start()
         {
             _currentMoney = GameManager.Instance.player.GetComponent<PlayerController>().so.startMoney;
-            _tmpText.text = "X " + _currentMoney.ToString();
+            _onMoneyEvent.EventCall(_currentMoney);
         }
 
         public void AddMoney(int moneyValue)
         {
             _currentMoney += moneyValue;
-            _tmpText.text = "X " + _currentMoney.ToString();
+            _onMoneyEvent.EventCall(_currentMoney);
         }
 
         public bool UseMoney(int moneyValue)
         {
             if(_currentMoney < moneyValue)
             {
-                Debug.Log("You need more money");
                 return false;
             }
 
             _currentMoney -= moneyValue;
-            _tmpText.text = "X " + _currentMoney.ToString();
+            _onMoneyEvent.EventCall(_currentMoney);
             return true;
         }
     }

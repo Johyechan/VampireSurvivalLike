@@ -53,7 +53,7 @@ namespace Inventory
             _backpack = GameManager.Instance.player.GetComponent<PlayerBackpack>();
 
             InventoryManager.Instance.shopCount = _shopX + _shopY;
-            UIManager.Instance.AddUI(new List<ObjectPoolType> { ObjectPoolType.BowIcon, ObjectPoolType.SwordIcon, ObjectPoolType.Torch }, _shopParent, _shopX, _shopY, _shopWidth, _shopHeight, _shopSpacing);
+            UIManager.Instance.AddUI(new List<ObjectPoolType> { ObjectPoolType.BowIcon, ObjectPoolType.SwordIcon, ObjectPoolType.TorchIcon }, _shopParent, _shopX, _shopY, _shopWidth, _shopHeight, _shopSpacing);
             _slots = UIManager.Instance.AddUI(new List<ObjectPoolType> { ObjectPoolType.Slot }, _backpackParent, GameManager.Instance.x, GameManager.Instance.y, _slotWidth, _slotHeight, _slotSpacing, _backpack.BackpackArr);
 
             UIController[] uis = _parentPanel.GetComponentsInChildren<UIController>(true);
@@ -90,7 +90,7 @@ namespace Inventory
             }
 
             InventoryManager.Instance.shopCount = _shopX + _shopY;
-            UIManager.Instance.AddUI(new List<ObjectPoolType> { ObjectPoolType.BowIcon, ObjectPoolType.SwordIcon, ObjectPoolType.Torch }, _shopParent, _shopX, _shopY, _shopWidth, _shopHeight, _shopSpacing);
+            UIManager.Instance.AddUI(new List<ObjectPoolType> { ObjectPoolType.BowIcon, ObjectPoolType.SwordIcon, ObjectPoolType.TorchIcon }, _shopParent, _shopX, _shopY, _shopWidth, _shopHeight, _shopSpacing);
 
             UIController[] uis = _parentPanel.GetComponentsInChildren<UIController>(true);
             for (int i = 0; i < uis.Length; i++)

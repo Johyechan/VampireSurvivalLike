@@ -3272,17 +3272,26 @@ MonoBehaviour:
   - prefab: {fileID: 4594232782140400229, guid: 5615ff862f9bbf442b3ba3d2ab749cde, type: 3}
     type: 5
     prefabCount: 10
-  - prefab: {fileID: 9077786551307783367, guid: 05edc6fb2f4ad284d97650d3267a40d5, type: 3}
+  - prefab: {fileID: 4837165501432088527, guid: 35ddac791b6e34844bb49936257a9997, type: 3}
     type: 6
     prefabCount: 10
-  - prefab: {fileID: 4594232782140400229, guid: 2467370e87b4e44489c565e01df916fc, type: 3}
+  - prefab: {fileID: 9077786551307783367, guid: 05edc6fb2f4ad284d97650d3267a40d5, type: 3}
     type: 7
     prefabCount: 10
-  - prefab: {fileID: 9077786551307783367, guid: 042cfdfd30d8d9f40b648c7d7839f5ba, type: 3}
+  - prefab: {fileID: 4594232782140400229, guid: 2467370e87b4e44489c565e01df916fc, type: 3}
     type: 8
     prefabCount: 10
-  - prefab: {fileID: 4594232782140400229, guid: 9d000a6c3d7abef458a9e78b77610a77, type: 3}
+  - prefab: {fileID: 4837165501432088527, guid: 9d65afaf823ccb1479c62c5e980ac505, type: 3}
     type: 9
+    prefabCount: 10
+  - prefab: {fileID: 9077786551307783367, guid: 042cfdfd30d8d9f40b648c7d7839f5ba, type: 3}
+    type: 10
+    prefabCount: 10
+  - prefab: {fileID: 4594232782140400229, guid: 9d000a6c3d7abef458a9e78b77610a77, type: 3}
+    type: 11
+    prefabCount: 10
+  - prefab: {fileID: 4837165501432088527, guid: 13dd1bef33d14764f98f0954ca3356ad, type: 3}
+    type: 12
     prefabCount: 10
 --- !u!4 &2089482625
 Transform:

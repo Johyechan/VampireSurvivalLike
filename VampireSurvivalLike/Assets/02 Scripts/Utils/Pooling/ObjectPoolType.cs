@@ -12,10 +12,13 @@ namespace Pool
         Money,
         Slot,
         BowIcon,
+        InventoryBow,
         Bow,
         SwordIcon,
+        InventorySword,
         Sword,
-        Torch
+        TorchIcon,
+        InventoryTorch,
     }
 }
 

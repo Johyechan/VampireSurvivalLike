@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: "\uC624\uB798\uB41C \uD65C"
   m_EditorClassIdentifier: 
   fireObjType: 2
-  objType: 6
+  objType: 7
   fireSpeed: 10
   itemLevel: "0\uB2E8\uACC4 \uC544\uC774\uD15C"
   no: 2.0.1

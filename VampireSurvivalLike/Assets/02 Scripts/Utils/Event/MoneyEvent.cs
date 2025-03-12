@@ -2,4 +2,4 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoneyUsedEvent : GameEvent<int> { }
+public class MoneyEvent : GameEvent<int> { }
