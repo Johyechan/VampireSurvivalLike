@@ -7,4 +7,5 @@ using UnityEngine;
 public class ShopItemSO : ScriptableObject
 {
     public ObjectPoolType type;
+    public int price;
 }

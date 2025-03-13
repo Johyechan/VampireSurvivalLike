@@ -6,43 +6,56 @@ using Manager;
 
 namespace Player
 {
-    public class PlayerWallet : MonoBehaviour
+    public class PlayerWallet : MonoBehaviour, IEventListener<int>
     {
-        [SerializeField] private TMP_Text _tmpText;
-
         private int _currentMoney;
-        public int currentMoney
-        {
-            get
-            {
-                return _currentMoney;
-            }
-        }
-
-        private MoneyEvent _onMoneyEvent;
 
         private void Start()
         {
             _currentMoney = GameManager.Instance.player.GetComponent<PlayerController>().so.startMoney;
-            _onMoneyEvent.EventCall(_currentMoney);
+            GameEventManager.OnMoneyUIEvent.EventCall(_currentMoney);
         }
 
-        public void AddMoney(int moneyValue)
+        private void OnEnable()
         {
-            _currentMoney += moneyValue;
-            _onMoneyEvent.EventCall(_currentMoney);
+            GameEventManager.OnMoneyUseEvent.AddEvent(this);
         }
 
-        public bool UseMoney(int moneyValue)
+        private void OnDisable()
         {
-            if(_currentMoney < moneyValue)
+            GameEventManager.OnMoneyUseEvent.RemoveEvent(this);
+        }
+
+        private bool ChangeMoney(int minusOrPlusMoneyValue)
+        {
+            if(minusOrPlusMoneyValue < 0)
             {
-                return false;
-            }
+                if (_currentMoney < minusOrPlusMoneyValue)
+                {
+                    return false;
+                }
 
-            _currentMoney -= moneyValue;
-            _onMoneyEvent.EventCall(_currentMoney);
-            return true;
+                _currentMoney += minusOrPlusMoneyValue;
+
+                return true;
+            }
+            else
+            {
+                _currentMoney += minusOrPlusMoneyValue;
+                return true;
+            }
+        }
+
+        public void OnEvent(int t)
+        {
+            if(ChangeMoney(t))
+            {
+                GameEventManager.OnMoneyUIEvent.EventCall(_currentMoney);
+            }
+            else
+            {
+                Debug.Log("µ·ÀÌ ÀûÀ½");
+            }
         }
     }
 }

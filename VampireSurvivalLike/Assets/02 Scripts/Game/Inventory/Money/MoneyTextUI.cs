@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class MoneyTextUI : MonoBehaviour, IEventListener<int>
 {
-    private MoneyEvent _onMoneyUsed;
     private TMP_Text _tmpText;
 
     private void Awake()
@@ -15,12 +14,12 @@ public class MoneyTextUI : MonoBehaviour, IEventListener<int>
 
     private void OnEnable()
     {
-        _onMoneyUsed.AddEvent(this);
+        GameEventManager.OnMoneyUIEvent.AddEvent(this);
     }
 
     private void OnDisable()
     {
-        _onMoneyUsed.RemoveEvent(this);
+        GameEventManager.OnMoneyUIEvent.RemoveEvent(this);
     }
 
     public void OnEvent(int t)

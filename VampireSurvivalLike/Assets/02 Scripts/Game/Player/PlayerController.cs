@@ -88,7 +88,7 @@ namespace Player
             if(collision.gameObject.CompareTag("Money"))
             {
                 Money money = collision.GetComponent<Money>();
-                _wallet.AddMoney(money.moneyValue);
+                //_wallet.AddMoney(money.moneyValue);
             }
         }
     }

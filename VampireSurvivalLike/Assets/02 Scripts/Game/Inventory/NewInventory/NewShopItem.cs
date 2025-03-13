@@ -21,8 +21,8 @@ public class NewShopItem : DraggableItem
     {
         base.OnBeginDrag(eventData);
 
-        // 돈 지불
-        // 돈 지불 불가 일 경우 안된다고 표시
+        // 돈 지불 여부를 알아야 함
+        GameEventManager.OnMoneyUseEvent.EventCall(-_so.price);
 
         // 인벤토리 아이템 생성
         _invenItemMakeHandle.MakeInventoryItem(_so.type, UIManager.Instance.inventoryUIParent);

@@ -118,7 +118,7 @@ namespace Inventory
                         UIManager.Instance.UIs.Remove(image.name);
                         Destroy(gameObject);
                         PlayerWallet wallet = GameManager.Instance.player.GetComponent<PlayerWallet>();
-                        wallet.AddMoney(so.price);
+                        //wallet.AddMoney(so.price);
                     }
                     else if(_mousePointerObj.CompareTag("SaveBox"))
                     {

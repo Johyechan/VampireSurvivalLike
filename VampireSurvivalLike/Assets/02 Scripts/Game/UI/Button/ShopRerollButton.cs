@@ -39,10 +39,10 @@ namespace MyUI
 
         public override void OnCliked()
         {
-            if (_wallet.UseMoney(_price))
-            {
-                _maker.FillShopItem(true);
-            }
+            //if (_wallet.ChangeMoney(_price))
+            //{
+            //    _maker.FillShopItem(true);
+            //}
         }
     }
 }

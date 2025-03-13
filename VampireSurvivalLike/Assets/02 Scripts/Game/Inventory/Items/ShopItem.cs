@@ -65,11 +65,11 @@ namespace Inventory
             _isBuy = true;
             // 이 Ui 아이템 Image 숨기기
             _wallet = GameManager.Instance.player.GetComponent<PlayerWallet>();
-            if(!_wallet.UseMoney(copySO.price))
-            {
-                _isBuy = false;
-                return;
-            }
+            //if(!_wallet.UseMoney(copySO.price))
+            //{
+            //    _isBuy = false;
+            //    return;
+            //}
 
             UIManager.Instance.UIs[_image.gameObject.name].ChangeAlpha(false, 0.1f);
             UIManager.Instance.UIs[_image.transform.GetChild(0).name].ChangeAlpha(false, 0.1f);
@@ -177,7 +177,7 @@ namespace Inventory
 
         private void PlaceFailed()
         {
-            _wallet.AddMoney(copySO.price);
+            //_wallet.AddMoney(copySO.price);
             UIManager.Instance.UIs[_image.gameObject.name].ChangeAlpha(true, 0.1f);
             UIManager.Instance.UIs[_image.transform.GetChild(0).name].ChangeAlpha(true, 0.1f);
             UIManager.Instance.UIs.Remove(_followIcon.name);
