@@ -26,24 +26,19 @@ namespace Player
             GameEventManager.OnMoneyUseEvent.RemoveEvent(this);
         }
 
-        private bool ChangeMoney(int minusOrPlusMoneyValue)
+        private bool ChangeMoney(int moneyValue)
         {
-            if(minusOrPlusMoneyValue < 0)
+            if(moneyValue < 0)
             {
-                if (_currentMoney < minusOrPlusMoneyValue)
+                if (_currentMoney < Mathf.Abs(moneyValue))
                 {
                     return false;
                 }
-
-                _currentMoney += minusOrPlusMoneyValue;
-
-                return true;
             }
-            else
-            {
-                _currentMoney += minusOrPlusMoneyValue;
-                return true;
-            }
+
+            _currentMoney += moneyValue;
+
+            return true;
         }
 
         public void OnEvent(int t)
