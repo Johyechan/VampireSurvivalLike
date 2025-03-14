@@ -6,6 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ShopItemSO", menuName = "SO/ShopItem", order = 0)]
 public class ShopItemSO : ScriptableObject
 {
-    public ObjectPoolType type;
+    public ObjectPoolType shopType;
+    public ObjectPoolType InventoryType;
     public int price;
 }

@@ -15,11 +15,11 @@ namespace MyUI
 
         public int alphaValue;
 
-        public void ChangeAlpha(bool isApper, float delay = 0)
+        public void ChangeAlpha(bool isAppear, float delay = 0)
         {
             int alpha = 0;
 
-            if(isApper)
+            if(isAppear)
             {
                 alpha = alphaValue;
             }
