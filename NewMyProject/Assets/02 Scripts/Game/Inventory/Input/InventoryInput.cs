@@ -6,16 +6,16 @@ using MyUI.Animator.Enum;
 
 namespace Game.Inventory.Input
 {
-    public class InventoryInput : MonoBehaviour
+    public class InventoryInput : EventSubscriber
     {
         private bool _isOpen = false;
 
-        private void OnEnable()
+        protected override void SubscribeEvents()
         {
             InputManager.Instance.OnInventoryToggle += ToggleInventory;
         }
 
-        private void OnDisable()
+        protected override void UnsubscribeEvents()
         {
             InputManager.Instance.OnInventoryToggle -= ToggleInventory;
         }

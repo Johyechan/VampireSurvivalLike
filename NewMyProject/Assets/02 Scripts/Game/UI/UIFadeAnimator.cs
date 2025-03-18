@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace MyUI.Animator
 {
-    public class UIFadeAnimator : MonoBehaviour, IUIAnimator
+    public class UIFadeAnimator : EventSubscriber, IUIAnimator
     {
         private CanvasGroup _canvasGroup;
 
@@ -18,12 +18,12 @@ namespace MyUI.Animator
             _canvasGroup = GetComponent<CanvasGroup>();
         }
 
-        private void OnEnable()
+        protected override void SubscribeEvents()
         {
             UIAnimatorEventManager.OnPlayAnimation += Play;
         }
 
-        private void OnDisable()
+        protected override void UnsubscribeEvents()
         {
             UIAnimatorEventManager.OnPlayAnimation -= Play;
         }
