@@ -1,10 +1,15 @@
 using UnityEngine;
 using Manager.Input;
+using MyUI.Animator.Interface;
+using MyUI.Animator;
+using MyUI.Animator.Enum;
 
 namespace Game.Inventory.Input
 {
     public class InventoryInput : MonoBehaviour
     {
+        private bool _isOpen = false;
+
         private void OnEnable()
         {
             InputManager.Instance.OnInventoryToggle += ToggleInventory;
@@ -17,7 +22,16 @@ namespace Game.Inventory.Input
 
         private void ToggleInventory()
         {
-            // 인벤토리 등장
+            if(_isOpen)
+            {
+                _isOpen = false;
+                UIAnimatorEventManager.Play(UIAnimationType.FadeOut);
+            }
+            else
+            {
+                _isOpen = true;
+                UIAnimatorEventManager.Play(UIAnimationType.FadeIn);
+            }
         }
     }
 }
