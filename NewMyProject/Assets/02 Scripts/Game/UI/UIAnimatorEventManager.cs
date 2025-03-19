@@ -1,7 +1,5 @@
 using MyUI.Animator.Enum;
-using MyUI.Animator.Interface;
 using System;
-using UnityEngine;
 
 namespace MyUI.Animator
 {

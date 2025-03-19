@@ -1,6 +1,4 @@
-using UnityEngine;
 using Manager.Input;
-using MyUI.Animator.Interface;
 using MyUI.Animator;
 using MyUI.Animator.Enum;
 

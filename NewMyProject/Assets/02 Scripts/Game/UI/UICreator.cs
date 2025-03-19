@@ -17,7 +17,7 @@ namespace MyUI
         }
 
         // x = 가로 개수 y = 세로 개수 width = 생성 객체의 너비, height = 생성 객체의 높이, spacing = 간격
-        public void CreateUI(List<ObjectPoolType> types, Transform parentTrans, int x, int y, int width, int height, float spacing, int[,] backpackArr = null)
+        public void CreateUI(List<ObjectPoolType> types, Transform parentTrans, int x, int y, float width, float height, float spacing, int[,] backpackArr = null)
         {
             // rectTransform을 가져옴
             RectTransform rectTrans = parentTrans.GetComponent<RectTransform>();
@@ -28,6 +28,14 @@ namespace MyUI
             {
                 for(int j = 0; j < y; j++)
                 {
+                    if(backpackArr != null)
+                    {
+                        if (backpackArr[i, j] == 0)
+                        {
+                            continue;
+                        }
+                    }
+
                     ObjectPoolType type = GetRandomType(types);
                     GameObject obj = _spawnStrategy.SpawnUI(type, parentTrans);
                     float posX = firstPosVec.x + i * (width + spacing);

@@ -5,7 +5,7 @@ namespace MyUI.Strategy.Layout
 {
     public class GridLayoutStrategy : IUILayoutStrategy
     {
-        public Vector2 GetPosition(RectTransform parentRectTrans, int x, int y, int width, int height, float spacing)
+        public Vector2 GetPosition(RectTransform parentRectTrans, int x, int y, float width, float height, float spacing)
         {
             // 현재 UI의 너비와 높이를 가져오자
             float panelWidth = parentRectTrans.rect.width;

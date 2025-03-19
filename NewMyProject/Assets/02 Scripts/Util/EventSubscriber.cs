@@ -23,6 +23,5 @@ public abstract class EventSubscriber : MonoBehaviour
     private void OnApplicationQuit()
     {
         _isQuitting = true;
-        UnsubscribeEvents();
     }
 }

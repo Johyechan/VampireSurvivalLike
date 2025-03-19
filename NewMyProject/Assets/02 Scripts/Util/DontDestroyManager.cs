@@ -1,9 +1,13 @@
 using UnityEngine;
 
-public class DontDestroyManager : MonoBehaviour
+namespace MyUtil
 {
-    private void Awake()
+    public class DontDestroyManager : MonoBehaviour
     {
-        DontDestroyOnLoad(gameObject);
+        private void Awake()
+        {
+            DontDestroyOnLoad(gameObject);
+        }
     }
 }
+

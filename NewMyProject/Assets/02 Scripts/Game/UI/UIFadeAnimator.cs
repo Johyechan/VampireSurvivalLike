@@ -1,9 +1,7 @@
 using MyUI.Animator.Enum;
 using MyUI.Animator.Interface;
 using System.Collections;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace MyUI.Animator
 {
