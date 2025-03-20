@@ -6,6 +6,7 @@ namespace MyUtil.Pool
     {
         None,
         Slot,
+        ShopBow,
     }
 }
 

@@ -390,7 +390,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f74fcfab6d79f964baebdba675609369, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _types: 01000000
+  _types: 02000000
   _parentTrans: {fileID: 351993282}
   _objXCount: 2
   _objYCount: 2
@@ -410,7 +410,7 @@ GameObject:
   - component: {fileID: 351993283}
   m_Layer: 5
   m_Name: ShopPanel
-  m_TagString: Untagged
+  m_TagString: Shop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -565,6 +565,9 @@ MonoBehaviour:
   - prefabType: 1
     prefabObj: {fileID: 1652534053802856043, guid: ab6cda950e0450642be05150a3976caa, type: 3}
     prefabCount: 54
+  - prefabType: 2
+    prefabObj: {fileID: 4171272575977241013, guid: 3d3bd0044cb29f64a89092ad4bd37e44, type: 3}
+    prefabCount: 4
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1134,7 +1137,7 @@ GameObject:
   - component: {fileID: 1549292326}
   m_Layer: 5
   m_Name: BackpackPanel
-  m_TagString: Untagged
+  m_TagString: Backpack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
