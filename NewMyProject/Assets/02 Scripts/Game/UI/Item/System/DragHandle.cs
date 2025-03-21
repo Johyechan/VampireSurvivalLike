@@ -1,5 +1,4 @@
 using MyUI.Interface;
-using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -18,15 +17,16 @@ namespace MyUI.Item.HandleSystem
             _canvas = canvas;
             _raycaster = raycaster;
         }
+
         public void OnDragStart(RectTransform rectTransform)
         {
-            ChangeParent(rectTransform);
+            ChangeParent(rectTransform, true);
             UpdateFollowUI(rectTransform);
         }
 
         public void OnDrag(RectTransform rectTransform)
         {
-            ChangeParent(rectTransform);
+            ChangeParent(rectTransform, true);
             UpdateFollowUI(rectTransform);
         }
 
@@ -46,7 +46,7 @@ namespace MyUI.Item.HandleSystem
             }
         }
 
-        private void ChangeParent(RectTransform rectTransform)
+        private void ChangeParent(RectTransform rectTransform, bool setParent = false)
         {
             PointerEventData pointer = new PointerEventData(EventSystem.current)
             {
@@ -59,10 +59,16 @@ namespace MyUI.Item.HandleSystem
 
             foreach (var result in results)
             {
-                Debug.Log(result);
                 if (result.gameObject.CompareTag("Shop") || result.gameObject.CompareTag("Backpack"))
                 {
-                    rectTransform.SetParent(result.gameObject.transform);
+                    if (setParent)
+                    {
+                        rectTransform.SetParent(result.gameObject.transform.parent);
+                    }
+                    else
+                    {
+                        rectTransform.SetParent(result.gameObject.transform);
+                    }
                     break;
                 }
             }

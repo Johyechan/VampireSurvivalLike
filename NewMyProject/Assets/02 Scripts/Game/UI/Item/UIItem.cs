@@ -32,12 +32,12 @@ namespace MyUI.Item
 
         public virtual void OnDrag(PointerEventData eventData)
         {
-            _draggable.OnDragStart(_rectTrans);
+            _draggable.OnDrag(_rectTrans);
         }
 
         public virtual void OnEndDrag(PointerEventData eventData)
         {
-            _draggable.OnDragStart(_rectTrans);
+            _draggable.OnDragEnd(_rectTrans);
         }
     }
 }
