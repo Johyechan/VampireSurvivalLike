@@ -1,4 +1,6 @@
+using Manager.Inventory;
 using MyUI.Interface;
+using MyUI.Slot;
 using MyUtil.Pool;
 using System.Collections.Generic;
 using UnityEngine;
@@ -42,6 +44,11 @@ namespace MyUI
                     float posY = firstPosVec.y - j * (height + spacing);
 
                     obj.GetComponent<RectTransform>().anchoredPosition = new Vector2(posX, posY);
+
+                    if(type == ObjectPoolType.Slot)
+                    {
+                        InventoryManager.Instance.Grid[i, j] = obj.GetComponent<InventorySlot>();
+                    }
                 }
             }
         }

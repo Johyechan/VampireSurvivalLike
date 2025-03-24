@@ -8,13 +8,19 @@ namespace MyUI.Item
 {
     public class UIItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
+        [SerializeField] protected UIItemSO _so;
+
         private Canvas _canvas;
 
         private GraphicRaycaster _raycaster;
 
-        private RectTransform _rectTrans;
+        protected RectTransform _rectTrans;
 
         private IDraggable _draggable;
+
+        protected IRotation _rotation;
+
+        protected IPlacement _placement;
 
         protected virtual void Awake()
         {
@@ -23,6 +29,8 @@ namespace MyUI.Item
             _rectTrans = GetComponent<RectTransform>();
 
             _draggable = new DragHandle(_canvas, _raycaster);
+            _rotation = new RotationHandle();
+            _placement = new PlacementHandle();
         }
 
         public virtual void OnBeginDrag(PointerEventData eventData)

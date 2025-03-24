@@ -1,4 +1,5 @@
 using Manager;
+using Manager.Inventory;
 using MyUI.Interface;
 using MyUI.Strategy.Layout;
 using MyUI.Strategy.Spawn;
@@ -24,6 +25,8 @@ namespace MyUI.Slot
             _creator.Init(_layoutStrategy, _spawnStrategy);
             
             _playerBackpack = GameManager.Instance.player.GetComponent<PlayerBackpack>();
+
+            InventoryManager.Instance.Grid = new InventorySlot[_objXCount, _objYCount];
         }
 
         private void Start()
