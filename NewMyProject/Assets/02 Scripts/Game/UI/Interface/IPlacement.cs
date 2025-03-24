@@ -1,3 +1,4 @@
+using MyUI.Item;
 using MyUI.Slot;
 using MyUI.Struct;
 using UnityEngine;
@@ -10,7 +11,7 @@ namespace MyUI.Interface
 
         public void CalculatePlacePos(RectTransform rectTrans, InventorySlot slot, ItemShape shape, Vector2Int criteria);
 
-        public bool Place(RectTransform itemRectTrans, InventorySlot slot, ItemShape shape);
+        public bool Place(RectTransform itemRectTrans, InventorySlot slot, ItemShape shape, ShopAndInventoryItem item);
     }
 }
 

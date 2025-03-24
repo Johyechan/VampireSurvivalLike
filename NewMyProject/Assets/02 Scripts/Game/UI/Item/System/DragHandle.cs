@@ -1,4 +1,5 @@
 using MyUI.Interface;
+using MyUI.Slot;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -12,6 +13,8 @@ namespace MyUI.Item.HandleSystem
 
         private GraphicRaycaster _raycaster;
 
+        private InventorySlot _currentSlot;
+
         public DragHandle(Canvas canvas, GraphicRaycaster raycaster)
         {
             _canvas = canvas;
@@ -20,19 +23,19 @@ namespace MyUI.Item.HandleSystem
 
         public void OnDragStart(RectTransform rectTransform)
         {
-            ChangeParent(rectTransform, true);
+            UIRaycast(rectTransform, true);
             UpdateFollowUI(rectTransform);
         }
 
         public void OnDrag(RectTransform rectTransform)
         {
-            ChangeParent(rectTransform, true);
+            UIRaycast(rectTransform, true);
             UpdateFollowUI(rectTransform);
         }
 
         public void OnDragEnd(RectTransform rectTransform)
         {
-            ChangeParent(rectTransform);
+            UIRaycast(rectTransform);
             UpdateFollowUI(rectTransform);
         }
 
@@ -46,7 +49,7 @@ namespace MyUI.Item.HandleSystem
             }
         }
 
-        private void ChangeParent(RectTransform rectTransform, bool setParent = false)
+        private void UIRaycast(RectTransform rectTransform, bool setParent = false)
         {
             PointerEventData pointer = new PointerEventData(EventSystem.current)
             {
@@ -71,8 +74,16 @@ namespace MyUI.Item.HandleSystem
                     }
                     break;
                 }
+                else if(result.gameObject.TryGetComponent(out InventorySlot slot))
+                {
+                    _currentSlot = slot;
+                }
             }
+        }
+
+        public GameObject GetObject()
+        {
+            return _currentSlot.gameObject;
         }
     }
 }
-

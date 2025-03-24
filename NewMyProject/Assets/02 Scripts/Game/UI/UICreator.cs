@@ -30,24 +30,28 @@ namespace MyUI
             {
                 for(int j = 0; j < y; j++)
                 {
-                    if(backpackArr != null)
-                    {
-                        if (backpackArr[i, j] == 0)
-                        {
-                            continue;
-                        }
-                    }
-
                     ObjectPoolType type = GetRandomType(types);
                     GameObject obj = _spawnStrategy.SpawnUI(type, parentTrans);
                     float posX = firstPosVec.x + i * (width + spacing);
                     float posY = firstPosVec.y - j * (height + spacing);
 
+                    if (backpackArr != null)
+                    {
+                        if (backpackArr[i, j] == 0)
+                        {
+                            obj.SetActive(false);
+                        }
+                    }
+
                     obj.GetComponent<RectTransform>().anchoredPosition = new Vector2(posX, posY);
 
                     if(type == ObjectPoolType.Slot)
                     {
-                        InventoryManager.Instance.Grid[i, j] = obj.GetComponent<InventorySlot>();
+                        InventorySlot slot = obj.GetComponent<InventorySlot>();
+                        slot.X = i;
+                        slot.Y = j;
+                        slot.IsEmpty = false;
+                        InventoryManager.Instance.Grid[i, j] = slot;
                     }
                 }
             }
