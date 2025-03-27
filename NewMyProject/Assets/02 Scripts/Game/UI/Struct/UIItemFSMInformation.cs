@@ -15,7 +15,11 @@ namespace MyUI.Struct
 
         public IState placementSuccessState;
 
-        public Vector3 originPos;
+        public Vector3 originPosition;
+
+        public Quaternion originRotaiton;
+
+        public ItemShape shape;
     }
 }
 

@@ -11,7 +11,7 @@ namespace MyUI.Interface
 
         public void CalculatePlacePos(RectTransform rectTrans, InventorySlot slot, ItemShape shape, Vector2Int criteria);
 
-        public bool Place(RectTransform itemRectTrans, InventorySlot slot, ItemShape shape, ShopAndInventoryItem item = null);
+        public bool Place(RectTransform itemRectTrans, InventorySlot slot, ItemShape shape);
     }
 }
 

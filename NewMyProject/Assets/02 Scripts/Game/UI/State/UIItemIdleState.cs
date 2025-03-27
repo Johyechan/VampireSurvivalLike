@@ -1,5 +1,6 @@
 using Manager.FSM.UIItem;
 using MyUI.Interface;
+using MyUI.Item;
 using MyUI.Item.HandleSystem;
 using MyUI.Struct;
 using MyUtil.FSM;
@@ -8,24 +9,24 @@ using UnityEngine.EventSystems;
 
 namespace MyUI.State
 {
-    public class UIItemIdleState : IState, IBeginDragHandler
+    public class UIItemIdleState : IState
     {
-        private StateMachine _machine;
-
         private RectTransform _rectTrans;
 
-        private IDraggable _dragHandle;
+        private UIItem _item;
 
-        public UIItemIdleState(StateMachine machine, RectTransform rectTrans, Vector3 firstPos, IDraggable dragHandle)
+        public UIItemIdleState(RectTransform rectTrans, UIItem item)
         {
-            _machine = machine;
             _rectTrans = rectTrans;
-            _dragHandle = dragHandle;
+            _item = item;
         }
 
         public void Enter()
         {
-            _rectTrans.position = UIItemFSMManager.Instance.UIItemInformations[_rectTrans.gameObject.name].originPos;
+            Debug.Log("idle");
+            _rectTrans.position = UIItemFSMManager.Instance.UIItemInformations[_rectTrans.gameObject.name].originPosition;
+            _rectTrans.rotation = UIItemFSMManager.Instance.UIItemInformations[_rectTrans.gameObject.name].originRotaiton;
+            _item.shape = UIItemFSMManager.Instance.UIItemInformations[_rectTrans.gameObject.name].shape;
         }
 
         public void Execute()
@@ -36,12 +37,6 @@ namespace MyUI.State
         public void Exit()
         {
             
-        }
-
-        public void OnBeginDrag(PointerEventData eventData)
-        {
-            _dragHandle.OnDragStart(_rectTrans);
-            _machine.ChangeState(UIItemFSMManager.Instance.UIItemInformations[_rectTrans.gameObject.name].draggingState);
         }
     }
 }

@@ -1,5 +1,6 @@
 using Manager.FSM.UIItem;
 using MyUI.Interface;
+using MyUI.Item;
 using MyUI.Slot;
 using MyUtil.FSM;
 using UnityEngine;
@@ -13,29 +14,31 @@ namespace MyUI.State
 
         private RectTransform _rectTrans;
 
-        private UIItemSO _so;
+        private UIItem _item;
 
         private IDraggable _dragHandle;
 
         private IPlacement _placementHandle;
 
-        public UIItemPlacementCheckState(StateMachine machine, RectTransform rectTrans, UIItemSO so, IDraggable dragHandle, IPlacement placementHandle)
+        public UIItemPlacementCheckState(StateMachine machine, RectTransform rectTrans, UIItem item, IDraggable dragHandle, IPlacement placementHandle)
         {
             _machine = machine;
             _rectTrans = rectTrans;
-            _so = so;
+            _item = item;
             _dragHandle = dragHandle;
             _placementHandle = placementHandle;
         }
 
         public void Enter()
         {
+            Debug.Log("check");
+
             _dragHandle.OnDragEnd(_rectTrans);
 
             if (_dragHandle.GetObject() != null)
             {
                 InventorySlot slot = _dragHandle.GetObject().GetComponent<InventorySlot>();
-                if (_placementHandle.Place(_rectTrans, slot, _so.shape))
+                if (_placementHandle.Place(_rectTrans, slot, _item.shape))
                 {
                     _machine.ChangeState(UIItemFSMManager.Instance.UIItemInformations[_rectTrans.gameObject.name].placementSuccessState);
                 }

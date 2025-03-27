@@ -1,54 +1,41 @@
 using Manager.FSM.UIItem;
 using MyUI.Interface;
+using MyUI.Item;
 using MyUtil.FSM;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace MyUI.State
 {
-    public class UIItemDraggingState : IState, IDragHandler, IEndDragHandler
+    public class UIItemDraggingState : IState
     {
-        private StateMachine _machine;
-
         private RectTransform _rectTrans;
 
-        private IDraggable _dragHandle;
+        private UIItem _item;
 
         private IRotation _rotationHandle;
 
-        public UIItemDraggingState(StateMachine machine, RectTransform rectTrans, IDraggable dragHandle, IRotation rotationHandle)
+        public UIItemDraggingState(RectTransform rectTrans, UIItem item, IRotation rotationHandle)
         {
-            _machine = machine;
-            _rectTrans = rectTrans;
-            _dragHandle = dragHandle;
+            _item = item;
             _rotationHandle = rotationHandle;
         }
 
         public void Enter()
         {
-            
+            Debug.Log("drag");
         }
 
         public void Execute()
         {
             // 인풋 관련해서 오른쪽 왼쪽 판단해서 아래 함수 부르면 됨
             // _rotationHandle.Rotate();
+            // 회전 할 때 형태 좌표 계속 갱신하고 _item.shape = 뭐다 식으로
         }
 
         public void Exit()
         {
             
-        }
-
-        public void OnDrag(PointerEventData eventData)
-        {
-            _dragHandle.OnDrag(_rectTrans);
-        }
-
-        public void OnEndDrag(PointerEventData eventData)
-        {
-            _dragHandle.OnDragEnd(_rectTrans);
-            _machine.ChangeState(UIItemFSMManager.Instance.UIItemInformations[_rectTrans.gameObject.name].placementCheckState);
         }
     }
 }

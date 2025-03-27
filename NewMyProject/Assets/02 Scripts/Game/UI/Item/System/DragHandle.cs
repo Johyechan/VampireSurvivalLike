@@ -81,6 +81,7 @@ namespace MyUI.Item.HandleSystem
             }
         }
 
+        // 여기서 널 레퍼런스 남
         public GameObject GetObject()
         {
             return _currentSlot.gameObject;

@@ -68,7 +68,7 @@ namespace MyUI.Item.HandleSystem
             return null;
         }
 
-        public bool Place(RectTransform itemRectTrans, InventorySlot slot, ItemShape shape, ShopAndInventoryItem item = null)
+        public bool Place(RectTransform itemRectTrans, InventorySlot slot, ItemShape shape)
         {
             // 배치 가능한 기준점 찾기
             Vector2Int? criteria = CanPlace(slot, shape);
@@ -83,7 +83,6 @@ namespace MyUI.Item.HandleSystem
                     int targetY = slot.Y + offset.y - criteria.Value.y;
 
                     InventoryManager.Instance.Grid[targetX, targetY].IsOccupied = true;
-                    item.SaveGridIndexs.Add(new Vector2Int(targetX, targetY));
                 }
 
                 // UI 위치 계산

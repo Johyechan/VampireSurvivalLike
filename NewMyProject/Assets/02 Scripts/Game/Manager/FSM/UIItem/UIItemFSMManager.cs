@@ -8,7 +8,9 @@ namespace Manager.FSM.UIItem
 {
     public class UIItemFSMManager : Singleton<UIItemFSMManager>
     {
-        public Dictionary<string, UIItemFSMInformation> UIItemInformations { get; set; }
+        public Dictionary<string, UIItemFSMInformation> UIItemInformations { get { return _uiItemInformations; } }
+        private Dictionary<string, UIItemFSMInformation> _uiItemInformations = new Dictionary<string, UIItemFSMInformation>();
+
     }
 }
 
