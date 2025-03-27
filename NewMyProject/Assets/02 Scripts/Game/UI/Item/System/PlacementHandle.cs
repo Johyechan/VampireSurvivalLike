@@ -49,7 +49,7 @@ namespace MyUI.Item.HandleSystem
                     if (checkX < 0 || checkY < 0 ||
                         checkX >= InventoryManager.Instance.Grid.GetLength(0) ||
                         checkY >= InventoryManager.Instance.Grid.GetLength(1) ||
-                        InventoryManager.Instance.Grid[checkX, checkY].IsEmpty ||
+                        InventoryManager.Instance.Grid[checkX, checkY].IsOccupied ||
                         !InventoryManager.Instance.Grid[checkX, checkY].gameObject.activeSelf)
                     {
                         canPlace = false;
@@ -68,7 +68,7 @@ namespace MyUI.Item.HandleSystem
             return null;
         }
 
-        public bool Place(RectTransform itemRectTrans, InventorySlot slot, ItemShape shape, ShopAndInventoryItem item)
+        public bool Place(RectTransform itemRectTrans, InventorySlot slot, ItemShape shape, ShopAndInventoryItem item = null)
         {
             // 배치 가능한 기준점 찾기
             Vector2Int? criteria = CanPlace(slot, shape);
@@ -82,7 +82,7 @@ namespace MyUI.Item.HandleSystem
                     int targetX = slot.X + offset.x - criteria.Value.x;
                     int targetY = slot.Y + offset.y - criteria.Value.y;
 
-                    InventoryManager.Instance.Grid[targetX, targetY].IsEmpty = true;
+                    InventoryManager.Instance.Grid[targetX, targetY].IsOccupied = true;
                     item.SaveGridIndexs.Add(new Vector2Int(targetX, targetY));
                 }
 

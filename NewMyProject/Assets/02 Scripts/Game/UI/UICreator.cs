@@ -50,7 +50,7 @@ namespace MyUI
                         InventorySlot slot = obj.GetComponent<InventorySlot>();
                         slot.X = i;
                         slot.Y = j;
-                        slot.IsEmpty = false;
+                        slot.IsOccupied = false;
                         InventoryManager.Instance.Grid[i, j] = slot;
                     }
                 }

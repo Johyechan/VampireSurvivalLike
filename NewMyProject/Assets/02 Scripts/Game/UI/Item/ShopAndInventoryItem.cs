@@ -35,7 +35,7 @@ namespace MyUI.Item
 
             foreach(var index in _saveGridIndexs)
             {
-                InventoryManager.Instance.Grid[index.x, index.y].IsEmpty = false;
+                InventoryManager.Instance.Grid[index.x, index.y].IsOccupied = false;
             }
 
             _saveGridIndexs.Clear();
@@ -52,7 +52,7 @@ namespace MyUI.Item
                 foreach(var index in _tempGridIndexs)
                 {
                     _saveGridIndexs.Add(index);
-                    InventoryManager.Instance.Grid[index.x, index.y].IsEmpty = true;
+                    InventoryManager.Instance.Grid[index.x, index.y].IsOccupied = true;
                 }
 
                 if(_isShop)

@@ -7,6 +7,6 @@ namespace MyUI.Slot
         public int X { get; set; }
         public int Y { get; set; }
 
-        public bool IsEmpty { get; set; }
+        public bool IsOccupied { get; set; }
     }
 }
