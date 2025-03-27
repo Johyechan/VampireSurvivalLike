@@ -20,7 +20,7 @@ namespace MyUI.State
         {
             Debug.Log("failed");
 
-            _machine.ChangeState(UIItemFSMManager.Instance.UIItemInformations[_obj.name].idleState);
+            _machine.ChangeState(UIItemManager.Instance.UIItemInformations[_obj.name].idleState);
         }
 
         public void Execute()

@@ -28,13 +28,13 @@ namespace MyUI.State
         {
             Debug.Log("success");
 
-            _information = UIItemFSMManager.Instance.UIItemInformations[_rectTrans.gameObject.name];
+            _information = UIItemManager.Instance.UIItemInformations[_rectTrans.gameObject.name];
             _information.originPosition = _rectTrans.position;
             _information.originRotaiton = _rectTrans.rotation;
             _information.shape = _item.shape;
-            UIItemFSMManager.Instance.UIItemInformations[_rectTrans.gameObject.name] = _information;
+            UIItemManager.Instance.UIItemInformations[_rectTrans.gameObject.name] = _information;
 
-            _machine.ChangeState(UIItemFSMManager.Instance.UIItemInformations[_rectTrans.gameObject.name].idleState);
+            _machine.ChangeState(UIItemManager.Instance.UIItemInformations[_rectTrans.gameObject.name].idleState);
         }
 
         public void Execute()

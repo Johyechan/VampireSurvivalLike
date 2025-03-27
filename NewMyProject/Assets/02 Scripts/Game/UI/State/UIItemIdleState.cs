@@ -24,9 +24,12 @@ namespace MyUI.State
         public void Enter()
         {
             Debug.Log("idle");
-            _rectTrans.position = UIItemFSMManager.Instance.UIItemInformations[_rectTrans.gameObject.name].originPosition;
-            _rectTrans.rotation = UIItemFSMManager.Instance.UIItemInformations[_rectTrans.gameObject.name].originRotaiton;
-            _item.shape = UIItemFSMManager.Instance.UIItemInformations[_rectTrans.gameObject.name].shape;
+            _rectTrans.position = UIItemManager.Instance.UIItemInformations[_rectTrans.gameObject.name].originPosition;
+            _rectTrans.rotation = UIItemManager.Instance.UIItemInformations[_rectTrans.gameObject.name].originRotaiton;
+            _item.shape = UIItemManager.Instance.UIItemInformations[_rectTrans.gameObject.name].shape;
+
+            // ΩΩ∑‘ √ ±‚»≠
+            // UIItemManagerø°º≠ ΩΩ∑‘ µÒº≈≥ ∏Æ µÈ∞Ìø¿±‚
         }
 
         public void Execute()

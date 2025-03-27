@@ -72,7 +72,7 @@ namespace MyUI.Item
 
             _information.shape = shape;
 
-            UIItemFSMManager.Instance.UIItemInformations.Add(gameObject.name, _information);
+            UIItemManager.Instance.UIItemInformations.Add(gameObject.name, _information);
 
             _machine.ChangeState(_idleState);
         }

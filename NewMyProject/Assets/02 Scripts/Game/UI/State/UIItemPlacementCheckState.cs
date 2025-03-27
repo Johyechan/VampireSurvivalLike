@@ -40,11 +40,11 @@ namespace MyUI.State
                 InventorySlot slot = _dragHandle.GetObject().GetComponent<InventorySlot>();
                 if (_placementHandle.Place(_rectTrans, slot, _item.shape))
                 {
-                    _machine.ChangeState(UIItemFSMManager.Instance.UIItemInformations[_rectTrans.gameObject.name].placementSuccessState);
+                    _machine.ChangeState(UIItemManager.Instance.UIItemInformations[_rectTrans.gameObject.name].placementSuccessState);
                 }
                 else
                 {
-                    _machine.ChangeState(UIItemFSMManager.Instance.UIItemInformations[_rectTrans.gameObject.name].placementFailedState);
+                    _machine.ChangeState(UIItemManager.Instance.UIItemInformations[_rectTrans.gameObject.name].placementFailedState);
                 }
             }
         }
