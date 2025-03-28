@@ -13,6 +13,7 @@ namespace MyUI.Item.HandleSystem
 
         private GraphicRaycaster _raycaster;
 
+        public InventorySlot CurrentSlot { get { return _currentSlot; } set { _currentSlot = value; } }
         private InventorySlot _currentSlot;
 
         public DragHandle(Canvas canvas, GraphicRaycaster raycaster)
@@ -35,7 +36,7 @@ namespace MyUI.Item.HandleSystem
 
         public void OnDragEnd(RectTransform rectTransform)
         {
-            UIRaycast(rectTransform);
+            UIRaycast(rectTransform, false, true);
             UpdateFollowUI(rectTransform);
         }
 
@@ -49,7 +50,7 @@ namespace MyUI.Item.HandleSystem
             }
         }
 
-        private void UIRaycast(RectTransform rectTransform, bool setParent = false)
+        private void UIRaycast(RectTransform rectTransform, bool setParent, bool isEnd = false)
         {
             PointerEventData pointer = new PointerEventData(EventSystem.current)
             {
@@ -62,7 +63,11 @@ namespace MyUI.Item.HandleSystem
 
             foreach (var result in results)
             {
-                if (result.gameObject.CompareTag("Shop") || result.gameObject.CompareTag("Backpack"))
+                if(result.gameObject.TryGetComponent(out InventorySlot slot) && isEnd)
+                {
+                    _currentSlot = slot;
+                }
+                else if (result.gameObject.CompareTag("Shop") || result.gameObject.CompareTag("Backpack"))
                 {
                     if (setParent)
                     {
@@ -74,17 +79,7 @@ namespace MyUI.Item.HandleSystem
                     }
                     break;
                 }
-                else if(result.gameObject.TryGetComponent(out InventorySlot slot))
-                {
-                    _currentSlot = slot;
-                }
             }
-        }
-
-        // 여기서 널 레퍼런스 남
-        public GameObject GetObject()
-        {
-            return _currentSlot.gameObject;
         }
     }
 }

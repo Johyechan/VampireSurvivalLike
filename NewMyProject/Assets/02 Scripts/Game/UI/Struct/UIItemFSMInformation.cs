@@ -20,6 +20,8 @@ namespace MyUI.Struct
         public Quaternion originRotaiton;
 
         public ItemShape shape;
+
+        public Transform parent;
     }
 }
 

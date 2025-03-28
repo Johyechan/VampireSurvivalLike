@@ -1,7 +1,9 @@
 using Manager.FSM.UIItem;
+using Manager.Inventory;
 using MyUI.Interface;
 using MyUI.Item;
 using MyUI.Item.HandleSystem;
+using MyUI.Slot;
 using MyUI.Struct;
 using MyUtil.FSM;
 using UnityEngine;
@@ -15,21 +17,21 @@ namespace MyUI.State
 
         private UIItem _item;
 
+        private string _objName;
+
         public UIItemIdleState(RectTransform rectTrans, UIItem item)
         {
             _rectTrans = rectTrans;
             _item = item;
+            _objName = rectTrans.gameObject.name;
         }
 
         public void Enter()
         {
-            Debug.Log("idle");
-            _rectTrans.position = UIItemManager.Instance.UIItemInformations[_rectTrans.gameObject.name].originPosition;
-            _rectTrans.rotation = UIItemManager.Instance.UIItemInformations[_rectTrans.gameObject.name].originRotaiton;
-            _item.shape = UIItemManager.Instance.UIItemInformations[_rectTrans.gameObject.name].shape;
-
-            // ΩΩ∑‘ √ ±‚»≠
-            // UIItemManagerø°º≠ ΩΩ∑‘ µÒº≈≥ ∏Æ µÈ∞Ìø¿±‚
+            _rectTrans.SetParent(UIItemManager.Instance.UIItemInformations[_objName].parent);
+            _rectTrans.localPosition = UIItemManager.Instance.UIItemInformations[_objName].originPosition;
+            _rectTrans.rotation = UIItemManager.Instance.UIItemInformations[_objName].originRotaiton;
+            _item.shape = UIItemManager.Instance.UIItemInformations[_objName].shape;
         }
 
         public void Execute()

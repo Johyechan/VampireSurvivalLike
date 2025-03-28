@@ -363,8 +363,8 @@ MonoBehaviour:
   _parentTrans: {fileID: 1549292325}
   _objXCount: 9
   _objYCount: 6
-  _objWidth: 50
-  _objHeight: 50
+  _objWidth: 80
+  _objHeight: 80
   _spacing: 10
 --- !u!114 &314342467
 MonoBehaviour:
@@ -517,6 +517,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1515482834}
+  nameNum: 0
 --- !u!1 &458563610
 GameObject:
   m_ObjectHideFlags: 0

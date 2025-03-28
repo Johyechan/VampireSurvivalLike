@@ -16,25 +16,29 @@ namespace MyUI.State
 
         private UIItemFSMInformation _information;
 
+        private string _objName;
+
         // 위치 및 모양 저장
         public UIItemPlacementSuccessState(StateMachine machine, RectTransform rectTrans, UIItem item)
         {
             _machine = machine;
             _rectTrans = rectTrans;
             _item = item;
+            _objName = rectTrans.gameObject.name;
         }
 
         public void Enter()
         {
             Debug.Log("success");
 
-            _information = UIItemManager.Instance.UIItemInformations[_rectTrans.gameObject.name];
-            _information.originPosition = _rectTrans.position;
+            _information = UIItemManager.Instance.UIItemInformations[_objName];
+            _information.originPosition = _rectTrans.localPosition;
             _information.originRotaiton = _rectTrans.rotation;
+            _information.parent = _rectTrans.parent;
             _information.shape = _item.shape;
-            UIItemManager.Instance.UIItemInformations[_rectTrans.gameObject.name] = _information;
+            UIItemManager.Instance.UIItemInformations[_objName] = _information;
 
-            _machine.ChangeState(UIItemManager.Instance.UIItemInformations[_rectTrans.gameObject.name].idleState);
+            _machine.ChangeState(UIItemManager.Instance.UIItemInformations[_objName].idleState);
         }
 
         public void Execute()

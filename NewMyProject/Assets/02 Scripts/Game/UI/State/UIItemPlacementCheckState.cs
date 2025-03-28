@@ -1,6 +1,8 @@
 using Manager.FSM.UIItem;
+using Manager.Inventory;
 using MyUI.Interface;
 using MyUI.Item;
+using MyUI.Item.HandleSystem;
 using MyUI.Slot;
 using MyUtil.FSM;
 using UnityEngine;
@@ -16,36 +18,47 @@ namespace MyUI.State
 
         private UIItem _item;
 
-        private IDraggable _dragHandle;
+        private IDraggable _draggable;
 
         private IPlacement _placementHandle;
+
+        private DragHandle _dragHandle;
+
+        private string _objName;
 
         public UIItemPlacementCheckState(StateMachine machine, RectTransform rectTrans, UIItem item, IDraggable dragHandle, IPlacement placementHandle)
         {
             _machine = machine;
             _rectTrans = rectTrans;
             _item = item;
-            _dragHandle = dragHandle;
+            _draggable = dragHandle;
             _placementHandle = placementHandle;
+            _objName = rectTrans.gameObject.name;
         }
 
         public void Enter()
         {
-            Debug.Log("check");
+            _dragHandle = _draggable as DragHandle;
 
-            _dragHandle.OnDragEnd(_rectTrans);
-
-            if (_dragHandle.GetObject() != null)
+            if (_dragHandle.CurrentSlot != null)
             {
-                InventorySlot slot = _dragHandle.GetObject().GetComponent<InventorySlot>();
+                InventorySlot slot = _dragHandle.CurrentSlot.GetComponent<InventorySlot>();
+                
                 if (_placementHandle.Place(_rectTrans, slot, _item.shape))
                 {
-                    _machine.ChangeState(UIItemManager.Instance.UIItemInformations[_rectTrans.gameObject.name].placementSuccessState);
+                    
+                    _machine.ChangeState(UIItemManager.Instance.UIItemInformations[_objName].placementSuccessState);
                 }
                 else
                 {
-                    _machine.ChangeState(UIItemManager.Instance.UIItemInformations[_rectTrans.gameObject.name].placementFailedState);
+                    _machine.ChangeState(UIItemManager.Instance.UIItemInformations[_objName].placementFailedState);
                 }
+
+                _dragHandle.CurrentSlot = null;
+            }
+            else
+            {
+                _machine.ChangeState(UIItemManager.Instance.UIItemInformations[_objName].placementFailedState);
             }
         }
 

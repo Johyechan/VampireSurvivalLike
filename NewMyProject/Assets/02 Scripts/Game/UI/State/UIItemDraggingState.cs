@@ -1,4 +1,5 @@
 using Manager.FSM.UIItem;
+using Manager.Inventory;
 using MyUI.Interface;
 using MyUI.Item;
 using MyUtil.FSM;
@@ -15,15 +16,28 @@ namespace MyUI.State
 
         private IRotation _rotationHandle;
 
+        private string _objName;
+
         public UIItemDraggingState(RectTransform rectTrans, UIItem item, IRotation rotationHandle)
         {
             _item = item;
             _rotationHandle = rotationHandle;
+            _objName = rectTrans.gameObject.name;
         }
 
         public void Enter()
         {
-            Debug.Log("drag");
+            foreach (var item in InventoryManager.Instance.ItemGrid)
+            {
+                if (item.Key == _objName)
+                {
+                    foreach (var value in item.Value)
+                    {
+                        Vector2Int vec = value;
+                        InventoryManager.Instance.Grid[vec.x, vec.y].IsOccupied = false;
+                    }
+                }
+            }
         }
 
         public void Execute()

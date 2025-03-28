@@ -22,25 +22,25 @@ namespace MyUI.Item
 
         protected RectTransform _rectTrans;
 
-        private StateMachine _machine;
+        protected StateMachine _machine;
 
-        private IDraggable _draggable;
+        protected IDraggable _draggable;
 
         protected IRotation _rotation;
 
         protected IPlacement _placement;
 
-        private UIItemFSMInformation _information;
+        protected UIItemFSMInformation _information;
 
-        private IState _idleState;
-        private IState _draggingState;
-        private IState _checkState;
-        private IState _successState;
-        private IState _failedState;
+        protected IState _idleState;
+        protected IState _draggingState;
+        protected IState _checkState;
+        protected IState _successState;
+        protected IState _failedState;
 
         public ItemShape shape { get; set; }
 
-        protected virtual void Awake()
+        protected virtual void Start()
         {
             gameObject.name += GameManager.Instance.nameNum++;
 
@@ -54,25 +54,6 @@ namespace MyUI.Item
             _draggable = new DragHandle(_canvas, _raycaster);
             _rotation = new RotationHandle();
             _placement = new PlacementHandle();
-
-            _idleState = new UIItemIdleState(_rectTrans, this);
-            _draggingState = new UIItemDraggingState(_rectTrans, this, _rotation);
-            _checkState = new UIItemPlacementCheckState(_machine, _rectTrans, this, _draggable, _placement);
-            _successState = new UIItemPlacementSuccessState(_machine, _rectTrans, this);
-            _failedState = new UIItemPlacementFailedState(_machine, gameObject);
-
-            _information = new UIItemFSMInformation();
-
-            _information.idleState = _idleState;
-            _information.placementSuccessState = _successState;
-            _information.placementFailedState = _failedState;
-
-            _information.originPosition = _rectTrans.position;
-            _information.originRotaiton = _rectTrans.rotation;
-
-            _information.shape = shape;
-
-            UIItemManager.Instance.UIItemInformations.Add(gameObject.name, _information);
 
             _machine.ChangeState(_idleState);
         }

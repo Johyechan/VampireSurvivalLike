@@ -2,6 +2,7 @@ using Manager.Inventory;
 using MyUI.Interface;
 using MyUI.Slot;
 using MyUI.Struct;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace MyUI.Item.HandleSystem
@@ -76,12 +77,32 @@ namespace MyUI.Item.HandleSystem
             // 배치 가능한 기준점이 있다면
             if (criteria.HasValue)
             {
+                foreach (var item in InventoryManager.Instance.ItemGrid)
+                {
+                    if (item.Key == itemRectTrans.gameObject.name)
+                    {
+                        for (int i = 0; i < item.Value.Count; i++)
+                        {
+                            item.Value.Dequeue();
+                        }
+                    }
+                }
+
                 // 해당 기준점에서 슬롯 점유 상태를 업데이트
                 foreach (Vector2Int offset in shape.shape)
                 {
                     int targetX = slot.X + offset.x - criteria.Value.x;
                     int targetY = slot.Y + offset.y - criteria.Value.y;
 
+                    if(!InventoryManager.Instance.ItemGrid.ContainsKey(itemRectTrans.gameObject.name))
+                    {
+                        InventoryManager.Instance.ItemGrid.Add(itemRectTrans.gameObject.name, new Queue<Vector2Int>());
+                        InventoryManager.Instance.ItemGrid[itemRectTrans.gameObject.name].Enqueue(new Vector2Int(targetX, targetY));
+                    }
+                    else
+                    {
+                        InventoryManager.Instance.ItemGrid[itemRectTrans.gameObject.name].Enqueue(new Vector2Int(targetX, targetY));
+                    }
                     InventoryManager.Instance.Grid[targetX, targetY].IsOccupied = true;
                 }
 
