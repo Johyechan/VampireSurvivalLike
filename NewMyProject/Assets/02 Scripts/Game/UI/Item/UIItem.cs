@@ -1,9 +1,6 @@
 using Manager;
-using Manager.FSM.UIItem;
 using MyUI.Interface;
 using MyUI.Item.HandleSystem;
-using MyUI.Slot;
-using MyUI.State;
 using MyUI.Struct;
 using MyUtil.FSM;
 using UnityEngine;
@@ -26,8 +23,6 @@ namespace MyUI.Item
 
         protected IDraggable _draggable;
 
-        protected IRotation _rotation;
-
         protected IPlacement _placement;
 
         protected UIItemFSMInformation _information;
@@ -49,10 +44,9 @@ namespace MyUI.Item
             _raycaster = _canvas.GetComponent<GraphicRaycaster>();
             _rectTrans = GetComponent<RectTransform>();
 
-            shape = _so.shape;
+            shape = _so.DeepCopy().shape;
 
             _draggable = new DragHandle(_canvas, _raycaster);
-            _rotation = new RotationHandle();
             _placement = new PlacementHandle();
 
             _machine.ChangeState(_idleState);

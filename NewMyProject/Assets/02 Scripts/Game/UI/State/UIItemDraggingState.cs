@@ -1,32 +1,27 @@
-using Manager.FSM.UIItem;
 using Manager.Inventory;
-using MyUI.Interface;
+using Manager.UI;
 using MyUI.Item;
 using MyUtil.FSM;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace MyUI.State
 {
     public class UIItemDraggingState : IState
     {
-        private RectTransform _rectTrans;
-
         private UIItem _item;
-
-        private IRotation _rotationHandle;
 
         private string _objName;
 
-        public UIItemDraggingState(RectTransform rectTrans, UIItem item, IRotation rotationHandle)
+        public UIItemDraggingState(UIItem item)
         {
             _item = item;
-            _rotationHandle = rotationHandle;
-            _objName = rectTrans.gameObject.name;
+            _objName = item.gameObject.name;
         }
 
         public void Enter()
         {
+            UIItemManager.Instance.CurrentUIItem = _item;
+
             foreach (var item in InventoryManager.Instance.ItemGrid)
             {
                 if (item.Key == _objName)
@@ -42,9 +37,7 @@ namespace MyUI.State
 
         public void Execute()
         {
-            // 인풋 관련해서 오른쪽 왼쪽 판단해서 아래 함수 부르면 됨
-            // _rotationHandle.Rotate();
-            // 회전 할 때 형태 좌표 계속 갱신하고 _item.shape = 뭐다 식으로
+
         }
 
         public void Exit()

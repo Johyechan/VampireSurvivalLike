@@ -1,4 +1,5 @@
-using Manager.FSM.UIItem;
+using Manager.Inventory;
+using Manager.UI;
 using MyUtil.FSM;
 using UnityEngine;
 
@@ -18,7 +19,17 @@ namespace MyUI.State
 
         public void Enter()
         {
-            Debug.Log("failed");
+            foreach (var item in InventoryManager.Instance.ItemGrid)
+            {
+                if (item.Key == _obj.name)
+                {
+                    foreach (var value in item.Value)
+                    {
+                        Vector2Int vec = value;
+                        InventoryManager.Instance.Grid[vec.x, vec.y].IsOccupied = true;
+                    }
+                }
+            }
 
             _machine.ChangeState(UIItemManager.Instance.UIItemInformations[_obj.name].idleState);
         }

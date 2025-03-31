@@ -1,13 +1,7 @@
-using Manager.FSM.UIItem;
-using Manager.Inventory;
-using MyUI.Interface;
+using Manager.UI;
 using MyUI.Item;
-using MyUI.Item.HandleSystem;
-using MyUI.Slot;
-using MyUI.Struct;
 using MyUtil.FSM;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace MyUI.State
 {
@@ -31,7 +25,7 @@ namespace MyUI.State
             _rectTrans.SetParent(UIItemManager.Instance.UIItemInformations[_objName].parent);
             _rectTrans.localPosition = UIItemManager.Instance.UIItemInformations[_objName].originPosition;
             _rectTrans.rotation = UIItemManager.Instance.UIItemInformations[_objName].originRotaiton;
-            _item.shape = UIItemManager.Instance.UIItemInformations[_objName].shape;
+            _item.shape = UIItemManager.Instance.UIItemInformations[_objName].shape.ShapeDeepCopy();
         }
 
         public void Execute()

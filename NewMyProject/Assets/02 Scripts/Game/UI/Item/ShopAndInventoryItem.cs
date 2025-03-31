@@ -1,13 +1,8 @@
-using Manager.FSM.UIItem;
-using Manager.Inventory;
-using MyUI.Interface;
+using Manager.UI;
 using MyUI.State;
 using MyUI.Struct;
-using NUnit.Framework;
-using System.Collections.Generic;
-using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using static UnityEditor.Progress;
 
 namespace MyUI.Item
 {
@@ -18,7 +13,7 @@ namespace MyUI.Item
             base.Start();
 
             _idleState = new UIItemIdleState(_rectTrans, this);
-            _draggingState = new UIItemDraggingState(_rectTrans, this, _rotation);
+            _draggingState = new UIItemDraggingState(this);
             _checkState = new UIItemPlacementCheckState(_machine, _rectTrans, this, _draggable, _placement);
             _successState = new UIItemPlacementSuccessState(_machine, _rectTrans, this);
             _failedState = new UIItemPlacementFailedState(_machine, gameObject);
@@ -33,7 +28,7 @@ namespace MyUI.Item
             _information.originPosition = _rectTrans.localPosition;
             _information.originRotaiton = _rectTrans.rotation;
 
-            _information.shape = shape;
+            _information.shape = shape.ShapeDeepCopy();
 
             UIItemManager.Instance.UIItemInformations.Add(gameObject.name, _information);
         }

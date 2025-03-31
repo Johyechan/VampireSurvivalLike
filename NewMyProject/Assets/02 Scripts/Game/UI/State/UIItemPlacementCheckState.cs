@@ -1,12 +1,10 @@
-using Manager.FSM.UIItem;
-using Manager.Inventory;
+using Manager.UI;
 using MyUI.Interface;
 using MyUI.Item;
 using MyUI.Item.HandleSystem;
 using MyUI.Slot;
 using MyUtil.FSM;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace MyUI.State
 {

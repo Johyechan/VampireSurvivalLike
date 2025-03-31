@@ -1,10 +1,11 @@
 using MyUI.Struct;
+using UnityEngine;
 
 namespace MyUI.Interface
 {
     public interface IRotation
     {
-        public void Rotate(ItemShape shape, bool IsRight = true);
+        public ItemShape Rotate(ItemShape shape, bool isRight = true);
     }
 }
 

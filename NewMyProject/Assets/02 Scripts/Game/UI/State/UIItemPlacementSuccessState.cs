@@ -1,4 +1,4 @@
-using Manager.FSM.UIItem;
+using Manager.UI;
 using MyUI.Item;
 using MyUI.Struct;
 using MyUtil.FSM;
@@ -29,13 +29,11 @@ namespace MyUI.State
 
         public void Enter()
         {
-            Debug.Log("success");
-
             _information = UIItemManager.Instance.UIItemInformations[_objName];
             _information.originPosition = _rectTrans.localPosition;
             _information.originRotaiton = _rectTrans.rotation;
             _information.parent = _rectTrans.parent;
-            _information.shape = _item.shape;
+            _information.shape = _item.shape.ShapeDeepCopy();
             UIItemManager.Instance.UIItemInformations[_objName] = _information;
 
             _machine.ChangeState(UIItemManager.Instance.UIItemInformations[_objName].idleState);
