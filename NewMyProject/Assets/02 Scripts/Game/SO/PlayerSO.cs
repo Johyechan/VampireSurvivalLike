@@ -3,7 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "PlayerSO", menuName = "SO/PlayerSO", order = 0)]
 public class PlayerSO : ScriptableObject
 {
-    public float hp;
+    public float maxHp;
     public float hpRegen;
     public float damage;
     public float mana;

@@ -37,6 +37,7 @@ namespace MyUI.State
             UIItemManager.Instance.UIItemInformations[_objName] = _information;
 
             _machine.ChangeState(UIItemManager.Instance.UIItemInformations[_objName].idleState);
+            // 스탯 추가 및 인벤토리 매니저 리스트에 추가
         }
 
         public void Execute()

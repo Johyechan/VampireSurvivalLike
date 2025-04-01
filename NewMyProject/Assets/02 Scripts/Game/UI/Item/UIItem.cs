@@ -1,3 +1,4 @@
+using Item.Enum;
 using Manager;
 using MyUI.Interface;
 using MyUI.Item.HandleSystem;
@@ -35,6 +36,8 @@ namespace MyUI.Item
 
         public ItemShape shape { get; set; }
 
+        [SerializeField] protected ItemType _itemType;
+
         protected virtual void Start()
         {
             gameObject.name += GameManager.Instance.nameNum++;
@@ -52,18 +55,18 @@ namespace MyUI.Item
             _machine.ChangeState(_idleState);
         }
 
-        public void OnBeginDrag(PointerEventData eventData)
+        public virtual void OnBeginDrag(PointerEventData eventData)
         {
             _draggable.OnDragStart(_rectTrans);
             _machine.ChangeState(_draggingState);
         }
 
-        public void OnDrag(PointerEventData eventData)
+        public virtual void OnDrag(PointerEventData eventData)
         {
             _draggable.OnDrag(_rectTrans);
         }
 
-        public void OnEndDrag(PointerEventData eventData)
+        public virtual void OnEndDrag(PointerEventData eventData)
         {
             _draggable.OnDragEnd(_rectTrans);
             _machine.ChangeState(_checkState);

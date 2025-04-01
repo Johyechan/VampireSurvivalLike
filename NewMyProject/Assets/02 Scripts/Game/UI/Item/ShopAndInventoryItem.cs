@@ -1,3 +1,4 @@
+using Item.Enum;
 using Manager.UI;
 using MyUI.State;
 using MyUI.Struct;
@@ -31,6 +32,14 @@ namespace MyUI.Item
             _information.shape = shape.ShapeDeepCopy();
 
             UIItemManager.Instance.UIItemInformations.Add(gameObject.name, _information);
+        }
+
+        private void OnDisable()
+        {
+            if(_itemType == ItemType.Weapon)
+            {
+                // 플레이어 자식으로 추가
+            }
         }
     }
 }

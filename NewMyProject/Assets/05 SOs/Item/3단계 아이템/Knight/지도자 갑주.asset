@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dc992558a120774a8ed2c74f99e6028, type: 3}
+  m_Name: "\uC9C0\uB3C4\uC790 \uAC11\uC8FC"
+  m_EditorClassIdentifier: 
+  fireObjType: 0
+  objType: 0
+  fireSpeed: 0
+  itemLevel: "3\uB2E8\uACC4 \uC544\uC774\uD15C"
+  no: 1.3.3
+  itemName: "\uC9C0\uB3C4\uC790 \uAC11\uC8FC"
+  role: 1
+  attackDamage: 0
+  abilityPower: 0
+  soulPower: 0
+  range: 0
+  accuracyRate: 0
+  avoidanceRate: 0
+  criticalHitRate: 0
+  attackSpeed: 0
+  speedIncrease: 0
+  defence: 20
+  health: 0
+  mana: 0
+  soul: 0
+  healingCost: 0
+  manaCost: 0
+  healingSteal: 0
+  manaSteal: 0
+  healingFactor: 0
+  manaFactor: 0
+  effect: 0
+  price: 0
