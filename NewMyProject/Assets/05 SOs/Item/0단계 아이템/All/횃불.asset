@@ -39,4 +39,6 @@ MonoBehaviour:
   healingFactor: 0
   manaFactor: 0
   effect: 0
+  effectTarget: 1
+  itemType: 2
   price: 0

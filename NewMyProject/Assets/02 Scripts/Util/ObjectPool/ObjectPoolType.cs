@@ -7,6 +7,10 @@ namespace MyUtil.Pool
         None,
         Slot,
         ShopBow,
+        ShopSword,
+        ShopTorch,
+        Bow,
+        Sword
     }
 }
 

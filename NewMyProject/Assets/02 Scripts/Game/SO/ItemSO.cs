@@ -7,7 +7,7 @@ using UnityEngine;
 public class ItemSO : ScriptableObject
 {
     public ObjectPoolType fireObjType; // 발사체 (없으면 안 넣어도 됨)
-    public ObjectPoolType objType;
+    public ObjectPoolType objType; // 현재 오브젝트 PoolType
     public float fireSpeed; // 발사체 속도 (없으면 안 넣어도 됨)
     public string itemLevel;
     public string no; // 아이템 번호
@@ -34,5 +34,6 @@ public class ItemSO : ScriptableObject
     public float manaFactor; // 마나젠
     public EffectType effect; // 특수효과
     public EffectTargetType effectTarget; // 특수효과 대상
+    public ItemType itemType; // 무기인지 인벤토리 전용 아이템인지 구분
     public int price; // 가격
 }

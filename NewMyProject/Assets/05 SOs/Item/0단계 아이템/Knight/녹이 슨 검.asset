@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: "\uB179\uC774 \uC2A8 \uAC80"
   m_EditorClassIdentifier: 
   fireObjType: 0
-  objType: 0
+  objType: 6
   fireSpeed: 0
   itemLevel: "0\uB2E8\uACC4 \uC544\uC774\uD15C"
   no: 1.0.1
@@ -39,4 +39,6 @@ MonoBehaviour:
   healingFactor: 0
   manaFactor: 0
   effect: 0
+  effectTarget: 0
+  itemType: 1
   price: 0

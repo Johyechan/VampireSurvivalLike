@@ -13,6 +13,7 @@ namespace MyUI.Item
     public class UIItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         [SerializeField] protected UIItemSO _so;
+        public ItemSO itemSO;
 
         private Canvas _canvas;
 
@@ -35,8 +36,6 @@ namespace MyUI.Item
         protected IState _failedState;
 
         public ItemShape shape { get; set; }
-
-        [SerializeField] protected ItemType _itemType;
 
         protected virtual void Start()
         {

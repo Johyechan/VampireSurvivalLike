@@ -33,14 +33,6 @@ namespace MyUI.Item
 
             UIItemManager.Instance.UIItemInformations.Add(gameObject.name, _information);
         }
-
-        private void OnDisable()
-        {
-            if(_itemType == ItemType.Weapon)
-            {
-                // 플레이어 자식으로 추가
-            }
-        }
     }
 }
 

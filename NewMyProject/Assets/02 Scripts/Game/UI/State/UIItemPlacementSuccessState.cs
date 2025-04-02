@@ -1,3 +1,6 @@
+using Item.Enum;
+using Manager;
+using Manager.Inventory;
 using Manager.UI;
 using MyUI.Item;
 using MyUI.Struct;
@@ -36,6 +39,11 @@ namespace MyUI.State
             _information.shape = _item.shape.ShapeDeepCopy();
             UIItemManager.Instance.UIItemInformations[_objName] = _information;
 
+            StatManager.Instance.AddItemStat(_item.itemSO);
+            if(_item.itemSO.itemType == ItemType.Weapon)
+            {
+                InventoryManager.Instance.Items.Add(_objName, _item.itemSO.objType);
+            }
             _machine.ChangeState(UIItemManager.Instance.UIItemInformations[_objName].idleState);
             // 스탯 추가 및 인벤토리 매니저 리스트에 추가
         }

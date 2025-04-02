@@ -27,6 +27,11 @@ namespace Game.Inventory.Input
 
         protected override void UnsubscribeEvents()
         {
+            if(InputManager.Instance == null || InputManager.Instance.UIInputs == null)
+            {
+                return;
+            }
+
             InputManager.Instance.UIInputs.OnInventoryToggle -= ToggleInventory;
             InputManager.Instance.UIInputs.OnUIItemRotate -= ItemRotate;
         }

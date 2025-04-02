@@ -1,3 +1,6 @@
+using Manager;
+using Manager.Inventory;
+using Player.Backpack;
 using UnityEngine;
 
 namespace Player
@@ -5,7 +8,36 @@ namespace Player
     public class PlayerController : MonoBehaviour
     {
         public PlayerSO playerSO;
-        // 배낭과 인벤토리 매니저를 가져와서 배낭에 넣기
+
+        private PlayerBackpack _backpack;
+
+        private PlayerEventSubscriber _eventSubscriber;
+
+        private void Awake()
+        {
+            _backpack = GetComponent<PlayerBackpack>();
+            _eventSubscriber = GetComponent<PlayerEventSubscriber>();
+        }
+
+        private void OnEnable()
+        {
+            _eventSubscriber.OnAddItem += AddItem;
+        }
+
+        private void OnDisable()
+        {
+            _eventSubscriber.OnAddItem -= AddItem;
+        }
+
+        private void AddItem()
+        {
+            foreach (var item in InventoryManager.Instance.Items)
+            {
+                _backpack.AddItem(item.Key, item.Value);
+            }
+
+            _backpack.WeaponPositionSet();
+        }
     }
 }
 
