@@ -45,7 +45,7 @@ namespace MyUI.State
                 InventoryManager.Instance.Items.Add(_objName, _item.itemSO.objType);
             }
 
-            if(UIManager.Instance.shopPanel.transform.childCount <= 0)
+            if(UIManager.Instance.shopItemParent.transform.childCount <= 0)
             {
                 UIManager.Instance.Refill();
             }

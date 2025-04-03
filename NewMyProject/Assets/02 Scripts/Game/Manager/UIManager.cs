@@ -6,7 +6,7 @@ namespace Manager.UI
 {
     public class UIManager : Singleton<UIManager>
     {
-        public GameObject shopPanel;
+        public GameObject shopItemParent;
 
         public Action OnRefillItems;
 
