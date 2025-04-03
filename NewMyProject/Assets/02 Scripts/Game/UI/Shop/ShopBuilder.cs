@@ -1,3 +1,4 @@
+using Manager.UI;
 using MyUI.Interface;
 using MyUI.Strategy.Layout;
 using MyUI.Strategy.Spawn;
@@ -20,7 +21,27 @@ namespace MyUI.Shop
             _creator.Init(_layoutStrategy, _spawnStrategy);
         }
 
+        private void OnEnable()
+        {
+            UIManager.Instance.OnRefillItems += Create;
+        }
+
+        private void OnDisable()
+        {
+            if(UIManager.Instance == null)
+            {
+                return;
+            }
+
+            UIManager.Instance.OnRefillItems -= Create;
+        }
+
         void Start()
+        {
+            Create();
+        }
+
+        private void Create()
         {
             _creator.CreateUI(_types, _parentTrans, _objXCount, _objYCount, _objWidth, _objHeight, _spacing);
         }
