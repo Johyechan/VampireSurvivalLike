@@ -10,7 +10,7 @@ namespace MyUtil.Pool
         ShopSword,
         ShopTorch,
         Bow,
-        Sword
+        Sword,
     }
 }
 
