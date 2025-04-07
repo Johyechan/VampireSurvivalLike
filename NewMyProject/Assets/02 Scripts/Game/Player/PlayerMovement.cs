@@ -4,6 +4,9 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public bool IsMoving { get { return _isMoving; } }
+    private bool _isMoving = false;
+
     private Vector2 _moveInput;
 
     void Update()
@@ -13,6 +16,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnMove(InputValue value)
     {
-        _moveInput = value.Get<Vector2>();
+        if(value.Get<Vector2>() != null)
+        {
+            _isMoving = true;
+            _moveInput = value.Get<Vector2>();
+        }
+        else
+        {
+            _isMoving = false;
+        }
     }
 }

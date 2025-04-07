@@ -13,6 +13,16 @@ namespace MyUtil.FSM
         private float _currentTime;
         private float _delay;
 
+        public virtual bool IsCurrentState(IState state)
+        {
+            if(_currentState != state)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         public virtual void ChangeState(IState state)
         {
             _currentState?.Exit();
