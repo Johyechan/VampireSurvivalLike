@@ -3,22 +3,9 @@ using UnityEngine;
 
 namespace Enemy.State
 {
-    public class EnemyDeathState : IState
+    public class EnemyDeathState : EnemyStateBase
     {
-        public void Enter()
-        {
-            
-        }
 
-        public void Execute()
-        {
-            
-        }
-
-        public void Exit()
-        {
-            
-        }
     }
 }
 

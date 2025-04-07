@@ -3,22 +3,9 @@ using UnityEngine;
 
 namespace Enemy.State
 {
-    public class EnemyAttackState : IState
+    public class EnemyAttackState : EnemyStateBase
     {
-        public void Enter()
-        {
-            
-        }
 
-        public void Execute()
-        {
-            
-        }
-
-        public void Exit()
-        {
-            
-        }
     }
 }
 

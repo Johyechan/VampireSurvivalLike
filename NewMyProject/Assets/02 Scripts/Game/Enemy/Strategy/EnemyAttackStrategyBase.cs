@@ -2,7 +2,7 @@ using Enemy.Interface;
 using MyUtil.Interface;
 using UnityEngine;
 
-namespace Enemy.Strategy
+namespace Enemy.Strategy.Attack
 {
     public abstract class EnemyAttackStrategyBase : IEnemyAttackStrategy
     {

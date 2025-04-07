@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Enemy.State
 {
-    public class EnemyMoveState : IState
+    public class EnemyMoveState : EnemyStateBase
     {
         private EnemyMovement _movement;
 
@@ -21,21 +21,11 @@ namespace Enemy.State
             _speed = speed;
         }
 
-        public void Enter()
-        {
-            
-        }
-
-        public void Execute()
+        public override void Execute()
         {
             Vector2 dir = _target - _trans.position;
 
             _movement.Move(dir, _speed);
-        }
-
-        public void Exit()
-        {
-            
         }
     }
 }

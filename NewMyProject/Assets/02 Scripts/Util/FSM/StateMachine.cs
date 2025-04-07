@@ -5,7 +5,6 @@ namespace MyUtil.FSM
     public class StateMachine
     {
         private IState _currentState;
-        private IState _lastState;
         private IState _delayState;
 
         private bool _isDelayed = false;
@@ -34,20 +33,12 @@ namespace MyUtil.FSM
 
         public virtual void DelayChangeState(IState state, float delay)
         {
-            if (_lastState != _currentState)
+            if (!_isDelayed)
             {
-                _lastState = state;
-                ChangeState(state);
-            }
-            else
-            {
-                if(!_isDelayed)
-                {
-                    _isDelayed = true;
-                    _delay = delay;
-                    _delayState = state;
-                    _currentTime = 0;
-                }
+                _isDelayed = true;
+                _delay = delay;
+                _delayState = state;
+                _currentTime = 0;
             }
         }
 
