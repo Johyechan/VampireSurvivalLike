@@ -1,6 +1,8 @@
+using Enemy.Interface;
 using Enemy.State;
 using Manager;
 using MyUtil.FSM;
+using MyUtil.Pool;
 using UnityEngine;
 
 namespace Enemy
@@ -9,7 +11,10 @@ namespace Enemy
     {
         [SerializeField] protected EnemySO _so;
 
-        protected EnemyMovement _movement;
+        protected Animator _animator;
+
+        protected IEnemyMoveStrategy _moveStrategy;
+        protected IEnemyAttackStrategy _attackStrategy;
 
         protected EnemyHealth _health;
 
@@ -21,24 +26,20 @@ namespace Enemy
         protected IState _hitState;
         protected IState _deathState;
 
-        private float _knockbackTime = 0.3f;
-        private float _knockbackPower = 1f;
+        [SerializeField] protected ObjectPoolType _type;
+
+        [SerializeField] protected float _knockbackTime;
+        [SerializeField] protected float _knockbackPower;
 
         public bool IsDie { get { return _isDie; } }
         private bool _isDie = false;
 
         protected virtual void Awake()
         {
-            _movement = GetComponent<EnemyMovement>();
             _health = GetComponent<EnemyHealth>();
+            _animator = GetComponent<Animator>();
 
             _machine = new StateMachine();
-
-            _idleState = new EnemyIdleState();
-            _moveState = new EnemyMoveState(_movement, transform, GameManager.Instance.player.transform.position, _so.speed);
-            _attackState = new EnemyAttackState();
-            _hitState = new EnemyHitState(transform, _knockbackTime, _knockbackPower);
-            _deathState = new EnemyDeathState();
         }
 
         protected virtual void OnEnable()
@@ -51,10 +52,27 @@ namespace Enemy
         {
             _machine.UpdateExecute();
 
-            if (_movement.CheckArea(_so.playerCheckRange) && !_machine.IsCurrentState(_moveState))
+            if(_attackStrategy.CheckArea(transform, _so.attackRange, "Player") && !_machine.IsCurrentState(_attackState))
             {
-                _machine.ChangeState(_moveState);
+                _machine.ChangeState(_attackState);
             }
+            else
+            {
+                if (_moveStrategy.CheckArea(transform, _so.playerCheckRange, "Player") && !_machine.IsCurrentState(_moveState))
+                {
+                    _machine.ChangeState(_moveState);
+                }
+            }
+        }
+
+        protected void AnimationEnd()
+        {
+            _machine.ChangeState(_idleState);
+        }
+
+        protected void Return()
+        {
+            ObjectPoolManager.Instance.ReturnObj(_type, gameObject);
         }
 
         public void Hit()
@@ -70,4 +88,3 @@ namespace Enemy
         }
     }
 }
-

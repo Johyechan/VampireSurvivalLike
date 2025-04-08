@@ -11,6 +11,7 @@ namespace MyUtil.Pool
         ShopTorch,
         Bow,
         Sword,
+        NormalMeleeEnemy,
     }
 }
 
