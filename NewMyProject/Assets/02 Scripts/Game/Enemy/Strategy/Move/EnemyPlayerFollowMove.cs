@@ -7,9 +7,11 @@ namespace Enemy.Strategy.Move
     {
         public bool CheckArea(Transform trans, float range, string layerMask)
         {
-            RaycastHit2D hit = Physics2D.CircleCast(trans.position, range, Vector2.zero, 0, LayerMask.GetMask(layerMask));
+            Collider2D hit = Physics2D.OverlapCircle(trans.position, range, LayerMask.GetMask(layerMask));
 
-            if(hit.collider != null)
+            Debug.Log(hit);
+
+            if(hit != null)
             {
                 return true;
             }

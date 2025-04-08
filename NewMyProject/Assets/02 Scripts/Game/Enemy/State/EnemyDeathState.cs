@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Enemy.State
 {
-    public class EnemyDeathState : EnemyStateBase
+    public class EnemyDeathState : IState
     {
         private Animator _animator;
 
@@ -17,11 +17,21 @@ namespace Enemy.State
             _hash = hash;
         }
 
-        public override void Enter()
+        public void Enter()
         {
-            base.Enter();
+            Debug.Log("Àû »ç¸Á");
 
             _animator.SetTrigger(_hash);
+        }
+
+        public void Execute()
+        {
+            
+        }
+
+        public void Exit()
+        {
+            
         }
     }
 }

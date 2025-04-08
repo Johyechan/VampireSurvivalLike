@@ -75,10 +75,14 @@ namespace Enemy
             ObjectPoolManager.Instance.ReturnObj(_type, gameObject);
         }
 
+        protected void HitEnd()
+        {
+            _machine.ChangeState(_idleState);
+        }
+
         public void Hit()
         {
             _machine.ChangeState(_hitState);
-            _machine.DelayChangeState(_idleState, _knockbackTime);
         }
 
         public void Death()

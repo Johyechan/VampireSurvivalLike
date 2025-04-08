@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Enemy.Strategy.Attack
 {
-    public abstract class EnemyAttackStrategyBase : MonoBehaviour, IEnemyAttackStrategy
+    public abstract class EnemyAttackStrategyBase : IEnemyAttackStrategy
     {
         protected IDamageable _damageable;
 

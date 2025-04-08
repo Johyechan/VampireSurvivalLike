@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Enemy.State
 {
-    public class EnemyHitState : EnemyStateBase
+    public class EnemyHitState : IState
     {
         private Animator _animator;
 
@@ -15,41 +15,33 @@ namespace Enemy.State
 
         private Transform _trans;
 
-        private float _knockbackTime;
         private float _knockbackPower;
 
-        public EnemyHitState(Animator animator, int hash, Transform trans, float knockbackTime, float knockbackPower)
+        public EnemyHitState(Animator animator, int hash, Transform trans, float knockbackPower)
         {
             _animator = animator;
             _hash = hash;
             _trans = trans;
-            _knockbackTime = knockbackTime;
             _knockbackPower = knockbackPower;
         }
 
-        private void OnDisable()
+        public void Enter()
         {
-            StopCoroutine(Knockback());
-        }
+            Debug.Log("적 피격 당함");
 
-        public override void Enter()
-        {
-            base.Enter();
-            dir = (_trans.position - GameManager.Instance.player.transform.position).normalized;
-            StartCoroutine(Knockback());
-        }
-
-        private IEnumerator Knockback()
-        {
             _animator.SetTrigger(_hash);
 
-            float currentTime = 0;
-            while(currentTime < _knockbackTime)
-            {
-                currentTime += Time.deltaTime;
-                _trans.Translate(dir.normalized * _knockbackPower * Time.deltaTime);
-                yield return null;
-            }
+            dir = (_trans.position - GameManager.Instance.player.transform.position).normalized;
+        }
+
+        public void Execute()
+        {
+            _trans.Translate(dir.normalized * _knockbackPower * Time.deltaTime);
+        }
+
+        public void Exit()
+        {
+            
         }
     }
 }

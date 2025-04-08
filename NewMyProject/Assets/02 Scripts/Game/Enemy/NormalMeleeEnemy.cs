@@ -13,6 +13,7 @@ namespace Enemy
         private int _attackHash = Animator.StringToHash("Attack");
         private int _hitHash = Animator.StringToHash("Hit");
         private int _deathHash = Animator.StringToHash("Death");
+        private int _idleHash = Animator.StringToHash("Idle");
 
         protected override void Awake()
         {
@@ -21,11 +22,19 @@ namespace Enemy
             _moveStrategy = new EnemyPlayerFollowMove();
             _attackStrategy = new EnemyMeleeAttack(_so.damage);
 
-            _idleState = new EnemyIdleState();
+            _idleState = new EnemyIdleState(_animator, _idleHash);
             _moveState = new EnemyMoveState(_animator, _moveHash, _moveStrategy, transform, GameManager.Instance.player.transform.position, _so.speed);
             _attackState = new EnemyAttackState(_animator, _attackHash, _attackStrategy);
-            _hitState = new EnemyHitState(_animator, _hitHash, transform, _knockbackTime, _knockbackPower);
+            _hitState = new EnemyHitState(_animator, _hitHash, transform, _knockbackPower);
             _deathState = new EnemyDeathState(_animator, _deathHash);
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(transform.position, _so.attackRange);
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, _so.playerCheckRange);
         }
     }
 }

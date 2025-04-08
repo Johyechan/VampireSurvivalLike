@@ -1,13 +1,14 @@
 using Manager;
 using Manager.Inventory;
 using MyUtil.FSM;
+using MyUtil.Interface;
 using Player.Backpack;
 using Player.State;
 using UnityEngine;
 
 namespace Player
 {
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : MonoBehaviour, IDamageable
     {
         public PlayerSO playerSO;
 
@@ -68,6 +69,11 @@ namespace Player
             }
 
             _backpack.WeaponPositionSet();
+        }
+
+        public void TakeDamage(float damage)
+        {
+            Debug.Log($"{damage} ¹ÞÀ½");
         }
     }
 }

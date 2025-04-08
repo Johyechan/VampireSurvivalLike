@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Enemy.State
 {
-    public class EnemyMoveState : EnemyStateBase
+    public class EnemyMoveState : IState
     {
         private Animator _animator;
 
@@ -28,24 +28,22 @@ namespace Enemy.State
             _speed = speed;
         }
 
-        public override void Enter()
+        public void Enter()
         {
-            base.Enter();
-
             _animator.SetBool(_hash, true);
         }
 
-        public override void Execute()
+        public void Execute()
         {
+            Debug.Log("적 움직임");
+
             Vector2 dir = _target - _trans.position;
 
             _moveStrategy.Move(_trans, dir, _speed);
         }
 
-        public override void Exit()
+        public void Exit()
         {
-            base.Exit();
-
             _animator.SetBool(_hash, false);
         }
     }
