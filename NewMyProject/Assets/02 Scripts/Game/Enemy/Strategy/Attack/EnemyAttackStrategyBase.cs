@@ -10,7 +10,7 @@ namespace Enemy.Strategy.Attack
 
         public abstract void Attack();
 
-        public abstract bool CheckArea(Transform trans, float range, string layerMask);
+        public abstract bool CheckArea();
     }
 }
 

@@ -19,11 +19,11 @@ namespace Enemy
         {
             base.Awake();
 
-            _moveStrategy = new EnemyPlayerFollowMove();
-            _attackStrategy = new EnemyMeleeAttack(_so.damage);
+            _moveStrategy = new EnemyPlayerFollowMove(transform, GameManager.Instance.player.transform, _so.playerCheckRange, _so.speed, "Player");
+            _attackStrategy = new EnemyMeleeAttack(transform, _so.attackRange, _so.damage, "Player");
 
             _idleState = new EnemyIdleState(_animator, _idleHash);
-            _moveState = new EnemyMoveState(_animator, _moveHash, _moveStrategy, transform, GameManager.Instance.player.transform.position, _so.speed);
+            _moveState = new EnemyMoveState(_animator, _moveHash, _moveStrategy);
             _attackState = new EnemyAttackState(_animator, _attackHash, _attackStrategy);
             _hitState = new EnemyHitState(_animator, _hitHash, transform, _knockbackPower);
             _deathState = new EnemyDeathState(_animator, _deathHash);
@@ -31,9 +31,9 @@ namespace Enemy
 
         private void OnDrawGizmos()
         {
-            Gizmos.color = Color.blue;
-            Gizmos.DrawWireSphere(transform.position, _so.attackRange);
             Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, _so.attackRange);
+            Gizmos.color = Color.blue;
             Gizmos.DrawWireSphere(transform.position, _so.playerCheckRange);
         }
     }

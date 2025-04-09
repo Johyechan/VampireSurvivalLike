@@ -6,10 +6,10 @@ namespace Enemy.Interface
     public interface IEnemyMoveStrategy
     {
         // 범위에 플레이어가 있는지 체크하는 함수
-        public bool CheckArea(Transform trans, float range, string layerMask);
+        public bool CheckArea();
 
         // 움직이는 함수
-        public void Move(Transform trans, Vector2 dir, float speed);
+        public void Move();
     }
 }
 

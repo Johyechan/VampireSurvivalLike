@@ -7,11 +7,19 @@ namespace Enemy.Strategy.Attack
 {
     public class EnemyMeleeAttack : EnemyAttackStrategyBase
     {
+        private Transform _trans;
+
+        private float _range;
         private float _damage;
 
-        public EnemyMeleeAttack(float damage)
+        private string _layerMask;
+
+        public EnemyMeleeAttack(Transform trans, float range, float damage, string layerMask)
         {
+            _trans = trans;
+            _range = range;
             _damage = damage;
+            _layerMask = layerMask;
         }
 
         public override void Attack()
@@ -19,13 +27,13 @@ namespace Enemy.Strategy.Attack
             _damageable.TakeDamage(_damage);
         }
 
-        public override bool CheckArea(Transform trans, float range, string layerMask)
+        public override bool CheckArea()
         {
-            RaycastHit2D hit = Physics2D.CircleCast(trans.position, range, Vector2.zero, 0, LayerMask.GetMask(layerMask));
+            Collider2D hit = Physics2D.OverlapCircle(_trans.position, _range, LayerMask.GetMask(_layerMask));
 
-            if (hit.collider != null)
+            if (hit != null)
             {
-                _damageable = hit.collider.GetComponent<IDamageable>();
+                _damageable = hit.GetComponent<IDamageable>();
                 return true;
             }
 
