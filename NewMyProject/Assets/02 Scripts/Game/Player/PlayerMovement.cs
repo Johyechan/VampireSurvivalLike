@@ -18,12 +18,15 @@ public class PlayerMovement : MonoBehaviour
     {
         if(value.Get<Vector2>() != null)
         {
-            _isMoving = true;
             _moveInput = value.Get<Vector2>();
-        }
-        else
-        {
-            _isMoving = false;
+            if (_moveInput != Vector2.zero)
+            {
+                _isMoving = true;
+            }
+            else
+            {
+                _isMoving = false;
+            }
         }
     }
 }

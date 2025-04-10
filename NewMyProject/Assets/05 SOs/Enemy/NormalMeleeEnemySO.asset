@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackRange: 1
   playerCheckRange: 1000
-  damage: 5
+  damage: 1
   speed: 1
   hp: 10
   defence: 0

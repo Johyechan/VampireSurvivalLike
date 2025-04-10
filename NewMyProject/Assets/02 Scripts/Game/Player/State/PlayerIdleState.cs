@@ -6,9 +6,19 @@ namespace Player.State
 {
     public class PlayerIdleState : IState
     {
+        private Animator _animator;
+
+        private int _hash;
+
+        public PlayerIdleState(Animator animator, int hash)
+        {
+            _animator = animator;
+            _hash = hash;
+        }
+
         public void Enter()
         {
-            
+            _animator.SetBool(_hash, true);
         }
 
         public void Execute()
@@ -18,7 +28,7 @@ namespace Player.State
 
         public void Exit()
         {
-            
+            _animator.SetBool(_hash, false);
         }
     }
 }

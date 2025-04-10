@@ -69,24 +69,40 @@ namespace Enemy
             // Update에서 반복적으로 각 상태의 Execute를 실행
             _machine.UpdateExecute();
 
-            // 공격 범위 안에 있고 
-            if(_attackStrategy.CheckArea())
+            if(_health.IsDie)
             {
-                // 현재 상태가 공격 상태가 아닐 경우 공격 상태 진입
-                if (!_machine.IsCurrentState(_attackState))
+                if (!_machine.IsCurrentState(_deathState))
                 {
-                    _machine.ChangeState(_attackState);
+                    _machine.ChangeState(_deathState);
                 }
             }
-            else // 공격 범위 안이 아닐 경우 
+            else
             {
-                // 타겟 범위안에 있고
-                if (_moveStrategy.CheckArea())
+                if(_health.IsHit && !_machine.IsCurrentState(_hitState))
                 {
-                    // 현재 상태가 움직임 상태가 아닐 경우 움직임 상태 진입
-                    if (!_machine.IsCurrentState(_moveState))
+                    _machine.ChangeState(_hitState);
+                    _health.IsHit = false;
+                }
+
+                // 공격 범위 안에 있고 
+                if (_attackStrategy.CheckArea())
+                {
+                    // 현재 상태가 공격 상태가 아닐 경우 공격 상태 진입
+                    if (!_machine.IsCurrentState(_attackState))
                     {
-                        _machine.ChangeState(_moveState);
+                        _machine.ChangeState(_attackState);
+                    }
+                }
+                else // 공격 범위 안이 아닐 경우 
+                {
+                    // 타겟 범위안에 있고
+                    if (_moveStrategy.CheckArea())
+                    {
+                        // 현재 상태가 움직임 상태가 아닐 경우 움직임 상태 진입
+                        if (!_machine.IsCurrentState(_moveState))
+                        {
+                            _machine.ChangeState(_moveState);
+                        }
                     }
                 }
             }
@@ -104,19 +120,6 @@ namespace Enemy
         {
             // 삭제될 때 사망 애니메이션이 끝나고 사라지게 하기 위해서
             ObjectPoolManager.Instance.ReturnObj(_type, gameObject);
-        }
-
-        // 체력 관련된 클래스(EnemyHealth)에서 피가 있을 경우 피격된 상태로 넘어가기 위한 함수
-        public void Hit()
-        {
-            _machine.ChangeState(_hitState);
-        }
-
-        // 체력 관련된 클래스(EnemyHealth)에서 피가 없을 경우 사망 상태로 넘어가기 위한 함수
-        public void Death()
-        {
-            _isDie = true;
-            _machine.ChangeState(_deathState);
         }
     }
 }
