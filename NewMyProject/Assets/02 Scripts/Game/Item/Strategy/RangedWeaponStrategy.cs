@@ -1,4 +1,5 @@
 using Item.Interface;
+using Manager;
 using MyUtil.Pool;
 using NPOI.OpenXmlFormats.Dml;
 using UnityEngine;
@@ -13,29 +14,41 @@ namespace Item.Strategy
 
         private float _range;
         private float _damage;
-        private float _attackSpeed;
+        private float _fireSpeed;
 
         private ObjectPoolType _projectileType;
 
-        public RangedWeaponStrategy(Transform trans, float range, string layerMask, float damage, float attackSpeed, ObjectPoolType projectileType)
+        public RangedWeaponStrategy(Transform trans, float range, string layerMask, float damage, float fireSpeed, ObjectPoolType projectileType)
         {
             _trans = trans;
             _range = range;
             _layerMask = layerMask;
             _damage = damage;
-            _attackSpeed = attackSpeed;
+            _fireSpeed = fireSpeed;
             _projectileType = projectileType;
         }
 
-        public GameObject Attack()
+        public void Attack()
         {
             GameObject enemy = CheckArea();
             if(enemy != null)
             {
-                GameObject bullet = ObjectPoolManager.Instance.GetObject(_projectileType);
+                GameObject projectile = ObjectPoolManager.Instance.GetObject(_projectileType);
+
+                ProjectileBase projectileBase = projectile.GetComponent<ProjectileBase>();
+
+                Vector2 dir = enemy.transform.position - _trans.transform.position;
+
+                float angle = Mathf.Atan2(dir.normalized.y, dir.normalized.x) * Mathf.Rad2Deg;
+
+                _trans.rotation = Quaternion.Euler(0, 0, angle - 90);
+                projectile.transform.position = _trans.position;
+                projectile.transform.rotation = Quaternion.Euler(0, 0, angle - 90);
+
+                projectileBase.Damage = _damage;
+                projectileBase.FireSpeed = _fireSpeed;
+                projectileBase.Direction = dir;
             }
-            
-            return null;
         }
 
         public GameObject CheckArea()

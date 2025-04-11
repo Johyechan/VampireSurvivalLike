@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dc992558a120774a8ed2c74f99e6028, type: 3}
   m_Name: "\uC624\uB798\uB41C \uD65C"
   m_EditorClassIdentifier: 
-  fireObjType: 0
+  projectileType: 8
   objType: 5
-  fireSpeed: 0
+  fireSpeed: 20
   itemLevel: "0\uB2E8\uACC4 \uC544\uC774\uD15C"
   no: 2.0.1
   itemName: "\uC624\uB798\uB41C \uD65C"

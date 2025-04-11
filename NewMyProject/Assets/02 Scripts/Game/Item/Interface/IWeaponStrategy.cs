@@ -6,6 +6,6 @@ namespace Item.Interface
     {
         public GameObject CheckArea();
 
-        public GameObject Attack();
+        public void Attack();
     }
 }

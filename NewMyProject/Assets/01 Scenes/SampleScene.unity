@@ -1712,8 +1712,11 @@ MonoBehaviour:
     prefabObj: {fileID: 1151630415441370328, guid: 44cc42e839835aa4d959f5ac3e0a4eb3, type: 3}
     prefabCount: 4
   - prefabType: 7
-    prefabObj: {fileID: 1151630415441370328, guid: 44cc42e839835aa4d959f5ac3e0a4eb3, type: 3}
-    prefabCount: 4
+    prefabObj: {fileID: 4656312098815300019, guid: 0b10056bf5614aa41a1481c81b7f3d1f, type: 3}
+    prefabCount: 10
+  - prefabType: 8
+    prefabObj: {fileID: 8542655633105763195, guid: ed9b1f7c58d9c9c45867ffcddcc50be2, type: 3}
+    prefabCount: 10
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -3779,7 +3782,7 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0

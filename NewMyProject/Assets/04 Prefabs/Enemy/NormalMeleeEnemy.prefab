@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 2942728157708778105}
   - component: {fileID: 4230656299692007761}
   - component: {fileID: 5260014926340877920}
+  - component: {fileID: 7564711921131769651}
   - component: {fileID: 7280518514978770778}
   - component: {fileID: 5451116018658380249}
-  - component: {fileID: 7564711921131769651}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: NormalMeleeEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -113,34 +113,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &7280518514978770778
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4656312098815300019}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d0addb95732d72449bb0e34b1da8c01, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _so: {fileID: 11400000, guid: ecf13ea4477ae7c42a447e7695575fa3, type: 2}
-  _type: 7
-  _knockbackTime: 0.5
-  _knockbackPower: 1
---- !u!114 &5451116018658380249
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4656312098815300019}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 476f9de148f2f9749aa450fc594f5c71, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!58 &7564711921131769651
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -171,9 +143,37 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
+--- !u!114 &7280518514978770778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4656312098815300019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d0addb95732d72449bb0e34b1da8c01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _so: {fileID: 11400000, guid: ecf13ea4477ae7c42a447e7695575fa3, type: 2}
+  _type: 7
+  _knockbackTime: 0.5
+  _knockbackPower: 1
+--- !u!114 &5451116018658380249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4656312098815300019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 476f9de148f2f9749aa450fc594f5c71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
