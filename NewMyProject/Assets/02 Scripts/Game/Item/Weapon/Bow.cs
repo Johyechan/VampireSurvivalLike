@@ -7,7 +7,7 @@ namespace Item.Weapon
     {
         private void Awake()
         {
-            _weaponStrategy = new RangedWeaponStrategy(_itemSO.attackDamage);
+            //_weaponStrategy = new RangedWeaponStrategy(_itemSO.attackDamage);
         }
 
         void Start()
@@ -15,7 +15,6 @@ namespace Item.Weapon
 
         }
 
-        // Update is called once per frame
         void Update()
         {
 

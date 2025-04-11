@@ -9,5 +9,10 @@ namespace Item.Strategy
         {
             return null;
         }
+
+        public GameObject CheckArea()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
