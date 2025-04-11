@@ -1,14 +1,20 @@
+using Item.Interface;
 using UnityEngine;
 
-public class WeaponItem : ItemBase
+namespace Item.Weapon
 {
-    void Start()
+    public class WeaponItem : ItemBase
     {
-        
-    }
+        protected IWeaponStrategy _weaponStrategy;
 
-    void Update()
-    {
-        
+        void Start()
+        {
+
+        }
+
+        void Update()
+        {
+
+        }
     }
 }

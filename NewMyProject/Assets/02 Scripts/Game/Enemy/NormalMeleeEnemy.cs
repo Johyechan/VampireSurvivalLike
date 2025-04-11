@@ -29,6 +29,49 @@ namespace Enemy
             _deathState = new EnemyDeathState(_animator, _deathHash);
         }
 
+        protected override void StateTransition()
+        {
+            if(_health.IsDie)
+            {
+                if(!_machine.IsCurrentState(_deathState))
+                {
+                    _machine.ChangeState(_deathState);
+                }
+                return;
+            }
+
+            if(_health.IsHit)
+            {
+                _machine.ChangeState(_hitState);
+                _health.IsHit = false;
+                return;
+            }
+
+            if(_attackStrategy.CheckArea())
+            {
+                if (!_isDelay)
+                {
+                    _isDelay = true;
+                    _machine.ChangeState(_attackState);
+                }
+                return;
+            }
+
+            if(_moveStrategy.CheckArea())
+            {
+                if (!_machine.IsCurrentState(_moveState))
+                {
+                    _machine.ChangeState(_moveState);
+                }
+                return;
+            }
+            else
+            {
+                _machine.ChangeState(_idleState);
+                return;
+            }
+        }
+
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.red;

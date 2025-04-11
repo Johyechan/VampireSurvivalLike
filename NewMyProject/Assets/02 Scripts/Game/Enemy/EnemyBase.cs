@@ -8,7 +8,7 @@ using UnityEngine;
 namespace Enemy
 {
     // 적이 기본적으로 가져야 할 기능들을 가진 클래스
-    public class EnemyBase : MonoBehaviour
+    public abstract class EnemyBase : MonoBehaviour
     {
         // 기본적으로 적의 능력치들을 보유하는 SO를 가지고 있어야 함
         // 이것을 상속 받는 클래스도 사용가능하게 protected로 접근 제한자 설정
@@ -41,9 +41,13 @@ namespace Enemy
         [SerializeField] protected float _knockbackTime;
         [SerializeField] protected float _knockbackPower;
 
+        private float _currentDelayTime = 0;
+
         // 죽음 상태는 외부에서 죽었는지 알아야 작업을 멈추는 경우가 존재 + 자식이 접근 못하는 이유는 죽는 기준은 항상 같기 때문
         public bool IsDie { get { return _isDie; } }
         private bool _isDie = false;
+
+        protected bool _isDelay = false;
 
         // 자식이 재정의 가능하게 만듦
         protected virtual void Awake()
@@ -69,43 +73,31 @@ namespace Enemy
             // Update에서 반복적으로 각 상태의 Execute를 실행
             _machine.UpdateExecute();
 
-            if(_health.IsDie)
+            if(_isDelay)
             {
-                if (!_machine.IsCurrentState(_deathState))
-                {
-                    _machine.ChangeState(_deathState);
-                }
+                Delay();
             }
-            else
-            {
-                if(_health.IsHit && !_machine.IsCurrentState(_hitState))
-                {
-                    _machine.ChangeState(_hitState);
-                    _health.IsHit = false;
-                }
 
-                // 공격 범위 안에 있고 
-                if (_attackStrategy.CheckArea())
-                {
-                    // 현재 상태가 공격 상태가 아닐 경우 공격 상태 진입
-                    if (!_machine.IsCurrentState(_attackState))
-                    {
-                        _machine.ChangeState(_attackState);
-                    }
-                }
-                else // 공격 범위 안이 아닐 경우 
-                {
-                    // 타겟 범위안에 있고
-                    if (_moveStrategy.CheckArea())
-                    {
-                        // 현재 상태가 움직임 상태가 아닐 경우 움직임 상태 진입
-                        if (!_machine.IsCurrentState(_moveState))
-                        {
-                            _machine.ChangeState(_moveState);
-                        }
-                    }
-                }
+            StateTransition();
+        }
+
+        protected abstract void StateTransition();
+
+        private void Delay()
+        {
+            _currentDelayTime += Time.deltaTime;
+
+            if(_currentDelayTime > (1 / _so.attackSpeed))
+            {
+                _isDelay = false;
+                _currentDelayTime = 0;
             }
+        }
+
+        protected void AttackEnd()
+        {
+            _machine.ChangeState(_idleState);
+            _isDelay = true;
         }
 
         // 유니티 작업 창중 애니메이션 작업창에서 애니메이션 이벤트로 넣기 위한 함수

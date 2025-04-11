@@ -27,8 +27,6 @@ namespace Enemy.State
         // 이 상태에 들어왔을 때
         public void Enter()
         {
-            Debug.Log("적 공격");
-
             // 전략에 맞는 공격 방식으로 공격 명령
             _attackStrategy.Attack();
             // 공격 애니메이션 실행

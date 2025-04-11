@@ -1,7 +1,10 @@
 using Item.Enum;
 using UnityEngine;
 
-public class ItemBase : MonoBehaviour
+namespace Item
 {
-    [SerializeField] protected ItemSO _itemSO;
+    public class ItemBase : MonoBehaviour
+    {
+        [SerializeField] protected ItemSO _itemSO;
+    }
 }

@@ -1,4 +1,5 @@
 using Manager;
+using Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,9 +10,19 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector2 _moveInput;
 
+    private PlayerHealth _health;
+
+    private void Awake()
+    {
+        _health = GetComponent<PlayerHealth>();
+    }
+
     void Update()
     {
-        transform.Translate(_moveInput * (StatManager.Instance.PlayerStat.speed + StatManager.Instance.AllStat.speedIncrease) * Time.deltaTime);
+        if(!_health.IsDie)
+        {
+            transform.Translate(_moveInput * (StatManager.Instance.PlayerStat.speed + StatManager.Instance.AllStat.speedIncrease) * Time.deltaTime);
+        }
     }
 
     private void OnMove(InputValue value)

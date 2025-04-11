@@ -33,8 +33,6 @@ namespace Enemy.State
         // 이 상태인 동안
         public void Execute()
         {
-            Debug.Log("적 움직임");
-
             // 움직임 전략에 따라 움직이기
             _moveStrategy.Move();
         }

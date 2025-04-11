@@ -65,34 +65,37 @@ namespace Player
         {
             _machine.UpdateExecute();
 
-            if(_health.IsDie)
+            Transition();
+        }
+
+        private void Transition()
+        {
+            if (_health.IsDie)
             {
                 if(!_machine.IsCurrentState(_deathState))
                 {
                     _machine.ChangeState(_deathState);
                 }
+                return;
+            }
+
+            if(_health.IsHit)
+            {
+                _machine.ChangeState(_hitState);
+                _health.IsHit = false;
+                return;
+            }
+
+            if (_movement.IsMoving)
+            {
+                if (!_machine.IsCurrentState(_moveState))
+                {
+                    _machine.ChangeState(_moveState);
+                }
             }
             else
             {
-                if (_health.IsHit)
-                {
-                    _machine.ChangeState(_hitState);
-                    _health.IsHit = false;
-                }
-                else
-                {
-                    if (_movement.IsMoving)
-                    {
-                        if (!_machine.IsCurrentState(_moveState))
-                        {
-                            _machine.ChangeState(_moveState);
-                        }
-                    }
-                    else
-                    {
-                        _machine.ChangeState(_idleState);
-                    }
-                }
+                _machine.ChangeState(_idleState);
             }
         }
 
