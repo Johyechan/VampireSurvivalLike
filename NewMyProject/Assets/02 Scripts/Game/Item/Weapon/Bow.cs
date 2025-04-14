@@ -7,10 +7,6 @@ namespace Item.Weapon
 {
     public class Bow : WeaponItem
     {
-        private Vector3 _originScale;
-
-        private Quaternion _originRotation;
-
         private void OnDrawGizmos()
         {
             Gizmos.DrawWireSphere(transform.position, _itemSO.range);
@@ -18,9 +14,6 @@ namespace Item.Weapon
 
         private void Awake()
         {
-            _originScale = transform.localScale;
-            _originRotation = transform.rotation;
-
             _weaponStrategy = new RangedWeaponStrategy(transform, _itemSO.range, "Enemy", StatManager.Instance.AllStat.attackDamage + StatManager.Instance.PlayerStat.damage, _itemSO.fireSpeed, _itemSO.projectileType);
         }
 

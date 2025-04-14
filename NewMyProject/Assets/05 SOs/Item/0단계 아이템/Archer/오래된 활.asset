@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: "\uC624\uB798\uB41C \uD65C"
   m_EditorClassIdentifier: 
   projectileType: 8
+  uiObjType: 2
   objType: 5
   fireSpeed: 20
   itemLevel: "0\uB2E8\uACC4 \uC544\uC774\uD15C"

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0db36208bc18846a7414ed1f01af2d, type: 3}
   m_Name: NormalMeleeEnemySO
   m_EditorClassIdentifier: 
-  attackRange: 2
+  attackRange: 0.5
   playerCheckRange: 1000
   damage: 1
   speed: 1

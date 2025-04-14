@@ -1037,7 +1037,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f74fcfab6d79f964baebdba675609369, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _types: 02000000
+  _types: 020000000300000004000000
   _parentTrans: {fileID: 1839527199}
   _objXCount: 2
   _objYCount: 2

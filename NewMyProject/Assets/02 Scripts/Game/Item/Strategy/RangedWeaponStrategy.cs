@@ -53,19 +53,19 @@ namespace Item.Strategy
 
         public GameObject CheckArea()
         {
-            Collider2D[] hit = Physics2D.OverlapCircleAll(_trans.position, _range, LayerMask.GetMask(_layerMask));
+            Collider2D[] hits = Physics2D.OverlapCircleAll(_trans.position, _range, LayerMask.GetMask(_layerMask));
             float distance = float.MaxValue;
             GameObject returnObj = null;
 
-            if(hit.Length > 0)
+            if(hits.Length > 0)
             {
-                for(int i = 0; i < hit.Length; i++)
+                for(int i = 0; i < hits.Length; i++)
                 {
-                    float checkDistance = Vector2.Distance(_trans.position, hit[i].transform.position);
+                    float checkDistance = Vector2.Distance(_trans.position, hits[i].transform.position);
                     if (distance > checkDistance)
                     {
                         distance = checkDistance;
-                        returnObj = hit[i].gameObject;
+                        returnObj = hits[i].gameObject;
                     }
                 }
             }

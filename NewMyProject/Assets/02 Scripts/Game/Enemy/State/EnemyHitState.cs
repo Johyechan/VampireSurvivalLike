@@ -34,8 +34,6 @@ namespace Enemy.State
         // 이 상태에 들어왔을 때
         public void Enter()
         {
-            Debug.Log("적 피격 당함");
-
             // 애니메이션 실행
             _animator.SetTrigger(_hash);
 
@@ -47,14 +45,13 @@ namespace Enemy.State
         public void Execute()
         {
             // 밀려나기 시작
-            Debug.Log("dddd");
             _trans.position += (Vector3)(dir.normalized * _knockbackPower * Time.deltaTime);
         }
 
         // 이 상태에서 빠져 나갈 때
         public void Exit()
         {
-            Debug.Log("Exit");
+            
         }
     }
 }

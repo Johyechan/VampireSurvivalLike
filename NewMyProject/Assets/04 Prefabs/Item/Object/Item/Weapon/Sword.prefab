@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8006915946824816470}
   - component: {fileID: 4649554787895038053}
-  - component: {fileID: 7281515262300292509}
+  - component: {fileID: 8634260091017350063}
+  - component: {fileID: 5245756185842583025}
   m_Layer: 0
   m_Name: Sword
   m_TagString: Untagged
@@ -88,7 +89,29 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7281515262300292509
+--- !u!95 &8634260091017350063
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1151630415441370328}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2c05efae687acf3429b9728e6398bfc7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5245756185842583025
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -97,7 +120,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1151630415441370328}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 851abcbee83358a48a3c7fa2e6279cfb, type: 3}
+  m_Script: {fileID: 11500000, guid: e8345106bed6d084994154ac44afe09e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _itemSO: {fileID: 0}
+  _itemSO: {fileID: 11400000, guid: edfac5c2802f4f240b08df1ecf07f49e, type: 2}

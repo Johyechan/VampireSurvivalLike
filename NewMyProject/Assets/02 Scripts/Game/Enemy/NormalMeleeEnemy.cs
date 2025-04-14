@@ -40,6 +40,11 @@ namespace Enemy
                 return;
             }
 
+            if (_isHittingDelay)
+            {
+                return;
+            }
+
             if(_health.IsHit)
             {
                 _machine.ChangeState(_hitState);
@@ -49,9 +54,9 @@ namespace Enemy
 
             if(_attackStrategy.CheckArea())
             {
-                if (!_isDelay)
+                if (!_isAttackDelay)
                 {
-                    _isDelay = true;
+                    _isAttackDelay = true;
                     _machine.ChangeState(_attackState);
                 }
                 return;

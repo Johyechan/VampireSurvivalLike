@@ -163,8 +163,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _so: {fileID: 11400000, guid: ecf13ea4477ae7c42a447e7695575fa3, type: 2}
   _type: 7
-  _knockbackTime: 5
-  _knockbackPower: 10
+  _knockbackTime: 1
+  _knockbackPower: 1
 --- !u!114 &5451116018658380249
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -14,7 +14,7 @@ public class RerollButton : ButtonBase
             UIItem item = UIManager.Instance.shopItemParent.transform.GetChild(i).GetComponent<UIItem>();
             if(item != null)
             {
-                ObjectPoolManager.Instance.ReturnObj(item.itemSO.objType, UIManager.Instance.shopItemParent.transform.GetChild(i).gameObject);
+                ObjectPoolManager.Instance.ReturnObj(item.itemSO.uiObjType, UIManager.Instance.shopItemParent.transform.GetChild(i).gameObject);
             }
         }
 

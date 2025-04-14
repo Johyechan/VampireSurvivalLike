@@ -43,13 +43,15 @@ namespace Enemy
         [SerializeField] protected float _knockbackTime;
         [SerializeField] protected float _knockbackPower;
 
-        private float _currentDelayTime = 0;
+        private float _currentAttackDelayTime = 0;
+        private float _currentHittingDelayTime = 0;
 
         // 죽음 상태는 외부에서 죽었는지 알아야 작업을 멈추는 경우가 존재 + 자식이 접근 못하는 이유는 죽는 기준은 항상 같기 때문
         public bool IsDie { get { return _isDie; } }
         private bool _isDie = false;
 
-        protected bool _isDelay = false;
+        protected bool _isAttackDelay = false;
+        protected bool _isHittingDelay = false;
 
         // 자식이 재정의 가능하게 만듦
         protected virtual void Awake()
@@ -76,7 +78,12 @@ namespace Enemy
             // Update에서 반복적으로 각 상태의 Execute를 실행
             _machine.UpdateExecute();
 
-            if(_isDelay)
+            if(_isHittingDelay)
+            {
+                HittingDelay();
+            }
+
+            if(_isAttackDelay)
             {
                 AttackDelay();
             }
@@ -88,35 +95,37 @@ namespace Enemy
 
         private void AttackDelay()
         {
-            _currentDelayTime += Time.deltaTime;
+            _currentAttackDelayTime += Time.deltaTime;
 
-            if(_currentDelayTime > (1 / _so.attackSpeed))
+            if(_currentAttackDelayTime > (1 / _so.attackSpeed))
             {
-                _isDelay = false;
-                _currentDelayTime = 0;
+                _isAttackDelay = false;
+                _currentAttackDelayTime = 0;
+            }
+        }
+
+        private void HittingDelay()
+        {
+            _currentHittingDelayTime += Time.deltaTime;
+
+            if(_currentHittingDelayTime > _knockbackTime)
+            {
+                _isHittingDelay = false;
+                _currentHittingDelayTime = 0;
             }
         }
 
         protected void AttackEnd()
         {
             _machine.ChangeState(_idleState);
-            _isDelay = true;
+            _isAttackDelay = true;
         }
 
         // 유니티 작업 창중 애니메이션 작업창에서 애니메이션 이벤트로 넣기 위한 함수
-        protected void AnimationEnd()
+        protected void HittingStart()
         {
-            Debug.Log("in");
             // 애니메이션이 끝나고 기본 상태로 돌아가야 하는 상태들을 위해서 만든 함수
-            StartCoroutine(DelayIdleChangeCo());
-        }
-
-        private IEnumerator DelayIdleChangeCo()
-        {
-            Debug.Log("dd");
-            yield return new WaitForSeconds(_knockbackTime);
-            Debug.Log("Delay");
-            _machine.ChangeState(_idleState);
+            _isHittingDelay = true;
         }
 
         // 유니티 작업 창중 애니메이션 작업창에서 애니메이션 이벤트로 넣기 위한 함수

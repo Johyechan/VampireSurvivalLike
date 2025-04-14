@@ -33,7 +33,7 @@ namespace Player
             {
                 if (_currentHp > 0)
                 {
-                    Debug.Log($"{damage} 받음");
+                    Debug.Log($"플레이어 {damage} 받음");
                     _currentHp -= damage;
                     IsHit = true;
                 }
