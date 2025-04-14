@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 5451116018658380249}
   m_Layer: 7
   m_Name: NormalMeleeEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -163,8 +163,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _so: {fileID: 11400000, guid: ecf13ea4477ae7c42a447e7695575fa3, type: 2}
   _type: 7
-  _knockbackTime: 0.5
-  _knockbackPower: 1
+  _knockbackTime: 5
+  _knockbackPower: 10
 --- !u!114 &5451116018658380249
 MonoBehaviour:
   m_ObjectHideFlags: 0

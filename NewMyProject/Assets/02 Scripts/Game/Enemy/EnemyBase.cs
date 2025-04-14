@@ -1,8 +1,10 @@
 using Enemy.Interface;
+using Enemy.Interface.Strategy;
 using Enemy.State;
 using Manager;
 using MyUtil.FSM;
 using MyUtil.Pool;
+using System.Collections;
 using UnityEngine;
 
 namespace Enemy
@@ -54,6 +56,7 @@ namespace Enemy
         {
             // 체력 관련 시스템을 관리하는 클래스와 애니메이션을 실행 시키기 위한 애니메이터 가져오기
             _health = GetComponent<EnemyHealth>();
+            _health.MaxHp = _so.maxHp;
             _animator = GetComponent<Animator>();
 
             // 새로운 머신 가져와 각자 자식들이 각자만의 머신을 가지도록 설정
@@ -75,7 +78,7 @@ namespace Enemy
 
             if(_isDelay)
             {
-                Delay();
+                AttackDelay();
             }
 
             StateTransition();
@@ -83,7 +86,7 @@ namespace Enemy
 
         protected abstract void StateTransition();
 
-        private void Delay()
+        private void AttackDelay()
         {
             _currentDelayTime += Time.deltaTime;
 
@@ -103,7 +106,16 @@ namespace Enemy
         // 유니티 작업 창중 애니메이션 작업창에서 애니메이션 이벤트로 넣기 위한 함수
         protected void AnimationEnd()
         {
+            Debug.Log("in");
             // 애니메이션이 끝나고 기본 상태로 돌아가야 하는 상태들을 위해서 만든 함수
+            StartCoroutine(DelayIdleChangeCo());
+        }
+
+        private IEnumerator DelayIdleChangeCo()
+        {
+            Debug.Log("dd");
+            yield return new WaitForSeconds(_knockbackTime);
+            Debug.Log("Delay");
             _machine.ChangeState(_idleState);
         }
 

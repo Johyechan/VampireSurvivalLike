@@ -1,4 +1,5 @@
 using Enemy.Interface;
+using Enemy.Interface.Strategy;
 using UnityEngine;
 
 namespace Enemy.Strategy.Move

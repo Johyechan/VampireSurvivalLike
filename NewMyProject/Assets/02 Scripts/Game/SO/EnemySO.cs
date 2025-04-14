@@ -7,7 +7,7 @@ public class EnemySO : ScriptableObject
     public float playerCheckRange;
     public float damage;
     public float speed;
-    public float hp;
+    public float maxHp;
     public float defence;
     public float attackSpeed;
 }

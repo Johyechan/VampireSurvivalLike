@@ -47,13 +47,14 @@ namespace Enemy.State
         public void Execute()
         {
             // 밀려나기 시작
-            _trans.Translate(dir.normalized * _knockbackPower * Time.deltaTime);
+            Debug.Log("dddd");
+            _trans.position += (Vector3)(dir.normalized * _knockbackPower * Time.deltaTime);
         }
 
         // 이 상태에서 빠져 나갈 때
         public void Exit()
         {
-            
+            Debug.Log("Exit");
         }
     }
 }

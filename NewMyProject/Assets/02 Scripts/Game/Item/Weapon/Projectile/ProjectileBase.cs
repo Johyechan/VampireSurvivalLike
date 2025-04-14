@@ -42,6 +42,7 @@ public class ProjectileBase : MonoBehaviour
         {
             IDamageable damageable = collision.GetComponent<IDamageable>();
             damageable.TakeDamage(Damage);
+            ObjectPoolManager.Instance.ReturnObj(_type, gameObject);
         }
     }
 }
