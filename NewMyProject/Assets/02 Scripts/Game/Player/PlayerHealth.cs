@@ -1,3 +1,4 @@
+using Manager;
 using MyUtil.Interface;
 using UnityEngine;
 
@@ -25,6 +26,12 @@ namespace Player
         void Update()
         {
 
+        }
+
+        protected void Die()
+        {
+            GameManager.Instance.gameOver = true;
+            Time.timeScale = 0;
         }
 
         public void TakeDamage(float damage)

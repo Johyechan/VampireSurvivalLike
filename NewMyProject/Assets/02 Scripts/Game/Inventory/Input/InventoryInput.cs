@@ -1,3 +1,4 @@
+using Manager;
 using Manager.Input;
 using Manager.UI;
 using MyUI.Animator;
@@ -38,14 +39,21 @@ namespace Game.Inventory.Input
 
         private void ToggleInventory()
         {
+            if(GameManager.Instance.gameOver)
+            {
+                return;
+            }
+
             if(_isOpen)
             {
                 _isOpen = false;
-                UIAnimatorEventManager.Play(UIAnimationType.FadeOut);
+                Time.timeScale = 1;
+                UIAnimatorEventManager.Play(UIAnimationType.FadeOut); 
             }
             else
             {
                 _isOpen = true;
+                Time.timeScale = 0;
                 UIAnimatorEventManager.Play(UIAnimationType.FadeIn);
             }
         }

@@ -33,6 +33,8 @@ namespace Player
 
         private void Awake()
         {
+            GameManager.Instance.gameOver = false;
+
             _backpack = GetComponent<PlayerBackpack>();
             _eventSubscriber = GetComponent<PlayerEventSubscriber>();
             _movement = GetComponent<PlayerMovement>();
@@ -63,6 +65,11 @@ namespace Player
 
         private void Update()
         {
+            if (GameManager.Instance.gameOver)
+            {
+                return;
+            }
+
             _machine.UpdateExecute();
 
             Transition();

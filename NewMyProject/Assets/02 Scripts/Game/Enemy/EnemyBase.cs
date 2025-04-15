@@ -76,6 +76,11 @@ namespace Enemy
         void Update()
         {
             // Update에서 반복적으로 각 상태의 Execute를 실행
+            if(GameManager.Instance.gameOver)
+            {
+                return;
+            }
+
             _machine.UpdateExecute();
 
             if(_isHittingDelay)

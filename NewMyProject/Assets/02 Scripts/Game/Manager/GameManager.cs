@@ -7,6 +7,8 @@ namespace Manager
     {
         public GameObject player;
 
+        public bool gameOver;
+
         public int nameNum = 0;
     }
 }

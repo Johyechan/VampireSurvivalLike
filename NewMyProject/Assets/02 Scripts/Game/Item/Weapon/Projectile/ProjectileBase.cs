@@ -2,6 +2,7 @@ using Manager;
 using MyUtil.Interface;
 using MyUtil.Pool;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ProjectileBase : MonoBehaviour
@@ -10,10 +11,17 @@ public class ProjectileBase : MonoBehaviour
 
     [SerializeField] private float _destroyDelayTime;
 
+    private Rigidbody2D _rigid2D;
+
     public float FireSpeed { get; set; }
     public float Damage { get; set; }
 
     public Vector2 Direction { get; set; }
+
+    private void Awake()
+    {
+        _rigid2D = GetComponent<Rigidbody2D>();
+    }
 
     private void OnEnable()
     {
