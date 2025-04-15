@@ -1,19 +1,10 @@
+using MyUI.Item;
 using UnityEngine;
 
 namespace Item.Inventory
 {
     public class InventoryItem : ItemBase
     {
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
-        {
 
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
     }
 }

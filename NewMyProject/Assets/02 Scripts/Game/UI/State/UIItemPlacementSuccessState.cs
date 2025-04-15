@@ -40,12 +40,9 @@ namespace MyUI.State
             UIItemManager.Instance.UIItemInformations[_objName] = _information;
 
             StatManager.Instance.AddItemStat(_item.itemSO);
-            if(_item.itemSO.itemType == ItemType.Weapon)
-            {
-                InventoryManager.Instance.Items.Add(_objName, _item.itemSO.objType);
-            }
+            InventoryManager.Instance.Items.Add(_objName, _item.itemSO.objType);
 
-            if(UIManager.Instance.shopItemParent.transform.childCount <= 0)
+            if (UIManager.Instance.shopItemParent.transform.childCount <= 0)
             {
                 UIManager.Instance.Refill();
             }

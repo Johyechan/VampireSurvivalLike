@@ -13,6 +13,7 @@ namespace MyUtil.Pool
         Sword,
         NormalMeleeEnemy,
         Arrow,
+        Torch,
     }
 }
 

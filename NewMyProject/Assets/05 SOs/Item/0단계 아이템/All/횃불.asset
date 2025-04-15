@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectileType: 0
   uiObjType: 4
-  objType: 0
+  objType: 9
   fireSpeed: 0
   itemLevel: "0\uB2E8\uACC4 \uC544\uC774\uD15C"
   no: 0.0.12

@@ -18,16 +18,29 @@ namespace Map
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(transform.position, _spawnRadius);
+            if(GameManager.Instance != null)
+                Gizmos.DrawWireSphere(GameManager.Instance.player.transform.position, _spawnRadius);
         }
 
-        void Update()
+        private void Awake()
+        {
+            SpawnDelayTime = 1f;
+        }
+
+        private void OnEnable()
         {
             StartCoroutine(SpawnCo());
         }
 
+        private void OnDisable()
+        {
+            StopCoroutine(SpawnCo());
+        }
+
         private IEnumerator SpawnCo()
         {
+            yield return new WaitForSeconds(SpawnDelayTime);
+
             while(!GameManager.Instance.gameOver)
             {
                 SpawnEnemy();

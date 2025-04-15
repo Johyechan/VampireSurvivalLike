@@ -1,3 +1,4 @@
+using Item.Weapon;
 using MyUtil.Pool;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,11 +9,13 @@ namespace Player.Backpack
     {
         public BackpackSO backpackSO;
 
-        private List<string> weapons = new List<string>();
+        private List<string> items = new List<string>();
+
+        [SerializeField] private Transform _inventoryItemParent;
 
         private bool HasItem(string itemName)
         {
-            if(weapons.Contains(itemName))
+            if(items.Contains(itemName))
             {
                 return true;
             }
@@ -24,9 +27,16 @@ namespace Player.Backpack
         {
             if(!HasItem(itemName))
             {
-                weapons.Add(itemName);
-                GameObject weapon = ObjectPoolManager.Instance.GetObject(type);
-                weapon.transform.SetParent(transform);
+                items.Add(itemName);
+                GameObject item = ObjectPoolManager.Instance.GetObject(type);
+                if (item.TryGetComponent<WeaponItem>(out var weapon))
+                {
+                    weapon.transform.SetParent(transform);
+                }
+                else
+                {
+                    item.transform.SetParent(_inventoryItemParent);
+                }
             }
         }
 
