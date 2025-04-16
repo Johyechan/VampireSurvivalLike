@@ -22,4 +22,4 @@ MonoBehaviour:
   criticalHitRate: 5
   healingSteal: 0
   speed: 5
-  startMoney: 0
+  startMoney: 100

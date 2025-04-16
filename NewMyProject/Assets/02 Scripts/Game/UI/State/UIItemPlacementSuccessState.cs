@@ -5,6 +5,7 @@ using Manager.UI;
 using MyUI.Item;
 using MyUI.Struct;
 using MyUtil.FSM;
+using TMPro;
 using UnityEngine;
 
 namespace MyUI.State
@@ -32,6 +33,7 @@ namespace MyUI.State
 
         public void Enter()
         {
+            Debug.Log("dd");
             _information = UIItemManager.Instance.UIItemInformations[_objName];
             _information.originPosition = _rectTrans.localPosition;
             _information.originRotaiton = _rectTrans.rotation;
@@ -39,9 +41,15 @@ namespace MyUI.State
             _information.shape = _item.shape.ShapeDeepCopy();
             UIItemManager.Instance.UIItemInformations[_objName] = _information;
 
-            StatManager.Instance.AddItemStat(_item.itemSO);
-            InventoryManager.Instance.Items.Add(_objName, _item.itemSO.objType);
+            if(!_item.isInventoryItem)
+                _item.isInventoryItem = true;
 
+            if(!InventoryManager.Instance.Items.ContainsKey(_objName))
+            {
+                StatManager.Instance.AddItemStat(_item.itemSO);
+                InventoryManager.Instance.Items.Add(_objName, _item.itemSO.objType);
+            }
+            
             if (UIManager.Instance.shopItemParent.transform.childCount <= 0)
             {
                 UIManager.Instance.Refill();

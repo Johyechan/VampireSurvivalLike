@@ -15,6 +15,10 @@ namespace MyUI.Struct
 
         public IState placementSuccessState;
 
+        public IState buyState;
+
+        public IState salesState;
+
         public Vector3 originPosition;
 
         public Quaternion originRotaiton;

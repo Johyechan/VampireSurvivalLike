@@ -23,6 +23,8 @@ namespace MyUI.Item
 
         protected StateMachine _machine;
 
+        protected GameObject _textObj;
+
         protected IDraggable _draggable;
 
         protected IPlacement _placement;
@@ -34,8 +36,12 @@ namespace MyUI.Item
         protected IState _checkState;
         protected IState _successState;
         protected IState _failedState;
+        protected IState _buyState;
+        protected IState _salesState;
 
         public ItemShape shape { get; set; }
+
+        public bool isInventoryItem { get; set; }
 
         protected virtual void Start()
         {
@@ -45,6 +51,7 @@ namespace MyUI.Item
             _canvas = FindFirstObjectByType<Canvas>();
             _raycaster = _canvas.GetComponent<GraphicRaycaster>();
             _rectTrans = GetComponent<RectTransform>();
+            _textObj = transform.GetChild(0).gameObject;
 
             shape = _so.DeepCopy().shape;
 
@@ -57,7 +64,15 @@ namespace MyUI.Item
         public virtual void OnBeginDrag(PointerEventData eventData)
         {
             _draggable.OnDragStart(_rectTrans);
-            _machine.ChangeState(_draggingState);
+            if(!isInventoryItem)
+            {
+                _textObj.SetActive(false);
+                _machine.ChangeState(_buyState);
+            }
+            else
+            {
+                _machine.ChangeState(_draggingState);
+            }
         }
 
         public virtual void OnDrag(PointerEventData eventData)

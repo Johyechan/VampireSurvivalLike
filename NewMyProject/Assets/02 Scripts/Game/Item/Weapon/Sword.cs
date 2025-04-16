@@ -53,7 +53,7 @@ namespace Item.Weapon
 
         private IEnumerator AttackCo()
         {
-            while(true)
+            while(!GameManager.Instance.gameOver)
             {
                 GameObject enemy = _weaponStrategy.CheckArea();
                 if (enemy != null)

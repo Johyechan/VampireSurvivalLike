@@ -29,7 +29,7 @@ namespace Item.Weapon
 
         private IEnumerator Fire()
         {
-            while(true)
+            while(!GameManager.Instance.gameOver)
             {
                 if(_weaponStrategy.CheckArea() != null)
                 {

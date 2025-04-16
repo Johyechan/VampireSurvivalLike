@@ -1,3 +1,4 @@
+using Manager;
 using Manager.UI;
 using MyUI.Interface;
 using MyUI.Item;
@@ -24,8 +25,11 @@ namespace MyUI.State
 
         private string _objName;
 
+        private PlayerWallet _wallet;
+
         public UIItemPlacementCheckState(StateMachine machine, RectTransform rectTrans, UIItem item, IDraggable dragHandle, IPlacement placementHandle)
         {
+            _wallet = GameManager.Instance.player.GetComponent<PlayerWallet>();
             _machine = machine;
             _rectTrans = rectTrans;
             _item = item;
@@ -53,6 +57,18 @@ namespace MyUI.State
                 }
 
                 _dragHandle.CurrentSlot = null;
+            }
+            else if(_rectTrans.parent.CompareTag("Shop"))
+            {
+                if(_item.isInventoryItem)
+                {
+                    _machine.ChangeState(UIItemManager.Instance.UIItemInformations[_objName].salesState);
+                }
+                else
+                {
+                    _wallet.AddMoney(_item.itemSO.price);
+                    _machine.ChangeState(UIItemManager.Instance.UIItemInformations[_objName].placementFailedState);
+                }
             }
             else
             {

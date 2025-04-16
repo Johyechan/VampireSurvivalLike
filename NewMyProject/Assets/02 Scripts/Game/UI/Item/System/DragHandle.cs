@@ -36,7 +36,7 @@ namespace MyUI.Item.HandleSystem
 
         public void OnDragEnd(RectTransform rectTransform)
         {
-            UIRaycast(rectTransform, false, true);
+             UIRaycast(rectTransform, false, true);
             UpdateFollowUI(rectTransform);
         }
 

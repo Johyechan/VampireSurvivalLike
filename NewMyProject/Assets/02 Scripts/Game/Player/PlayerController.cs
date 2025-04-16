@@ -16,6 +16,7 @@ namespace Player
         private PlayerMovement _movement;
         private PlayerEventSubscriber _eventSubscriber;
         private PlayerHealth _health;
+        private PlayerWallet _wallet;
 
         private Animator _animator;
 
@@ -40,6 +41,8 @@ namespace Player
             _movement = GetComponent<PlayerMovement>();
             _health = GetComponent<PlayerHealth>();
             _health.MaxHp = playerSO.maxHp;
+            _wallet = GetComponent<PlayerWallet>();
+            _wallet.CurrentMoney = playerSO.startMoney;
 
             _animator = GetComponent<Animator>();
 
