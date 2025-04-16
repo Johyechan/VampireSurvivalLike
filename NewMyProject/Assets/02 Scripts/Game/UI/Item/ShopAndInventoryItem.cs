@@ -10,28 +10,6 @@ namespace MyUI.Item
 {
     public class ShopAndInventoryItem : UIItem
     {
-        private void OnEnable()
-        {
-            if (UIItemManager.Instance.UIItemInformations.ContainsKey(gameObject.name))
-            {
-                _information = new UIItemFSMInformation();
-
-                _information.idleState = _idleState;
-                _information.placementSuccessState = _successState;
-                _information.placementFailedState = _failedState;
-                _information.draggingState = _draggingState;
-                _information.salesState = _salesState;
-
-                _information.parent = _rectTrans.parent;
-                _information.originPosition = _rectTrans.localPosition;
-                _information.originRotaiton = _rectTrans.rotation;
-
-                _information.shape = shape.ShapeDeepCopy();
-
-                UIItemManager.Instance.UIItemInformations[gameObject.name] = _information;
-            }
-        }
-
         protected override void Start()
         {
             base.Start();
@@ -55,7 +33,7 @@ namespace MyUI.Item
             _information.salesState = _salesState;
 
             _information.parent = _rectTrans.parent;
-            _information.originPosition = _rectTrans.localPosition;
+            _information.originPosition = _rectTrans.anchoredPosition;
             _information.originRotaiton = _rectTrans.rotation;
 
             _information.shape = shape.ShapeDeepCopy();

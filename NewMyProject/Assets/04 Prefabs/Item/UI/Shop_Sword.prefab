@@ -225,5 +225,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61c9b61ebbda7a14883ec97bc0dbbf5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _so: {fileID: 11400000, guid: da7854c479127804fb8a1ac3770e413b, type: 2}
+  uiItemSO: {fileID: 11400000, guid: da7854c479127804fb8a1ac3770e413b, type: 2}
   itemSO: {fileID: 11400000, guid: edfac5c2802f4f240b08df1ecf07f49e, type: 2}

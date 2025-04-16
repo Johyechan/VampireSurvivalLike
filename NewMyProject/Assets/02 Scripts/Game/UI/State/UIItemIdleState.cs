@@ -26,19 +26,20 @@ namespace MyUI.State
 
         public void Enter()
         {
-            _rectTrans.SetParent(UIItemManager.Instance.UIItemInformations[_objName].parent);
-            _rectTrans.localPosition = UIItemManager.Instance.UIItemInformations[_objName].originPosition;
-            Debug.Log(UIItemManager.Instance.UIItemInformations[_objName].originPosition); // 이거 이상함 좌료는 맞는데 실제 위치는 이상함
-            _rectTrans.rotation = UIItemManager.Instance.UIItemInformations[_objName].originRotaiton;
-            _item.shape = UIItemManager.Instance.UIItemInformations[_objName].shape.ShapeDeepCopy();
-
-            if(!_item.isInventoryItem)
+            if (!_item.isInventoryItem)
             {
                 _rectTrans.anchorMin = new Vector2(0.5f, 0.5f);
                 _rectTrans.anchorMax = new Vector2(0.5f, 0.5f);
                 _rectTrans.pivot = new Vector2(0.5f, 0.5f);
                 _textObj.SetActive(true);
             }
+
+            _rectTrans.SetParent(UIItemManager.Instance.UIItemInformations[_objName].parent);
+            _rectTrans.anchoredPosition = UIItemManager.Instance.UIItemInformations[_objName].originPosition;
+            Debug.Log(UIItemManager.Instance.UIItemInformations[_objName].originPosition);
+            Debug.Log(_rectTrans.anchoredPosition);
+            _rectTrans.rotation = UIItemManager.Instance.UIItemInformations[_objName].originRotaiton;
+            _item.shape = UIItemManager.Instance.UIItemInformations[_objName].shape.ShapeDeepCopy();
         }
 
         public void Execute()

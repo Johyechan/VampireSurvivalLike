@@ -12,7 +12,7 @@ namespace MyUI.Item
 {
     public class UIItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
-        [SerializeField] protected UIItemSO _so;
+        public UIItemSO uiItemSO;
         public ItemSO itemSO;
 
         private Canvas _canvas;
@@ -53,7 +53,7 @@ namespace MyUI.Item
             _rectTrans = GetComponent<RectTransform>();
             _textObj = transform.GetChild(0).gameObject;
 
-            shape = _so.DeepCopy().shape;
+            shape = uiItemSO.DeepCopy().shape;
 
             _draggable = new DragHandle(_canvas, _raycaster);
             _placement = new PlacementHandle();

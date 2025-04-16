@@ -1,9 +1,15 @@
+using Manager;
 using Manager.Inventory;
+using Manager.UI;
+using MyFactory;
 using MyUI.Interface;
 using MyUI.Slot;
+using MyUI.Struct;
 using MyUtil.Pool;
 using System.Collections.Generic;
+using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
+using static UnityEngine.Rendering.ProbeAdjustmentVolume;
 
 namespace MyUI
 {
@@ -30,29 +36,35 @@ namespace MyUI
             {
                 for(int j = 0; j < y; j++)
                 {
+                    GameObject obj;
                     ObjectPoolType type = GetRandomType(types);
-                    GameObject obj = _spawnStrategy.SpawnUI(type, parentTrans);
                     float posX = firstPosVec.x + i * (width + spacing);
                     float posY = firstPosVec.y - j * (height + spacing);
 
-                    if (backpackArr != null)
-                    {
-                        if (backpackArr[i, j] == 0)
-                        {
-                            obj.SetActive(false);
-                        }
-                    }
-
-                    obj.GetComponent<RectTransform>().anchoredPosition = new Vector2(posX, posY);
-
                     if(type == ObjectPoolType.Slot)
                     {
+                        obj = _spawnStrategy.SpawnUI(type, parentTrans);
                         InventorySlot slot = obj.GetComponent<InventorySlot>();
                         slot.X = i;
                         slot.Y = j;
                         slot.IsOccupied = false;
                         InventoryManager.Instance.Grid[i, j] = slot;
+
+                        if (backpackArr != null)
+                        {
+                            if (backpackArr[i, j] == 0)
+                            {
+                                obj.SetActive(false);
+                            }
+                        }
                     }
+                    else
+                    {
+                        UIItemFactory factory = FactoryManager.Instance.GetFactory<UIItemFactory>(MyFactory.Enum.FactoryType.UIItem);
+                        obj = factory.CreateObj(type, new Vector2(posX, posY), parentTrans);
+                    }
+
+                    obj.GetComponent<RectTransform>().anchoredPosition = new Vector2(posX, posY);
                 }
             }
         }

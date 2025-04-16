@@ -33,9 +33,8 @@ namespace MyUI.State
 
         public void Enter()
         {
-            Debug.Log("dd");
             _information = UIItemManager.Instance.UIItemInformations[_objName];
-            _information.originPosition = _rectTrans.localPosition;
+            _information.originPosition = _rectTrans.anchoredPosition;
             _information.originRotaiton = _rectTrans.rotation;
             _information.parent = _rectTrans.parent;
             _information.shape = _item.shape.ShapeDeepCopy();
