@@ -1,6 +1,10 @@
 using UnityEngine;
 
-public abstract class ButtonBase : MonoBehaviour
+namespace MyUI.Button
 {
-    public abstract void OnClicked();
+    public abstract class ButtonBase : MonoBehaviour
+    {
+        public abstract void OnClicked();
+    }
 }
+

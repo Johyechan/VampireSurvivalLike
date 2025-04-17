@@ -4,7 +4,9 @@ namespace MyUI.Animator.Enum
     {
         None,
         FadeIn,
-        FadeOut
+        FadeOut,
+        SaveBoxMoveUp,
+        SaveBoxMoveDown,
     }
 }
 

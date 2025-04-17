@@ -4,37 +4,41 @@ using MyUI.Item;
 using MyUtil.Pool;
 using UnityEngine;
 
-public class RerollButton : ButtonBase
+namespace MyUI.Button
 {
-    [SerializeField] private int _price;
-
-    private PlayerWallet _wallet;
-
-    private void Awake()
+    public class RerollButton : ButtonBase
     {
-        _wallet = GameManager.Instance.player.GetComponent<PlayerWallet>();
-    }
+        [SerializeField] private int _price;
 
-    public override void OnClicked()
-    {
-        if(_wallet.UseMoney(_price))
+        private PlayerWallet _wallet;
+
+        private void Awake()
         {
-            int count = UIManager.Instance.shopItemParent.transform.childCount;
-
-            for (int i = count - 1; i >= 0; i--)
-            {
-                UIItem item = UIManager.Instance.shopItemParent.transform.GetChild(i).GetComponent<UIItem>();
-                if (item != null)
-                {
-                    ObjectPoolManager.Instance.ReturnObj(item.itemSO.uiObjType, UIManager.Instance.shopItemParent.transform.GetChild(i).gameObject);
-                }
-            }
-
-            UIManager.Instance.Refill();
+            _wallet = GameManager.Instance.player.GetComponent<PlayerWallet>();
         }
-        else
+
+        public override void OnClicked()
         {
-            Debug.Log("µ· ¾øÀ½");
+            if (_wallet.UseMoney(_price))
+            {
+                int count = UIManager.Instance.shopItemParent.transform.childCount;
+
+                for (int i = count - 1; i >= 0; i--)
+                {
+                    UIItem item = UIManager.Instance.shopItemParent.transform.GetChild(i).GetComponent<UIItem>();
+                    if (item != null)
+                    {
+                        ObjectPoolManager.Instance.ReturnObj(item.itemSO.uiObjType, UIManager.Instance.shopItemParent.transform.GetChild(i).gameObject);
+                    }
+                }
+
+                UIManager.Instance.Refill();
+            }
+            else
+            {
+                Debug.Log("µ· ¾øÀ½");
+            }
         }
     }
 }
+
