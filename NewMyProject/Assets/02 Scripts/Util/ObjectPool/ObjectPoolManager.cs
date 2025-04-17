@@ -68,8 +68,6 @@ namespace MyUtil.Pool
 
         public void ReturnObj(ObjectPoolType type, GameObject obj)
         {
-            Debug.Log(type);
-            Debug.Log(obj);
             obj.transform.position = Vector2.zero;
             obj.transform.rotation = Quaternion.identity;
             obj.transform.SetParent(transform);
