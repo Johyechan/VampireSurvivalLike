@@ -8,8 +8,6 @@ namespace MyUI.Animator
 {
     public class UISaveBoxMoveAnimator : EventSubscriber, IUIAnimator
     {
-        private Coroutine _currentCo;
-
         private bool _isPlaying = false;
 
         private RectTransform _rectTrans;
@@ -27,7 +25,6 @@ namespace MyUI.Animator
         protected override void UnsubscribeEvents()
         {
             UIAnimatorEventManager.OnPlayAnimation -= Play;
-            StopCoroutine(_currentCo);
         }
 
         public void Play(UIAnimationType type)
@@ -37,10 +34,10 @@ namespace MyUI.Animator
                 switch(type)
                 {
                     case UIAnimationType.SaveBoxMoveUp:
-                        _currentCo = StartCoroutine(MoveToPos(Vector3.zero));
+                        StartCoroutine(MoveToPos(Vector3.zero));
                         break;
                     case UIAnimationType.SaveBoxMoveDown:
-                        _currentCo = StartCoroutine(MoveToPos(new Vector3(0, -240, 0)));
+                        StartCoroutine(MoveToPos(new Vector3(0, -240, 0)));
                         break;
                 }
             }

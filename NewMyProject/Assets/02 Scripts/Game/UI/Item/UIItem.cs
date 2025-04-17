@@ -45,8 +45,6 @@ namespace MyUI.Item
 
         protected virtual void Start()
         {
-            gameObject.name += GameManager.Instance.nameNum++;
-
             _machine = new StateMachine();
             _canvas = FindFirstObjectByType<Canvas>();
             _raycaster = _canvas.GetComponent<GraphicRaycaster>();

@@ -1,3 +1,4 @@
+using Item;
 using Item.Weapon;
 using MyUtil.Pool;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ namespace Player.Backpack
         private List<string> items = new List<string>();
 
         [SerializeField] private Transform _inventoryItemParent;
+        [SerializeField] private Transform _weaponItemParent;
 
         private bool HasItem(string itemName)
         {
@@ -23,6 +25,30 @@ namespace Player.Backpack
             return false;
         }
 
+        public void ClearItem()
+        {
+            items.Clear();
+            for(int i = _weaponItemParent.childCount - 1; i >= 0; i--)
+            {
+                GameObject obj = _weaponItemParent.GetChild(i).gameObject;
+                if (obj.TryGetComponent<ItemBase>(out var item))
+                {
+                    Debug.Log(item.itemSO.objType);
+                    Debug.Log(obj);
+                    ObjectPoolManager.Instance.ReturnObj(item.itemSO.objType, obj);
+                }
+            }
+
+            for(int i = _inventoryItemParent.childCount - 1;i >= 0; i--)
+            {
+                GameObject obj = _inventoryItemParent.GetChild(i).gameObject;
+                if (obj.TryGetComponent<ItemBase>(out var item))
+                {
+                    ObjectPoolManager.Instance.ReturnObj(item.itemSO.objType, obj);
+                }
+            }
+        }
+
         public void AddItem(string itemName, ObjectPoolType type)
         {
             if(!HasItem(itemName))
@@ -31,7 +57,7 @@ namespace Player.Backpack
                 GameObject item = ObjectPoolManager.Instance.GetObject(type);
                 if (item.TryGetComponent<WeaponItem>(out var weapon))
                 {
-                    weapon.transform.SetParent(transform);
+                    weapon.transform.SetParent(_weaponItemParent);
                 }
                 else
                 {
@@ -42,16 +68,16 @@ namespace Player.Backpack
 
         public void WeaponPositionSet()
         {
-            int count = transform.childCount;
+            int count = _weaponItemParent.childCount;
 
             float distance = 1.5f;
 
             for(int i = 0; i < count; i++)
             {
                 Vector2 dir = new Vector2(Mathf.Cos(Mathf.PI * 2 * i / count), Mathf.Sin(Mathf.PI * 2 * i / count));
-                transform.GetChild(i).transform.position = dir * distance;
+                _weaponItemParent.GetChild(i).transform.position = dir * distance;
                 float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-                transform.GetChild(i).transform.rotation = Quaternion.Euler(0, 0, angle - 90);
+                _weaponItemParent.GetChild(i).transform.rotation = Quaternion.Euler(0, 0, angle - 90);
             }
         }
     }

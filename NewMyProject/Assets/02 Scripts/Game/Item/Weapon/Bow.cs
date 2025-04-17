@@ -9,12 +9,12 @@ namespace Item.Weapon
     {
         private void OnDrawGizmos()
         {
-            Gizmos.DrawWireSphere(transform.position, _itemSO.range);
+            Gizmos.DrawWireSphere(transform.position, itemSO.range);
         }
 
         private void Awake()
         {
-            _weaponStrategy = new RangedWeaponStrategy(transform, _itemSO.range, "Enemy", StatManager.Instance.AllStat.attackDamage + StatManager.Instance.PlayerStat.damage, _itemSO.fireSpeed, _itemSO.projectileType);
+            _weaponStrategy = new RangedWeaponStrategy(transform, itemSO.range, "Enemy", StatManager.Instance.AllStat.attackDamage + StatManager.Instance.PlayerStat.damage, itemSO.fireSpeed, itemSO.projectileType);
         }
 
         private void OnEnable()

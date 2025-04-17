@@ -42,6 +42,7 @@ namespace MyUtil.Pool
         private GameObject CreateNewObj(ObjectPoolType type)
         {
             GameObject newObj = Instantiate(_objectPoolMap[type].prefabObj, transform);
+            newObj.name += GameManager.Instance.nameNum++;
             newObj.SetActive(false);
 
             return newObj;
@@ -67,6 +68,8 @@ namespace MyUtil.Pool
 
         public void ReturnObj(ObjectPoolType type, GameObject obj)
         {
+            Debug.Log(type);
+            Debug.Log(obj);
             obj.transform.position = Vector2.zero;
             obj.transform.rotation = Quaternion.identity;
             obj.transform.SetParent(transform);

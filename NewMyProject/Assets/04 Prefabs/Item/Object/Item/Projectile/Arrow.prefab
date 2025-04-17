@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 8683240631760526736}
   - component: {fileID: 5846988602767924635}
   - component: {fileID: 7363197056961344854}
-  - component: {fileID: 2397767871895352073}
   - component: {fileID: 2123400966088822422}
+  - component: {fileID: 2397767871895352073}
   m_Layer: 0
   m_Name: Arrow
   m_TagString: Untagged
@@ -127,20 +127,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1, y: 2}
   m_Direction: 0
---- !u!114 &2397767871895352073
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8542655633105763195}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 863bb2156b6286040a6c07e9f05f87df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _type: 8
-  _destroyDelayTime: 5
 --- !u!50 &2123400966088822422
 Rigidbody2D:
   serializedVersion: 5
@@ -168,3 +154,17 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &2397767871895352073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8542655633105763195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 863bb2156b6286040a6c07e9f05f87df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _type: 8
+  _destroyDelayTime: 5

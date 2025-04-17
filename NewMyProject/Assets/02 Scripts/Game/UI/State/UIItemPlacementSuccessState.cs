@@ -43,10 +43,21 @@ namespace MyUI.State
             if(!_item.isInventoryItem)
                 _item.isInventoryItem = true;
 
-            if(!InventoryManager.Instance.Items.ContainsKey(_objName))
+            if(_rectTrans.parent.CompareTag("SaveBox"))
             {
-                StatManager.Instance.AddItemStat(_item.itemSO);
-                InventoryManager.Instance.Items.Add(_objName, _item.itemSO.objType);
+                if (InventoryManager.Instance.Items.ContainsKey(_objName))
+                {
+                    StatManager.Instance.ChangeItemStat(_item.itemSO, -1);
+                    InventoryManager.Instance.Items.Remove(_objName);
+                }
+            }
+            else
+            {
+                if (!InventoryManager.Instance.Items.ContainsKey(_objName))
+                {
+                    StatManager.Instance.ChangeItemStat(_item.itemSO);
+                    InventoryManager.Instance.Items.Add(_objName, _item.itemSO.objType);
+                }
             }
             
             if (UIManager.Instance.shopItemParent.transform.childCount <= 0)

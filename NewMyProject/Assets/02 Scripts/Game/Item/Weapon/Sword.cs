@@ -19,14 +19,14 @@ namespace Item.Weapon
 
         private void OnDrawGizmos()
         {
-            Gizmos.DrawWireSphere(transform.position, _itemSO.range);
+            Gizmos.DrawWireSphere(transform.position, itemSO.range);
         }
 
         private void Awake()
         {
             _animator = GetComponent<Animator>();
 
-            _weaponStrategy = new MeleeWeaponStrategy(transform, _itemSO.range, "Enemy", _animator, _attackHash);
+            _weaponStrategy = new MeleeWeaponStrategy(transform, itemSO.range, "Enemy", _animator, _attackHash);
 
             _damage = StatManager.Instance.AllStat.attackDamage + StatManager.Instance.PlayerStat.damage;
         }

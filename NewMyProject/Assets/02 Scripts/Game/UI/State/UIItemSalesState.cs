@@ -1,4 +1,5 @@
 using Manager;
+using Manager.Inventory;
 using Manager.UI;
 using MyUI.Item;
 using MyUtil.FSM;
@@ -42,6 +43,11 @@ namespace MyUI.State
             _rectTrans.anchorMax = new Vector2(0.5f, 0.5f);
             _rectTrans.pivot = new Vector2(0.5f, 0.5f);
             _textObj.SetActive(true);
+            if(InventoryManager.Instance.Items.ContainsKey(_rectTrans.gameObject.name))
+            {
+                StatManager.Instance.ChangeItemStat(_item.itemSO, -1);
+                InventoryManager.Instance.Items.Remove(_rectTrans.gameObject.name);
+            }
             ObjectPoolManager.Instance.ReturnObj(_type, _obj);
         }
 

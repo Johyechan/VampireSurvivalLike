@@ -67,7 +67,7 @@ namespace MyUI.Item.HandleSystem
                 {
                     _currentSlot = slot;
                 }
-                else if (result.gameObject.CompareTag("Shop") || result.gameObject.CompareTag("Backpack"))
+                else if (result.gameObject.CompareTag("Shop") || result.gameObject.CompareTag("Backpack") || result.gameObject.CompareTag("SaveBox"))
                 {
                     if (setParent)
                     {

@@ -21,26 +21,26 @@ namespace Manager
             _allStat = new ItemStat();
         }
 
-        public void AddItemStat(ItemSO so)
+        public void ChangeItemStat(ItemSO so, int isPlus = 1)
         {
-            _allStat.attackDamage += so.attackDamage;
-            _allStat.abilityPower += so.abilityPower;
-            _allStat.soulPower += so.soulPower;
-            _allStat.accuracyRate += so.accuracyRate;
-            _allStat.avoidanceRate += so.avoidanceRate;
-            _allStat.criticalHitRate += so.criticalHitRate;
-            _allStat.attackSpeed += so.attackSpeed;
-            _allStat.speedIncrease += so.speedIncrease;
-            _allStat.defence += so.defence;
-            _allStat.health += so.health; // 체력
-            _allStat.mana += so.mana; // 마나
-            _allStat.soul += so.soul; // 소울?
-            _allStat.healingCost += so.healingCost; // 체력 코스트
-            _allStat.manaCost += so.manaCost; // 마나 코스트
-            _allStat.healingSteal += so.healingSteal; // 피흡 - 비율 증감 계산기
-            _allStat.manaSteal += so.manaSteal; // 마나 흡혈 - 비율 증감 계산기
-            _allStat.healingFactor += so.healingFactor; // 체젠
-            _allStat.manaFactor += so.manaFactor; // 마나젠
+            _allStat.attackDamage += so.attackDamage * isPlus;
+            _allStat.abilityPower += so.abilityPower * isPlus;
+            _allStat.soulPower += so.soulPower * isPlus;
+            _allStat.accuracyRate += so.accuracyRate * isPlus;
+            _allStat.avoidanceRate += so.avoidanceRate * isPlus;
+            _allStat.criticalHitRate += so.criticalHitRate * isPlus;
+            _allStat.attackSpeed += so.attackSpeed * isPlus;
+            _allStat.speedIncrease += so.speedIncrease  * isPlus;
+            _allStat.defence += so.defence * isPlus;
+            _allStat.health += so.health * isPlus; // 체력
+            _allStat.mana += so.mana * isPlus; // 마나
+            _allStat.soul += so.soul * isPlus; // 소울?
+            _allStat.healingCost += so.healingCost * isPlus; // 체력 코스트
+            _allStat.manaCost += so.manaCost * isPlus; // 마나 코스트
+            _allStat.healingSteal += so.healingSteal * isPlus; // 피흡 - 비율 증감 계산기
+            _allStat.manaSteal += so.manaSteal * isPlus; // 마나 흡혈 - 비율 증감 계산기
+            _allStat.healingFactor += so.healingFactor * isPlus; // 체젠
+            _allStat.manaFactor += so.manaFactor * isPlus; // 마나젠
         }
     }
 }

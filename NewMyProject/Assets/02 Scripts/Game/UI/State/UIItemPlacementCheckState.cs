@@ -70,6 +70,10 @@ namespace MyUI.State
                     _machine.ChangeState(UIItemManager.Instance.UIItemInformations[_objName].placementFailedState);
                 }
             }
+            else if(_rectTrans.parent.CompareTag("SaveBox"))
+            {
+                _machine.ChangeState(UIItemManager.Instance.UIItemInformations[_objName].placementSuccessState);
+            }
             else
             {
                 _machine.ChangeState(UIItemManager.Instance.UIItemInformations[_objName].placementFailedState);

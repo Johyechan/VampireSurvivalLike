@@ -36,8 +36,6 @@ namespace MyUI.State
 
             _rectTrans.SetParent(UIItemManager.Instance.UIItemInformations[_objName].parent);
             _rectTrans.anchoredPosition = UIItemManager.Instance.UIItemInformations[_objName].originPosition;
-            Debug.Log(UIItemManager.Instance.UIItemInformations[_objName].originPosition);
-            Debug.Log(_rectTrans.anchoredPosition);
             _rectTrans.rotation = UIItemManager.Instance.UIItemInformations[_objName].originRotaiton;
             _item.shape = UIItemManager.Instance.UIItemInformations[_objName].shape.ShapeDeepCopy();
         }

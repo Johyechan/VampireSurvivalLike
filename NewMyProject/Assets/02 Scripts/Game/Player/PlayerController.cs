@@ -111,6 +111,7 @@ namespace Player
 
         private void AddItem()
         {
+            _backpack.ClearItem();
             foreach (var item in InventoryManager.Instance.Items)
             {
                 _backpack.AddItem(item.Key, item.Value);
