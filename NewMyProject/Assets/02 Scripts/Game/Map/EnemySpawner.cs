@@ -24,7 +24,7 @@ namespace Map
 
         private void Awake()
         {
-            SpawnDelayTime = 1f;
+            SpawnDelayTime = 10000000f;
         }
 
         private void OnEnable()
@@ -39,9 +39,10 @@ namespace Map
 
         private IEnumerator SpawnCo()
         {
-            yield return new WaitForSeconds(SpawnDelayTime);
+            //yield return new WaitForSeconds(SpawnDelayTime);
+            yield return null;
 
-            while(!GameManager.Instance.gameOver)
+            while (!GameManager.Instance.gameOver)
             {
                 SpawnEnemy();
                 yield return new WaitForSeconds(SpawnDelayTime);

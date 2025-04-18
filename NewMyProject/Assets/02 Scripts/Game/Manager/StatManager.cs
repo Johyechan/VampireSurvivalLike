@@ -46,7 +46,7 @@ namespace Manager
         public float ReturnAttackSpeedPerSecond(float otherAttackSpeed = 0)
         {
             float returnAttackSpeed = 0;
-            returnAttackSpeed = 0.5f * (1 + (_allStat.attackSpeed + otherAttackSpeed) / 100);
+            returnAttackSpeed = 0.5f * (1 + (_allStat.attackSpeed + _playerSO.attackSpeed + otherAttackSpeed) / 100);
             return 1f / returnAttackSpeed;
         }
     }

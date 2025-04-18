@@ -44,14 +44,13 @@ namespace Enemy
         [SerializeField] protected float _knockbackPower;
 
         private float _currentAttackDelayTime = 0;
-        private float _currentHittingDelayTime = 0;
 
         // 죽음 상태는 외부에서 죽었는지 알아야 작업을 멈추는 경우가 존재 + 자식이 접근 못하는 이유는 죽는 기준은 항상 같기 때문
         public bool IsDie { get { return _isDie; } }
         private bool _isDie = false;
 
         protected bool _isAttackDelay = false;
-        protected bool _isHittingDelay = false;
+        protected bool _isknockback = false;
 
         // 자식이 재정의 가능하게 만듦
         protected virtual void Awake()
@@ -83,12 +82,7 @@ namespace Enemy
 
             _machine.UpdateExecute();
 
-            if(_isHittingDelay)
-            {
-                HittingDelay();
-            }
-
-            if(_isAttackDelay)
+            if (_isAttackDelay)
             {
                 AttackDelay();
             }
@@ -109,28 +103,10 @@ namespace Enemy
             }
         }
 
-        private void HittingDelay()
-        {
-            _currentHittingDelayTime += Time.deltaTime;
-
-            if(_currentHittingDelayTime > _knockbackTime)
-            {
-                _isHittingDelay = false;
-                _currentHittingDelayTime = 0;
-            }
-        }
-
         protected void AttackEnd()
         {
             _machine.ChangeState(_idleState);
             _isAttackDelay = true;
-        }
-
-        // 유니티 작업 창중 애니메이션 작업창에서 애니메이션 이벤트로 넣기 위한 함수
-        protected void HittingStart()
-        {
-            // 애니메이션이 끝나고 기본 상태로 돌아가야 하는 상태들을 위해서 만든 함수
-            _isHittingDelay = true;
         }
 
         // 유니티 작업 창중 애니메이션 작업창에서 애니메이션 이벤트로 넣기 위한 함수
@@ -139,6 +115,30 @@ namespace Enemy
             // 삭제될 때 사망 애니메이션이 끝나고 사라지게 하기 위해서
             StopAllCoroutines();
             ObjectPoolManager.Instance.ReturnObj(_type, gameObject);
+        }
+
+        private IEnumerator KnockbackCo()
+        {
+            _isknockback = true;
+            float currentTime = 0;
+            Vector3 dir = (transform.position - GameManager.Instance.player.transform.position).normalized;
+
+            while (currentTime < _knockbackTime)
+            {
+                currentTime += Time.deltaTime;
+                transform.position += dir.normalized * _knockbackPower * Time.deltaTime;
+                yield return null;
+            }
+
+            _isknockback = false;
+        }
+
+        protected void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (!_isknockback)
+            {
+                StartCoroutine(KnockbackCo());
+            }
         }
     }
 }

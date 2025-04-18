@@ -23,8 +23,6 @@ namespace Enemy.State
         // 이 상태에 들어왔을 때
         public void Enter()
         {
-            Debug.Log("적 사망");
-
             // 애니메이션 실행
             _animator.SetTrigger(_hash);
         }

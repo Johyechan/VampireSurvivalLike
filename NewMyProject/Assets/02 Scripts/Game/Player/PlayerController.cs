@@ -117,7 +117,7 @@ namespace Player
                 _backpack.AddItem(item.Key, item.Value);
             }
 
-            _backpack.WeaponPositionSet();
+            _backpack.ItemSet();
         }
     }
 }

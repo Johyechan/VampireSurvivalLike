@@ -7,18 +7,10 @@ namespace Item.Effect.OneItem
 {
     public class AttackSpeedIncreaseEffect : IItemEffect
     {
-        private IItemEffect _effect;
-
         private float _increaseValue = 0;
-
-        public AttackSpeedIncreaseEffect(IItemEffect effect)
-        {
-            _effect = effect;
-        }
 
         public void Effect(EnemyBase enemy = null)
         {
-            _effect.Effect();
             // 전체적으로 공속을 올릴 때
             //ItemStat stat = StatManager.Instance.AllStat;
             //stat.attackSpeed++;
@@ -32,7 +24,7 @@ namespace Item.Effect.OneItem
             return _increaseValue;
         }
 
-        public void RemoveEffect()
+        public void ResetAttackSpeed()
         {
             // 전체적으로 공속이 적용 됐을 때
             //ItemStat stat = StatManager.Instance.AllStat;

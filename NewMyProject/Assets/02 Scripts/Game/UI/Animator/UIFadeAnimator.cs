@@ -63,6 +63,10 @@ namespace MyUI.Animator
             _canvasGroup.alpha = targetAlpha;
 
             _isPlaying = false;
+            if(!isFadein)
+            {
+                Time.timeScale = 1f;
+            }
         }
     }
 }

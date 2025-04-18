@@ -33,8 +33,6 @@ namespace Player.Backpack
                 GameObject obj = _weaponItemParent.GetChild(i).gameObject;
                 if (obj.TryGetComponent<ItemBase>(out var item))
                 {
-                    Debug.Log(item.itemSO.objType);
-                    Debug.Log(obj);
                     ObjectPoolManager.Instance.ReturnObj(item.itemSO.objType, obj);
                 }
             }
@@ -54,7 +52,8 @@ namespace Player.Backpack
             if(!HasItem(itemName))
             {
                 items.Add(itemName);
-                GameObject item = ObjectPoolManager.Instance.GetObject(type);
+                GameObject item = ObjectPoolManager.Instance.GetObject(type, null, false);
+                item.SetActive(false);
                 if (item.TryGetComponent<WeaponItem>(out var weapon))
                 {
                     weapon.transform.SetParent(_weaponItemParent);
@@ -66,7 +65,7 @@ namespace Player.Backpack
             }
         }
 
-        public void WeaponPositionSet()
+        public void ItemSet()
         {
             int count = _weaponItemParent.childCount;
 
@@ -75,9 +74,17 @@ namespace Player.Backpack
             for(int i = 0; i < count; i++)
             {
                 Vector2 dir = new Vector2(Mathf.Cos(Mathf.PI * 2 * i / count), Mathf.Sin(Mathf.PI * 2 * i / count));
-                _weaponItemParent.GetChild(i).transform.position = dir * distance;
-                float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-                _weaponItemParent.GetChild(i).transform.rotation = Quaternion.Euler(0, 0, angle - 90);
+                _weaponItemParent.GetChild(i).transform.localPosition = dir.normalized * distance;
+                float angle = Mathf.Atan2(dir.normalized.y, dir.normalized.x) * Mathf.Rad2Deg;
+                _weaponItemParent.GetChild(i).transform.localRotation = Quaternion.Euler(0, 0, angle - 90);
+                _weaponItemParent.GetChild(i).gameObject.SetActive(true);
+            }
+
+            count = _inventoryItemParent.childCount;
+
+            for(int i = 0; i < count; i++)
+            {
+                _inventoryItemParent.GetChild(i).gameObject.SetActive(true);
             }
         }
     }

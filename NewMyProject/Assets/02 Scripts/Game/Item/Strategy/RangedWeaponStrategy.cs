@@ -2,6 +2,7 @@ using Item.Interface;
 using Manager;
 using MyUtil.Pool;
 using NPOI.OpenXmlFormats.Dml;
+using Player.Enum;
 using UnityEngine;
 
 namespace Item.Strategy
@@ -13,19 +14,21 @@ namespace Item.Strategy
         private string _layerMask;
 
         private float _range;
-        private float _damage;
         private float _fireSpeed;
+        private float _damage;
 
         private ObjectPoolType _projectileType;
 
-        public RangedWeaponStrategy(Transform trans, float range, string layerMask, float damage, float fireSpeed, ObjectPoolType projectileType)
+        private RoleType _roleType;
+
+        public RangedWeaponStrategy(Transform trans, float range, string layerMask, float fireSpeed, ObjectPoolType projectileType, RoleType roleType)
         {
             _trans = trans;
             _range = range;
             _layerMask = layerMask;
-            _damage = damage;
             _fireSpeed = fireSpeed;
             _projectileType = projectileType;
+            _roleType = roleType;
         }
 
         public void Attack()
@@ -44,6 +47,19 @@ namespace Item.Strategy
                 _trans.rotation = Quaternion.Euler(0, 0, angle - 90);
                 projectile.transform.position = _trans.position;
                 projectile.transform.rotation = Quaternion.Euler(0, 0, angle - 90);
+
+                switch(_roleType)
+                {
+                    case RoleType.Reaper:
+                        _damage = StatManager.Instance.AllStat.soulPower + StatManager.Instance.PlayerStat.damage;
+                        break;
+                    case RoleType.Magician:
+                        _damage = StatManager.Instance.AllStat.abilityPower + StatManager.Instance.PlayerStat.damage;
+                        break;
+                    default:
+                        _damage = StatManager.Instance.AllStat.attackDamage + StatManager.Instance.PlayerStat.damage;
+                        break;
+                }
 
                 projectileBase.Damage = _damage;
                 projectileBase.FireSpeed = _fireSpeed;

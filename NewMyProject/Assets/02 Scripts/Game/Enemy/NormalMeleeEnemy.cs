@@ -25,7 +25,7 @@ namespace Enemy
             _idleState = new EnemyIdleState(_animator, _idleHash);
             _moveState = new EnemyMoveState(_animator, _moveHash, _moveStrategy);
             _attackState = new EnemyAttackState(_animator, _attackHash, _attackStrategy);
-            _hitState = new EnemyHitState(_animator, _hitHash, transform, _knockbackPower);
+            _hitState = new EnemyHitState(_animator, _hitHash);
             _deathState = new EnemyDeathState(_animator, _deathHash);
         }
 
@@ -40,11 +40,6 @@ namespace Enemy
                 return;
             }
 
-            if (_isHittingDelay)
-            {
-                return;
-            }
-
             if(_health.IsHit)
             {
                 _machine.ChangeState(_hitState);
@@ -52,7 +47,10 @@ namespace Enemy
                 return;
             }
 
-            if(_attackStrategy.CheckArea())
+            if (_isknockback)
+                return;
+
+            if (_attackStrategy.CheckArea())
             {
                 if (!_isAttackDelay)
                 {

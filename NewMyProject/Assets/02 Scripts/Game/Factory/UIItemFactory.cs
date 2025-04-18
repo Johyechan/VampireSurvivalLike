@@ -32,7 +32,6 @@ namespace MyFactory
         {
             if (UIItemManager.Instance.UIItemInformations.ContainsKey(_obj.name))
             {
-                Debug.Log("call");
                 var baseInformation = UIItemManager.Instance.UIItemInformations[_obj.name];
 
                 UIItemFSMInformation _information = new UIItemFSMInformation()

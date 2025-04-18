@@ -13,8 +13,6 @@ namespace Game.Inventory.Input
     {
         private IRotation _rotation;
 
-        private bool _isOpen = false;
-
         private void Awake()
         {
             _rotation = new RotationHandle();
@@ -44,15 +42,12 @@ namespace Game.Inventory.Input
                 return;
             }
 
-            if(_isOpen)
+            if(Time.timeScale < 1)
             {
-                _isOpen = false;
-                Time.timeScale = 1;
-                UIAnimatorEventManager.Play(UIAnimationType.FadeOut); 
+                UIAnimatorEventManager.Play(UIAnimationType.FadeOut);
             }
             else
             {
-                _isOpen = true;
                 Time.timeScale = 0;
                 UIAnimatorEventManager.Play(UIAnimationType.FadeIn);
             }

@@ -8,6 +8,11 @@ namespace Item
     {
         public ItemSO itemSO;
 
-        protected IItemEffect _effect;
+        public ItemEffectContainer EffectContainer { get; set; }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.DrawWireSphere(transform.position, itemSO.range);
+        }
     }
 }

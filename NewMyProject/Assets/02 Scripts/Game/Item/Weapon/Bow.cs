@@ -1,3 +1,4 @@
+using Enemy;
 using Item.Effect;
 using Item.Effect.OneItem;
 using Item.Strategy;
@@ -16,18 +17,13 @@ namespace Item.Weapon
 
         private AttackSpeedIncreaseEffect _attackSpeedEffect;
 
-        private void OnDrawGizmos()
-        {
-            Gizmos.DrawWireSphere(transform.position, itemSO.range);
-        }
-
         private void Awake()
         {
-            _weaponStrategy = new RangedWeaponStrategy(transform, itemSO.range, "Enemy", StatManager.Instance.AllStat.attackDamage + StatManager.Instance.PlayerStat.damage, itemSO.fireSpeed, itemSO.projectileType);
+            _weaponStrategy = new RangedWeaponStrategy(transform, itemSO.range, "Enemy", itemSO.fireSpeed, itemSO.projectileType, itemSO.role);
 
-            _effect = new NonEffect();
-            _effect = new AttackSpeedIncreaseEffect(_effect);
-            _attackSpeedEffect = _effect as AttackSpeedIncreaseEffect;
+            EffectContainer = new ItemEffectContainer();
+            _attackSpeedEffect = new AttackSpeedIncreaseEffect();
+            EffectContainer.AddEffect(_attackSpeedEffect);
         }
 
         private void OnEnable()
@@ -44,16 +40,18 @@ namespace Item.Weapon
         {
             while(!GameManager.Instance.gameOver)
             {
-                if(_weaponStrategy.CheckArea() != null)
+                GameObject enemy = _weaponStrategy.CheckArea();
+                if (enemy != null)
                 {
-                    if(!_increase)
+                    EnemyBase enemyBase = enemy.GetComponent<EnemyBase>();
+                    if (!_increase)
                     {
                         _increase = true;
                         _currentTime = 0;
                     }
                     
                     _weaponStrategy.Attack();
-                    _effect.Effect();
+                    EffectContainer.Effect(enemyBase);
                     yield return new WaitForSeconds(StatManager.Instance.ReturnAttackSpeedPerSecond(_attackSpeedEffect.ReturnAttackSpeed()));
                 }
                 else
@@ -63,7 +61,7 @@ namespace Item.Weapon
                         _currentTime += Time.deltaTime;
                         if (_currentTime > _resetTime)
                         {
-                            _effect.RemoveEffect();
+                            _attackSpeedEffect.ResetAttackSpeed();
                             _increase = false;
                         }
                     }
