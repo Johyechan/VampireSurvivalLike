@@ -137,6 +137,7 @@ namespace Enemy
         protected void Return()
         {
             // 삭제될 때 사망 애니메이션이 끝나고 사라지게 하기 위해서
+            StopAllCoroutines();
             ObjectPoolManager.Instance.ReturnObj(_type, gameObject);
         }
     }

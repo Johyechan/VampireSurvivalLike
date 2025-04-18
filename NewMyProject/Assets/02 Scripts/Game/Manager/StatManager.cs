@@ -7,7 +7,7 @@ namespace Manager
 {
     public class StatManager : Singleton<StatManager>
     {
-        public ItemStat AllStat { get { { return _allStat; } } }
+        public ItemStat AllStat { get { { return _allStat; } } set { _allStat = value; } }
         private ItemStat _allStat;
 
         public PlayerSO PlayerStat { get { return _playerSO; } }
@@ -41,6 +41,13 @@ namespace Manager
             _allStat.manaSteal += so.manaSteal * isPlus; // ¸¶³ª ÈíÇ÷ - ºñÀ² Áõ°¨ °è»ê±â
             _allStat.healingFactor += so.healingFactor * isPlus; // Ã¼Á¨
             _allStat.manaFactor += so.manaFactor * isPlus; // ¸¶³ªÁ¨
+        }
+
+        public float ReturnAttackSpeedPerSecond(float otherAttackSpeed = 0)
+        {
+            float returnAttackSpeed = 0;
+            returnAttackSpeed = 0.5f * (1 + (_allStat.attackSpeed + otherAttackSpeed) / 100);
+            return 1f / returnAttackSpeed;
         }
     }
 }

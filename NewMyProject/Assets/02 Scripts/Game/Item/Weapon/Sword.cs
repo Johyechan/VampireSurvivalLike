@@ -60,7 +60,7 @@ namespace Item.Weapon
                 {
                     _damageable = enemy.GetComponent<IDamageable>();
                     _weaponStrategy.Attack();
-                    yield return new WaitForSeconds(1);
+                    yield return new WaitForSeconds(StatManager.Instance.ReturnAttackSpeedPerSecond());
                 }
 
                 yield return null;
