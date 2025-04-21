@@ -1,5 +1,7 @@
 using Item.Interface;
+using Item.Weapon;
 using MyUtil.Interface;
+using System.Collections;
 using UnityEngine;
 
 namespace Item.Strategy
@@ -12,17 +14,14 @@ namespace Item.Strategy
 
         private string _layerMask;
 
-        private Animator _animator;
+        private WeaponItem _weapon;
 
-        private int _hash;
-
-        public MeleeWeaponStrategy(Transform trans, float range, string layerMask, Animator animator, int hash)
+        public MeleeWeaponStrategy(Transform trans, float range, string layerMask, WeaponItem weapon)
         {
             _trans = trans;
             _range = range;
             _layerMask = layerMask;
-            _animator = animator;
-            _hash = hash;
+            _weapon = weapon;
         }
 
         public void Attack()
@@ -30,7 +29,10 @@ namespace Item.Strategy
             GameObject enemy = CheckArea();
             if(enemy != null)
             {
-                _animator.SetBool(_hash, true);
+                Vector2 dir = enemy.transform.position - _trans.position;
+                float angle = Mathf.Atan2(dir.normalized.y, dir.normalized.x) * Mathf.Rad2Deg;
+                _trans.localRotation = Quaternion.Euler(0, 0, angle - 90);
+                _weapon.StartCoroutine(AttackAnimation());
             }
         }
 
@@ -54,6 +56,49 @@ namespace Item.Strategy
             }
 
             return returnObj;
+        }
+
+        private IEnumerator AttackAnimation()
+        {
+            float curTime = 0;
+            float animationTime = 0.2f;
+            float z = _trans.localRotation.eulerAngles.z;
+            Quaternion originRotation = Quaternion.Euler(0, 0, z);
+            Quaternion targetRotation = Quaternion.Euler(0, 0, z + 45);
+
+            while (curTime < animationTime)
+            {
+                curTime += Time.deltaTime;
+                float t = Mathf.Clamp01(curTime / animationTime);
+                _trans.localRotation = Quaternion.Lerp(originRotation, targetRotation, t);
+                yield return null;
+            }
+
+            curTime = 0;
+            originRotation = targetRotation;
+            targetRotation = Quaternion.Euler(0, 0, z - 45);
+
+            while(curTime < animationTime)
+            {
+                curTime += Time.deltaTime;
+                float t = Mathf.Clamp01(curTime / animationTime);
+                _trans.localRotation = Quaternion.Lerp(originRotation, targetRotation, t);
+                yield return null;
+            }
+
+            curTime = 0;
+            originRotation = targetRotation;
+            targetRotation = Quaternion.Euler(0, 0, z);
+
+            while (curTime < animationTime)
+            {
+                curTime += Time.deltaTime;
+                float t = Mathf.Clamp01(curTime / animationTime);
+                _trans.localRotation = Quaternion.Lerp(originRotation, targetRotation, t);
+                yield return null;
+            }
+
+            _weapon.IsAttackEnd = true;
         }
     }
 }

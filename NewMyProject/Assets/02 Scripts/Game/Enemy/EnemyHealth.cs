@@ -34,8 +34,16 @@ namespace Enemy
                 // 현재 체력이 0 이상일 때만 체력 감소
                 if (_currentHp > 0)
                 {
+                    Debug.Log(damage);
                     _currentHp -= damage;
-                    IsHit = true;
+                    if(_currentHp < 0)
+                    {
+                        IsDie = true;
+                    }
+                    else
+                    {
+                        IsHit = true;
+                    } 
                 }
                 else
                 {

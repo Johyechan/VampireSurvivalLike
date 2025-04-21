@@ -7,14 +7,6 @@ namespace Item.Weapon
     {
         protected IWeaponStrategy _weaponStrategy;
 
-        void Start()
-        {
-
-        }
-
-        void Update()
-        {
-
-        }
+        public bool IsAttackEnd { get; set; }
     }
 }

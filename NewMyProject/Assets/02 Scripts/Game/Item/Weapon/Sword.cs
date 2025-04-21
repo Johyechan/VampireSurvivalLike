@@ -11,19 +11,13 @@ namespace Item.Weapon
 {
     public class Sword : WeaponItem
     {
-        private Animator _animator;
-
-        private int _attackHash = Animator.StringToHash("Attack");
-
         private float _damage;
 
         private IDamageable _damageable;
 
         private void Awake()
         {
-            _animator = GetComponent<Animator>();
-
-            _weaponStrategy = new MeleeWeaponStrategy(transform, itemSO.range, "Enemy", _animator, _attackHash);
+            _weaponStrategy = new MeleeWeaponStrategy(transform, itemSO.range, "Enemy", this);
 
             _damage = StatManager.Instance.AllStat.attackDamage + StatManager.Instance.PlayerStat.damage;
 
@@ -38,11 +32,6 @@ namespace Item.Weapon
         private void OnDisable()
         {
             StopCoroutine(AttackCo());
-        }
-
-        protected void AttackEnd()
-        {
-            _animator.SetBool(_attackHash, false);
         }
 
         protected void OnDamage()
@@ -70,9 +59,11 @@ namespace Item.Weapon
                 GameObject enemy = _weaponStrategy.CheckArea();
                 if (enemy != null)
                 {
+                    IsAttackEnd = false;
                     _damageable = enemy.GetComponent<IDamageable>();
                     _weaponStrategy.Attack();
                     EffectContainer.Effect();
+                    yield return new WaitUntil(() => IsAttackEnd);
                     yield return new WaitForSeconds(StatManager.Instance.ReturnAttackSpeedPerSecond());
                 }
 
