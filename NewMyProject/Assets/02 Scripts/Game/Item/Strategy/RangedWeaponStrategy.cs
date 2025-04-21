@@ -1,4 +1,6 @@
 using Item.Interface;
+using Item.Weapon;
+using Item.Weapon.Ranged;
 using Manager;
 using MyUtil.Pool;
 using NPOI.OpenXmlFormats.Dml;
@@ -11,6 +13,8 @@ namespace Item.Strategy
     {
         private Transform _trans;
 
+        private RangedWeapon _weapon;
+
         private string _layerMask;
 
         private float _range;
@@ -21,11 +25,12 @@ namespace Item.Strategy
 
         private RoleType _roleType;
 
-        public RangedWeaponStrategy(Transform trans, float range, string layerMask, float fireSpeed, ObjectPoolType projectileType, RoleType roleType)
+        public RangedWeaponStrategy(Transform trans, float range, string layerMask, RangedWeapon weapon, float fireSpeed, ObjectPoolType projectileType, RoleType roleType)
         {
             _trans = trans;
             _range = range;
             _layerMask = layerMask;
+            _weapon = weapon;
             _fireSpeed = fireSpeed;
             _projectileType = projectileType;
             _roleType = roleType;
@@ -33,7 +38,7 @@ namespace Item.Strategy
 
         public void Attack()
         {
-            GameObject enemy = CheckArea();
+            GameObject enemy = _weapon.CheckArea(_trans, _range, _layerMask);
             if(enemy != null)
             {
                 GameObject projectile = ObjectPoolManager.Instance.GetObject(_projectileType);
@@ -44,7 +49,6 @@ namespace Item.Strategy
 
                 float angle = Mathf.Atan2(dir.normalized.y, dir.normalized.x) * Mathf.Rad2Deg;
 
-                _trans.rotation = Quaternion.Euler(0, 0, angle - 90);
                 projectile.transform.position = _trans.position;
                 projectile.transform.rotation = Quaternion.Euler(0, 0, angle - 90);
 
@@ -65,28 +69,6 @@ namespace Item.Strategy
                 projectileBase.FireSpeed = _fireSpeed;
                 projectileBase.Direction = dir;
             }
-        }
-
-        public GameObject CheckArea()
-        {
-            Collider2D[] hits = Physics2D.OverlapCircleAll(_trans.position, _range, LayerMask.GetMask(_layerMask));
-            float distance = float.MaxValue;
-            GameObject returnObj = null;
-
-            if(hits.Length > 0)
-            {
-                for(int i = 0; i < hits.Length; i++)
-                {
-                    float checkDistance = Vector2.Distance(_trans.position, hits[i].transform.position);
-                    if (distance > checkDistance)
-                    {
-                        distance = checkDistance;
-                        returnObj = hits[i].gameObject;
-                    }
-                }
-            }
-
-            return returnObj;
         }
     }
 }

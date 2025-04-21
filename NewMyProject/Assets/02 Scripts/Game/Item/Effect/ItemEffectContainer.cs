@@ -8,6 +8,11 @@ namespace Item.Effect
     {
         private List<IItemEffect> _effects = new();
 
+        public int EffectCount()
+        {
+            return _effects.Count;
+        }
+
         public void AddEffect(IItemEffect effect)
         {
             if(!_effects.Contains(effect))

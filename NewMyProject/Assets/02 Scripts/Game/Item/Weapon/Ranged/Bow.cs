@@ -6,9 +6,9 @@ using Manager;
 using System.Collections;
 using UnityEngine;
 
-namespace Item.Weapon
+namespace Item.Weapon.Ranged
 {
-    public class Bow : WeaponItem
+    public class Bow : RangedWeapon
     {
         private float _resetTime = 3f;
         private float _currentTime = 0;
@@ -17,11 +17,10 @@ namespace Item.Weapon
 
         private AttackSpeedIncreaseEffect _attackSpeedEffect;
 
-        private void Awake()
+        protected override void Awake()
         {
-            _weaponStrategy = new RangedWeaponStrategy(transform, itemSO.range, "Enemy", itemSO.fireSpeed, itemSO.projectileType, itemSO.role);
+            base.Awake();
 
-            EffectContainer = new ItemEffectContainer();
             _attackSpeedEffect = new AttackSpeedIncreaseEffect();
             EffectContainer.AddEffect(_attackSpeedEffect);
         }
@@ -40,7 +39,7 @@ namespace Item.Weapon
         {
             while(!GameManager.Instance.gameOver)
             {
-                GameObject enemy = _weaponStrategy.CheckArea();
+                GameObject enemy = CheckArea(transform, itemSO.range, "Enemy");
                 if (enemy != null)
                 {
                     EnemyBase enemyBase = enemy.GetComponent<EnemyBase>();
