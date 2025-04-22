@@ -7,9 +7,9 @@ using UnityEngine;
 
 namespace MyUtil
 {
-    public class ProjectileBase : MonoBehaviour
+    public abstract class ProjectileBase : MonoBehaviour
     {
-        [SerializeField] private ObjectPoolType _type;
+        [SerializeField] protected ObjectPoolType _type;
 
         [SerializeField] private float _destroyDelayTime;
 
@@ -39,15 +39,7 @@ namespace MyUtil
             ObjectPoolManager.Instance.ReturnObj(_type, gameObject);
         }
 
-        private void OnTriggerEnter2D(Collider2D collision)
-        {
-            if (collision.gameObject.CompareTag("Enemy"))
-            {
-                IDamageable damageable = collision.GetComponent<IDamageable>();
-                damageable.TakeDamage(Damage);
-                ObjectPoolManager.Instance.ReturnObj(_type, gameObject);
-            }
-        }
+        protected abstract void OnTriggerEnter2D(Collider2D collision);
     }
 }
 

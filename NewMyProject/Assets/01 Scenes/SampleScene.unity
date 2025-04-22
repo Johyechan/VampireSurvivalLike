@@ -1234,7 +1234,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f79daa3548e0a75449a945d41cdd4341, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyTypes: 07000000
+  _enemyTypes: 0a000000
   _spawnRadius: 10
 --- !u!1 &351993281
 GameObject:
@@ -1912,6 +1912,12 @@ MonoBehaviour:
     prefabCount: 10
   - prefabType: 9
     prefabObj: {fileID: 4520638164547094150, guid: af8de714032f5e14a9792a3c6640d4e8, type: 3}
+    prefabCount: 10
+  - prefabType: 10
+    prefabObj: {fileID: 4656312098815300019, guid: be5102fd5913d2a4b9eaaa47febb4d3e, type: 3}
+    prefabCount: 10
+  - prefabType: 11
+    prefabObj: {fileID: 8542655633105763195, guid: 98c79c98839fe204b843b421173adf38, type: 3}
     prefabCount: 10
 --- !u!1 &519420028
 GameObject:

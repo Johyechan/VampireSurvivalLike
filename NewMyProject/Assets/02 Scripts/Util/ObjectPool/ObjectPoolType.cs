@@ -14,6 +14,8 @@ namespace MyUtil.Pool
         NormalMeleeEnemy,
         Arrow,
         Torch,
+        NormalRangedEnemy,
+        EnemyProjectile,
     }
 }
 

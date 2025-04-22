@@ -21,6 +21,8 @@ namespace Enemy.Normal
 
         protected override void Awake()
         {
+            base.Awake();
+
             _attackStrategy = new EnemyRangedAttack(transform, _so.attackRange, _so.damage, "Player", _fireType, _fireSpeed);
             _moveStrategy = new EnemyPlayerFollowMove(transform, GameManager.Instance.player.transform, _so.playerCheckRange, _so.speed, "Player");
 
@@ -33,7 +35,48 @@ namespace Enemy.Normal
 
         protected override void StateTransition()
         {
-            throw new System.NotImplementedException();
+            if (_health.IsDie)
+            {
+                if (!_machine.IsCurrentState(_deathState))
+                {
+                    _machine.ChangeState(_deathState);
+                }
+                return;
+            }
+
+            if (_health.IsHit)
+            {
+                _machine.ChangeState(_hitState);
+                _health.IsHit = false;
+                return;
+            }
+
+            if (_isknockback)
+                return;
+
+            if (_attackStrategy.CheckArea())
+            {
+                if (!_isAttackDelay)
+                {
+                    _isAttackDelay = true;
+                    _machine.ChangeState(_attackState);
+                }
+                return;
+            }
+
+            if (_moveStrategy.CheckArea())
+            {
+                if (!_machine.IsCurrentState(_moveState))
+                {
+                    _machine.ChangeState(_moveState);
+                }
+                return;
+            }
+            else
+            {
+                _machine.ChangeState(_idleState);
+                return;
+            }
         }
     }
 }

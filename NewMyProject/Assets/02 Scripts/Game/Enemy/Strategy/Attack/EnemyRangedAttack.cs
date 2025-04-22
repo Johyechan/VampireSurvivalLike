@@ -34,7 +34,7 @@ namespace Enemy.Strategy.Attack
         {
             Vector2 dir = GameManager.Instance.player.transform.position - _trans.position;
 
-            float angle = Mathf.Atan2(dir.normalized.x, dir.normalized.y);
+            float angle = Mathf.Atan2(dir.normalized.y, dir.normalized.x) * Mathf.Rad2Deg;
 
             GameObject projectile = ObjectPoolManager.Instance.GetObject(_type);
 
