@@ -5,7 +5,7 @@ using Manager;
 using MyUtil.Pool;
 using UnityEngine;
 
-namespace Enemy
+namespace Enemy.Normal
 {
     public class NormalMeleeEnemy : EnemyBase
     {
@@ -73,14 +73,6 @@ namespace Enemy
                 _machine.ChangeState(_idleState);
                 return;
             }
-        }
-
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, _so.attackRange);
-            Gizmos.color = Color.blue;
-            Gizmos.DrawWireSphere(transform.position, _so.playerCheckRange);
         }
     }
 }

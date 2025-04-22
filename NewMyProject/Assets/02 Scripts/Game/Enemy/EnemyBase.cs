@@ -52,6 +52,14 @@ namespace Enemy
         protected bool _isAttackDelay = false;
         protected bool _isknockback = false;
 
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, _so.attackRange);
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(transform.position, _so.playerCheckRange);
+        }
+
         // 자식이 재정의 가능하게 만듦
         protected virtual void Awake()
         {
