@@ -3,6 +3,7 @@ using Item.Effect;
 using Item.Effect.OneItem;
 using Item.Strategy;
 using Manager;
+using MyUtil;
 using System.Collections;
 using UnityEngine;
 
@@ -39,7 +40,7 @@ namespace Item.Weapon.Ranged
         {
             while(!GameManager.Instance.gameOver)
             {
-                GameObject enemy = CheckArea(transform, itemSO.range, "Enemy");
+                GameObject enemy = AreaUtil.CheckCloseTargetInArea(transform, itemSO.range, LayerMask.GetMask("Enemy"));
                 if (enemy != null)
                 {
                     EnemyBase enemyBase = enemy.GetComponent<EnemyBase>();
@@ -49,7 +50,7 @@ namespace Item.Weapon.Ranged
                         _currentTime = 0;
                     }
                     
-                    _weaponStrategy.Attack();
+                    _weaponStrategy.Attack(enemy);
                     EffectContainer.Effect(enemyBase);
                     yield return new WaitForSeconds(StatManager.Instance.ReturnAttackSpeedPerSecond(_attackSpeedEffect.ReturnAttackSpeed()));
                 }

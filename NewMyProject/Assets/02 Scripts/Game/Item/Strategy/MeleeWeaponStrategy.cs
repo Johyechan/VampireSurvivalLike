@@ -1,6 +1,7 @@
 using Item.Interface;
 using Item.Weapon;
 using Item.Weapon.Melee;
+using MyUtil;
 using MyUtil.Interface;
 using System.Collections;
 using UnityEngine;
@@ -25,13 +26,9 @@ namespace Item.Strategy
             _weapon = weapon;
         }
 
-        public void Attack()
+        public void Attack(GameObject enemy = null)
         {
-            GameObject enemy = _weapon.CheckArea(_trans, _range, _layerMask);
-            if(enemy != null)
-            {
-                _weapon.StartCoroutine(AttackAnimation());
-            }
+            _weapon.StartCoroutine(AttackAnimation());
         }
 
         private IEnumerator AttackAnimation()

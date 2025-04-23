@@ -1,4 +1,5 @@
 using Enemy.Interface;
+using MyUtil;
 using MyUtil.Interface;
 using System.Collections;
 using UnityEngine;
@@ -29,13 +30,10 @@ namespace Enemy.Strategy.Attack
 
         public override bool CheckArea()
         {
-            Collider2D hit = Physics2D.OverlapCircle(_trans.position, _range, LayerMask.GetMask(_layerMask));
+            GameObject player = AreaUtil.CheckArea(_trans, _range, LayerMask.GetMask(_layerMask));
 
-            if (hit != null)
-            {
-                _damageable = hit.GetComponent<IDamageable>();
+            if (player != null)
                 return true;
-            }
 
             return false;
         }

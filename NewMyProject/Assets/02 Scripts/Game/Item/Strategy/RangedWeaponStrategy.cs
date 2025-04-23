@@ -37,9 +37,8 @@ namespace Item.Strategy
             _roleType = roleType;
         }
 
-        public void Attack()
+        public void Attack(GameObject enemy = null)
         {
-            GameObject enemy = _weapon.CheckArea(_trans, _range, _layerMask);
             if(enemy != null)
             {
                 GameObject projectile = ObjectPoolManager.Instance.GetObject(_projectileType);

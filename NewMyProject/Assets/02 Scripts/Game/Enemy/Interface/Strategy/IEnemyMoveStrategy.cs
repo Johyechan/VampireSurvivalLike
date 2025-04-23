@@ -2,13 +2,15 @@ using UnityEngine;
 
 namespace Enemy.Interface.Strategy
 {
-    // 움직임을 (플레이어를 따라다니기만 하는 움직임, 패트롤 움직임) 나누기 위한 인터페이스
+    // 적의 이동 전략을 정의하는 인터페이스
+    // 다양한 이동 방식을 유연하게 확장할 수 있도록 한다
     public interface IEnemyMoveStrategy
     {
-        // 범위에 플레이어가 있는지 체크하는 함수
+        // 적이 범위 안에 들어왔는지 확인하는 함수
         public bool CheckArea();
 
-        // 움직이는 함수
+        // 적의 이동을 수행하는 함수
+        // 구현체에 따라 따라가기, 순찰하기 등 다양한 방식으로 동작할 수 있음
         public void Move();
     }
 }

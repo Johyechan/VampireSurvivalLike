@@ -1,5 +1,6 @@
 using Enemy.Interface;
 using Enemy.Interface.Strategy;
+using MyUtil;
 using UnityEngine;
 
 namespace Enemy.Strategy.Move
@@ -28,16 +29,11 @@ namespace Enemy.Strategy.Move
 
         public bool CheckArea()
         {
-            // 일정 원형 범위 내 플레이어 찾기
-            Collider2D hit = Physics2D.OverlapCircle(_trans.position, _range, LayerMask.GetMask(_layerMask));
+            GameObject player = AreaUtil.CheckArea(_trans, _range, LayerMask.GetMask(_layerMask));
 
-            // 찾았다면 true를 반환
-            if(hit != null)
-            {
+            if (player != null)
                 return true;
-            }
 
-            // 찾지 못했다면 false를 반환
             return false;
         }
 

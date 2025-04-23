@@ -1,6 +1,7 @@
 using Enemy.Interface;
 using Enemy.Projectile;
 using Manager;
+using MyUtil;
 using MyUtil.Interface;
 using MyUtil.Pool;
 using Unity.Cinemachine;
@@ -50,14 +51,10 @@ namespace Enemy.Strategy.Attack
 
         public override bool CheckArea()
         {
-            RaycastHit2D hit = Physics2D.CircleCast(_trans.position, _range, Vector2.zero, 0, LayerMask.GetMask(_layerMask));
+            GameObject player = AreaUtil.CheckArea(_trans, _range, LayerMask.GetMask(_layerMask));
 
-            if (hit.collider != null)
-            {
-                _damageable = hit.collider.GetComponent<IDamageable>();
-
+            if (player != null)
                 return true;
-            }
 
             return false;
         }

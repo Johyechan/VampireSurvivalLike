@@ -4,6 +4,6 @@ namespace Item.Interface
 {
     public interface IWeaponStrategy
     {
-        public void Attack();
+        public void Attack(GameObject enemy = null);
     }
 }
