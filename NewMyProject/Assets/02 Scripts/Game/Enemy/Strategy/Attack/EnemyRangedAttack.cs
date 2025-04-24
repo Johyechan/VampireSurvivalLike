@@ -33,14 +33,18 @@ namespace Enemy.Strategy.Attack
 
         public override void Attack()
         {
+            // 플레이어로 향하는 방향 구하기
             Vector2 dir = GameManager.Instance.player.transform.position - _trans.position;
 
+            // 플레이어를 바라보는 방향 구하기
             float angle = Mathf.Atan2(dir.normalized.y, dir.normalized.x) * Mathf.Rad2Deg;
 
+            // 발사체 생성
             GameObject projectile = ObjectPoolManager.Instance.GetObject(_type);
 
             EnemyProjectile enemyProjectile = projectile.GetComponent<EnemyProjectile>();
 
+            // 발사체 초기화
             projectile.transform.position = _trans.position;
             projectile.transform.rotation = Quaternion.Euler(0, 0, angle - 90);
 

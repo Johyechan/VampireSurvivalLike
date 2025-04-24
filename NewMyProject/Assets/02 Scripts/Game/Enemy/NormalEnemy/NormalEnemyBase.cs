@@ -1,4 +1,7 @@
 using Enemy.State;
+using Enemy.Transition.Normal;
+using MyUtil;
+using MyUtil.Interface;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -16,21 +19,18 @@ namespace Enemy.Normal
         protected int _deathHash = Animator.StringToHash("Death");
         protected int _idleHash = Animator.StringToHash("Idle");
 
-        private List<Func<bool>> _transitions;
+        // 상태 전환을 처리하는 변수들
+        private ITransition _deathTransition;
+        private ITransition _hitTransition;
+        private ITransition _knockbackTransition;
+        private ITransition _attackTransition;
+        private ITransition _moveAndIdleTransition;
 
-        protected override void Awake()
-        {
-            base.Awake();
+        // 상태 전환을 처리하는 변수들을 처리 순서대로 저장할 리스트
+        private List<ITransition> _transitions;
 
-            _transitions = new List<Func<bool>>
-            {
-                TryTransitionToDeath,
-                TryTransitionToHit,
-                () => _isknockback,
-                TryTransitionToAttack,
-                TryTransitionToMoveAndIdle
-            };
-        }
+        // 상태 전환을 관리하는 클래스
+        private TransitionHandler _transitionHandler;
 
         // 상태 초기화
         protected void Init()
@@ -40,78 +40,29 @@ namespace Enemy.Normal
             _attackState = new EnemyAttackState(_animator, _attackHash, _attackStrategy);
             _hitState = new EnemyHitState(_animator, _hitHash);
             _deathState = new EnemyDeathState(_animator, _deathHash);
-        }
 
-        // 죽음 상태로 전환 시도
-        private bool TryTransitionToDeath()
-        {
-            if (_health.IsDie)
+            _deathTransition = new NormalDeathStateTransition(_machine, _health, _deathState);
+            _hitTransition = new NormalHitStateTransition(_machine, _health, _hitState);
+            _knockbackTransition = new NormalKnockbackTransition(this);
+            _attackTransition = new NormalAttackStateTransition(_machine, _attackState, this, _attackStrategy);
+            _moveAndIdleTransition = new NormalMoveAndIdleStateTransition(_machine, _moveStrategy, _moveState, _idleState);
+
+            _transitions = new List<ITransition>
             {
-                if (!_machine.IsCurrentState(_deathState))
-                {
-                    _machine.ChangeState(_deathState);
-                    return true;
-                }
-            }
-            return false;
-        }
+                _deathTransition,
+                _hitTransition,
+                _knockbackTransition,
+                _attackTransition,
+                _moveAndIdleTransition,
+            };
 
-        // 피격 상태로 전환 시도
-        private bool TryTransitionToHit()
-        {
-            if (_health.IsHit)
-            {
-                _machine.ChangeState(_hitState);
-                _health.IsHit = false;
-                return true;
-            }
-
-            return false;
-        }
-
-        // 공격 상태로 전환 시도
-        private bool TryTransitionToAttack()
-        {
-            if (_attackStrategy.CheckArea())
-            {
-                if (!_isAttackDelay)
-                {
-                    _isAttackDelay = true;
-                    _machine.ChangeState(_attackState);
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        // 이동 상태 또는 대기 상태로 전환 시도
-        private bool TryTransitionToMoveAndIdle()
-        {
-            if (_moveStrategy.CheckArea())
-            {
-                if (!_machine.IsCurrentState(_moveState))
-                {
-                    _machine.ChangeState(_moveState);
-                    return true;
-                }
-            }
-            else
-            {
-                _machine.ChangeState(_idleState);
-                return true;
-            }
-
-            return false;
+            _transitionHandler = new TransitionHandler(_transitions);
         }
 
         // 적의 상태를 상황에 따라 전환
         protected override void StateTransition()
         {
-            foreach(var transition in _transitions)
-            {
-                if (transition()) break;
-            }
+            if (_transitionHandler.HandleTransitions()) return;
         }
     }
 }
