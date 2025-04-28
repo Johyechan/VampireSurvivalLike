@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Enemy.Boss
 {
-    public class BossAnimationHandler : MonoBehaviour
+    public class BossAnimationHandler
     {
         public Animator BossAnimator { get; set; }
 

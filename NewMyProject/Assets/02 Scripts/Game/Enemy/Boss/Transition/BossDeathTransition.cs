@@ -7,22 +7,22 @@ namespace Enemy.Boss.Transition
 {
     public class BossDeathTransition : ITransition
     {
-        private PartedBossBaseController _bossController;
+        private BossBase _bossBase;
 
         private StateMachine _machine;
 
         private IState _deathState;
 
-        public BossDeathTransition(PartedBossBaseController bossController, StateMachine machine, IState deathState)
+        public BossDeathTransition(BossBase bossBase, StateMachine machine, IState deathState)
         {
-            _bossController = bossController;
+            _bossBase = bossBase;
             _machine = machine;
             _deathState = deathState;
         }
 
         public bool TryTransitionToThisState()
         {
-            if(_bossController.IsDeath)
+            if(_bossBase.IsDead)
             {
                 if(!_machine.IsCurrentState(_deathState))
                 {

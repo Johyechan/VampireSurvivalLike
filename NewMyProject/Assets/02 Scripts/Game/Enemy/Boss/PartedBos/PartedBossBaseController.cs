@@ -1,51 +1,35 @@
 using Enemy.Boss.Interface;
 using Enemy.Boss.State;
-using MyUtil;
+using Enemy.Boss.Strategy;
 using MyUtil.FSM;
-using MyUtil.Interface;
 using System.Collections.Generic;
-using UnityEditor.Build.Content;
 using UnityEngine;
 
 namespace Enemy.Boss.PartedBoss
 {
-    public abstract class PartedBossBaseController : MonoBehaviour
+    public abstract class PartedBossBaseController : BossBase
     {
-        [SerializeField] protected PartedBossSO _so;
-
         [SerializeField] protected List<IBossPart> _parts = new();
-
-        protected List<ITransition> _transitions;
-
-        protected BossAnimationHandler _animationHandler;
-
-        protected StateMachine _machine;
-
-        protected IState _idleState;
-        protected IState _attackState;
-        protected IState _deathState;
 
         private int _deathCount;
 
-        public bool IsDeath { get; set; }
-
-        protected virtual void Awake()
+        protected override void Awake()
         {
+            base.Awake();
+
             _deathCount = 0;
-            IsDeath = false;
+            IsDead = false;
 
-            _animationHandler = GetComponent<BossAnimationHandler>();
+            _attackStrategy = new PartedBossAttackStrategy(_parts);
 
-            _machine = new StateMachine();
-
-            //_idleState = new BossIdleState();
-            //_attackState = new BossAttackState();
-            //_deathState = new BossDeathState();
+            _idleState = new BossIdleState(_animationHandler.BossAnimator, _animationHandler.IdleHash);
+            _attackState = new BossAttackState(_animationHandler.BossAnimator, _animationHandler.AttackHash, _attackStrategy);
+            _deadState = new BossDeathState(_animationHandler.BossAnimator, _animationHandler.DeathHash);
         }
 
         protected virtual void Update()
         {
-            if (IsDeath)
+            if (IsDead)
                 return;
 
             foreach (var part in _parts)
@@ -59,11 +43,11 @@ namespace Enemy.Boss.PartedBoss
 
             if(_deathCount >= _parts.Count)
             {
-                IsDeath = true;
+                IsDead = true;
             }
             else
             {
-                IsDeath = false;
+                IsDead = false;
             }
 
             StateTransition();

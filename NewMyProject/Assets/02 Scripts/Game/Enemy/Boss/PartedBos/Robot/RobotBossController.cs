@@ -6,7 +6,6 @@ using Manager;
 using MyUtil;
 using MyUtil.FSM;
 using MyUtil.Interface;
-using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,8 +17,6 @@ namespace Enemy.Boss.PartedBoss.Robot
 
         private IEnemyMoveStrategy _moveStrategy;
 
-        private TransitionHandler _transitionHandler;
-
         private ITransition _deathTransition;
         private ITransition _attackTransition;
         private ITransition _moveAndIdleTransition;
@@ -28,13 +25,13 @@ namespace Enemy.Boss.PartedBoss.Robot
         {
             base.Awake();
 
-            _moveStrategy = new EnemyPlayerFollowMove(transform, GameManager.Instance.player.transform, _so.playerCheckRange, _so.speed, "Player");
+            _moveStrategy = new EnemyPlayerFollowMove(transform, GameManager.Instance.player.transform, _so.playerCheckRange, _so.moveSpeed, "Player");
 
-            //_moveState = new BossMoveState(_moveStrategy);
+            _moveState = new BossMoveState(_animationHandler.BossAnimator, _animationHandler.MoveHash, _moveStrategy);
 
-            //_deathTransition = new BossDeathTransition();
-            //_attackTransition = new BossAttackTransition();
-            //_moveAndIdleTransition = new BossMoveAndIdleTransition();
+            _deathTransition = new BossDeathTransition(this, _machine, _deadState);
+            _attackTransition = new BossAttackTransition(_machine, _attackHandler, _attackState);
+            _moveAndIdleTransition = new BossMoveAndIdleTransition(_machine, _moveState, _idleState, _moveStrategy);
 
             _transitions = new List<ITransition>
             {
@@ -48,10 +45,7 @@ namespace Enemy.Boss.PartedBoss.Robot
 
         protected override void StateTransition()
         {
-            foreach(var transition in _transitions)
-            {
-                if (transition.TryTransitionToThisState()) return;
-            }
+            if (_transitionHandler.HandleTransitions()) return;
         }
     }
 }
