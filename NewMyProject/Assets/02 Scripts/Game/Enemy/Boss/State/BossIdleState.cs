@@ -1,16 +1,13 @@
-using Enemy.Interface.Strategy;
 using MyUtil.FSM;
 using UnityEngine;
 
 namespace Enemy.Boss.State
 {
-    public class BossMoveState : BossStateBase
+    public class BossIdleState : BossStateBase
     {
-        private IEnemyMoveStrategy _moveStrategy;
-
-        public BossMoveState(Animator animator, int hash, IEnemyMoveStrategy moveStrategy) : base(animator, hash)
+        public BossIdleState(Animator animator, int hash) : base(animator, hash)
         {
-            _moveStrategy = moveStrategy;
+
         }
 
         public override void Enter()
@@ -20,7 +17,7 @@ namespace Enemy.Boss.State
 
         public override void Execute()
         {
-            _moveStrategy.Move();
+            
         }
 
         public override void Exit()

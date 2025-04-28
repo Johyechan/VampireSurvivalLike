@@ -1,40 +1,30 @@
 using Enemy.Boss.Interface;
+using MyUtil.FSM;
 using MyUtil.Interface;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Enemy.Boss.PartedBoss
 {
-    public class BossPartBase : MonoBehaviour, IBossPart, IDamageable
+    public class BossPartBase : BossHealth, IBossPart, IDamageable
     {
-        public float MaxHp {  get; set; }
-        protected float _currentHp;
+        protected StateMachine _machine;
 
-        public bool IsDestroy { get; private set; }
+        protected IState _idleState;
+        protected IState _hitState;
+        protected IState _destroyState;
 
         public List<IBossPattern> Patterns { get; protected set; }
 
-        private void Start()
+        protected virtual void Awake()
         {
-            _currentHp = MaxHp;
+            _machine = new StateMachine();
         }
 
-        public IBossPattern RandomPattern()
+        public void RandomPattern()
         {
             int randomIndex = Random.Range(0, Patterns.Count);
-            return Patterns[randomIndex];
-        }
-
-        public void TakeDamage(float damage)
-        {
-            if(_currentHp > 0)
-            {
-                _currentHp -= damage;
-            }
-            else
-            {
-                IsDestroy = true;
-            }
+            Patterns[randomIndex].Pattern();
         }
     }
 }

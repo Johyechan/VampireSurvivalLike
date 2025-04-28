@@ -7,8 +7,10 @@ namespace Enemy.Boss.PartedBoss.Robot.Part
 {
     public class RobotLeftArm : BossPartBase
     {
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
+
             Patterns = new List<IBossPattern>
             {
 
