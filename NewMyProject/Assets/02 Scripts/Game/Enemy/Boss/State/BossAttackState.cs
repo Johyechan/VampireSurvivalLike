@@ -4,28 +4,27 @@ using UnityEngine;
 
 namespace Enemy.Boss.State
 {
-    public class BossAttackState : BossStateBase
+    public class BossAttackState : IState
     {
         private IBossAttackStrategy _attackStrategy;
 
-        public BossAttackState(Animator animator, int hash, IBossAttackStrategy attackStrategy) : base(animator, hash)
+        public BossAttackState(IBossAttackStrategy attackStrategy)
         {
             _attackStrategy = attackStrategy;
         }
 
-        public override void Enter()
+        public void Enter()
         {
             Debug.Log("공격 상태");
-            _animator.SetTrigger(_hash);
             _attackStrategy.RandomPattern();
         }
 
-        public override void Execute()
+        public void Execute()
         {
             
         }
 
-        public override void Exit()
+        public void Exit()
         {
             
         }

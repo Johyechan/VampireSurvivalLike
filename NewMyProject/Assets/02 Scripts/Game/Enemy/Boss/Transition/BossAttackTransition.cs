@@ -21,7 +21,7 @@ namespace Enemy.Boss.Transition
 
         public bool TryTransitionToThisState()
         {
-            if(_attackHandler.CanAttack)
+            if (_attackHandler.CanAttack)
             {
                 if(!_machine.IsCurrentState(_attackState))
                 {

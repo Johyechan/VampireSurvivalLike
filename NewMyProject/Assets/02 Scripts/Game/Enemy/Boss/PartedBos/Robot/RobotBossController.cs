@@ -42,11 +42,6 @@ namespace Enemy.Boss.PartedBoss.Robot
 
             _transitionHandler = new TransitionHandler(_transitions);
         }
-
-        protected override void StateTransition()
-        {
-            if (_transitionHandler.HandleTransitions()) return;
-        }
     }
 }
 

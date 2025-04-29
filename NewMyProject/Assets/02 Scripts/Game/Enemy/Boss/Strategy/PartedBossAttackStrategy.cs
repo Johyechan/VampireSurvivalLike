@@ -1,4 +1,5 @@
 using Enemy.Boss.Interface;
+using Enemy.Boss.PartedBoss;
 using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,9 +8,9 @@ namespace Enemy.Boss.Strategy
 {
     public class PartedBossAttackStrategy : IBossAttackStrategy
     {
-        private List<IBossPart> _parts = new();
+        private List<BossPartBase> _parts = new();
 
-        public PartedBossAttackStrategy(List<IBossPart> parts)
+        public PartedBossAttackStrategy(List<BossPartBase> parts)
         {
             _parts = parts;
         }

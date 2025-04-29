@@ -3,24 +3,26 @@ using UnityEngine;
 
 namespace Enemy.Boss.State
 {
-    public class BossHitState : BossStateBase
+    public class BossHitState : IState
     {
-        public BossHitState(Animator animator, int hash) : base(animator, hash)
+        private Sprite _sprite;
+
+        public BossHitState(Sprite sprite)
         {
+            _sprite = sprite;
         }
 
-        public override void Enter()
+        public void Enter()
         {
             Debug.Log("피격 상태");
-            _animator.SetTrigger(_hash);
         }
 
-        public override void Execute()
+        public void Execute()
         {
             
         }
 
-        public override void Exit()
+        public void Exit()
         {
             
         }

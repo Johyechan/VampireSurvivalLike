@@ -3,8 +3,10 @@ using Enemy.Interface.Strategy;
 using MyUtil;
 using MyUtil.FSM;
 using MyUtil.Interface;
+using MyUtil.Pool;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Pool;
 
 namespace Enemy.Boss
 {
@@ -29,6 +31,12 @@ namespace Enemy.Boss
 
         public bool IsDead { get; set; }
 
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(transform.position, _so.playerCheckRange);
+        }
+
         protected virtual void Awake()
         {
             _machine = new StateMachine();
@@ -37,6 +45,29 @@ namespace Enemy.Boss
             _animationHandler.BossAnimator = GetComponent<Animator>();
 
             _attackHandler = new BossAttackHandler(_so.attackDelay);
+        }
+
+        protected virtual void Start()
+        {
+            StartCoroutine(_attackHandler.AttackDelayCo());
+        }
+
+        protected virtual void Update()
+        {
+            StateTransition();
+
+            _machine.UpdateExecute();
+        }
+
+        private void OnDead()
+        {
+            StopAllCoroutines();
+            Debug.Log("»ç¸Á");
+        }
+
+        private void StateTransition()
+        {
+            if (_transitionHandler.HandleTransitions()) return;
         }
     }
 }

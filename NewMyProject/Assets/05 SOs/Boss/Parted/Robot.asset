@@ -15,7 +15,7 @@ MonoBehaviour:
   maxHP: 1000
   defence: 0
   damage: 10
-  moveSpeed: 5
+  moveSpeed: 1.5
   playerCheckRange: 10000
   attackRange: 10000
   attackDelay: 3

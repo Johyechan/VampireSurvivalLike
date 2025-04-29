@@ -17,8 +17,10 @@ namespace Enemy.Boss
 
         public IEnumerator AttackDelayCo()
         {
+            yield return new WaitForSeconds(_attackDelay);
+
             CanAttack = true;
-            PatternEnd = false;
+
             while(true)
             {
                 if(!CanAttack)

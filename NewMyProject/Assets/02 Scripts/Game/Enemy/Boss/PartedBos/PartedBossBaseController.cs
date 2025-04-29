@@ -7,9 +7,9 @@ using UnityEngine;
 
 namespace Enemy.Boss.PartedBoss
 {
-    public abstract class PartedBossBaseController : BossBase
+    public class PartedBossBaseController : BossBase
     {
-        [SerializeField] protected List<IBossPart> _parts = new();
+        [SerializeField] protected List<BossPartBase> _parts;
 
         private int _deathCount;
 
@@ -23,18 +23,23 @@ namespace Enemy.Boss.PartedBoss
             _attackStrategy = new PartedBossAttackStrategy(_parts);
 
             _idleState = new BossIdleState(_animationHandler.BossAnimator, _animationHandler.IdleHash);
-            _attackState = new BossAttackState(_animationHandler.BossAnimator, _animationHandler.AttackHash, _attackStrategy);
+            _attackState = new BossAttackState(_attackStrategy);
             _deadState = new BossDeathState(_animationHandler.BossAnimator, _animationHandler.DeadHash);
+
+            foreach(var part in _parts)
+            {
+                part.MaxHp = _so.maxHP / _parts.Count;
+            }
         }
 
-        protected virtual void Update()
+        protected override void Update()
         {
             if (IsDead)
                 return;
 
             foreach (var part in _parts)
             {
-                BossHealth health = part as BossHealth;
+                BossHealth health = part;
                 if(health.IsDestroy)
                 {
                     _deathCount++;
@@ -50,10 +55,8 @@ namespace Enemy.Boss.PartedBoss
                 IsDead = false;
             }
 
-            StateTransition();
+            base.Update();
         }
-
-        protected abstract void StateTransition();
     }
 }
 
