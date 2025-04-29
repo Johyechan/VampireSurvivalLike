@@ -1,12 +1,11 @@
 using Enemy.Boss.Interface;
 using MyUtil.FSM;
-using MyUtil.Interface;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Enemy.Boss.PartedBoss
 {
-    public class BossPartBase : BossHealth, IBossPart, IDamageable
+    public class BossPartBase : BossHealth, IBossPart
     {
         protected StateMachine _machine;
 

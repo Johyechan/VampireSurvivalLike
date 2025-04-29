@@ -1200,6 +1200,7 @@ GameObject:
   m_Component:
   - component: {fileID: 321265483}
   - component: {fileID: 321265484}
+  - component: {fileID: 321265485}
   m_Layer: 0
   m_Name: RobotBoss
   m_TagString: Untagged
@@ -1239,6 +1240,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _so: {fileID: 11400000, guid: 37d6fd08a2656814c8a3a06cd571be07, type: 2}
+--- !u!95 &321265485
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 321265482}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f4163cba2e435cd41ac54ef09524d746, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &332891327
 GameObject:
   m_ObjectHideFlags: 0
@@ -1509,6 +1532,7 @@ GameObject:
   - component: {fileID: 373115533}
   - component: {fileID: 373115534}
   - component: {fileID: 373115535}
+  - component: {fileID: 373115536}
   m_Layer: 0
   m_Name: Arm_L
   m_TagString: Untagged
@@ -1636,6 +1660,18 @@ PolygonCollider2D:
       - {x: -0.5, y: -0.28866667}
       - {x: 0.5, y: -0.28866667}
   m_UseDelaunayMesh: 0
+--- !u!114 &373115536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 373115532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9370f152c8fc484fa1194a2f05ecde0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &378469609
 GameObject:
   m_ObjectHideFlags: 0
@@ -2117,6 +2153,7 @@ GameObject:
   - component: {fileID: 478333948}
   - component: {fileID: 478333949}
   - component: {fileID: 478333950}
+  - component: {fileID: 478333951}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -2230,6 +2267,18 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
+--- !u!114 &478333951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 478333947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 218ceaecf3a84d34bb249aeb18ee344a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -2782,6 +2831,7 @@ GameObject:
   - component: {fileID: 738160157}
   - component: {fileID: 738160158}
   - component: {fileID: 738160159}
+  - component: {fileID: 738160160}
   m_Layer: 0
   m_Name: Arm_R
   m_TagString: Untagged
@@ -2909,6 +2959,18 @@ PolygonCollider2D:
       - {x: -0.5, y: -0.28866667}
       - {x: 0.5, y: -0.28866667}
   m_UseDelaunayMesh: 0
+--- !u!114 &738160160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 738160156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5fec56cc9bcb864794db37630114c75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &809014162
 GameObject:
   m_ObjectHideFlags: 0
@@ -3301,6 +3363,7 @@ GameObject:
   - component: {fileID: 1065180015}
   - component: {fileID: 1065180016}
   - component: {fileID: 1065180017}
+  - component: {fileID: 1065180018}
   m_Layer: 0
   m_Name: Head
   m_TagString: Untagged
@@ -3414,6 +3477,18 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
+--- !u!114 &1065180018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1065180014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f08fc8952ff8c75418de0e618938fc08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1074054092
 GameObject:
   m_ObjectHideFlags: 0

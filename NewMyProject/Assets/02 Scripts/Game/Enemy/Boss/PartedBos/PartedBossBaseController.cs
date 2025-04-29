@@ -24,7 +24,7 @@ namespace Enemy.Boss.PartedBoss
 
             _idleState = new BossIdleState(_animationHandler.BossAnimator, _animationHandler.IdleHash);
             _attackState = new BossAttackState(_animationHandler.BossAnimator, _animationHandler.AttackHash, _attackStrategy);
-            _deadState = new BossDeathState(_animationHandler.BossAnimator, _animationHandler.DeathHash);
+            _deadState = new BossDeathState(_animationHandler.BossAnimator, _animationHandler.DeadHash);
         }
 
         protected virtual void Update()

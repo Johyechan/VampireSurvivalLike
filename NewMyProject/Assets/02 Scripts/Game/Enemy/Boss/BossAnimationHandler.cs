@@ -14,8 +14,8 @@ namespace Enemy.Boss
         private int _hitHash = Animator.StringToHash("Hit");
         public int AttackHash { get { return _attackHash; } }
         private int _attackHash = Animator.StringToHash("Attack");
-        public int DeathHash { get { return _deathHash; } }
-        private int _deathHash = Animator.StringToHash("Death");
+        public int DeadHash { get { return _deadHash; } }
+        private int _deadHash = Animator.StringToHash("Dead");
     }
 }
 

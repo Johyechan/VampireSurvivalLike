@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71629a3b3d325684882deaf3ad95c6e3, type: 3}
   m_Name: Robot
   m_EditorClassIdentifier: 
-  maxHP: 0
+  maxHP: 1000
   defence: 0
-  damage: 0
-  moveSpeed: 0
-  playerCheckRange: 0
-  attackRange: 0
-  attackDelay: 0
+  damage: 10
+  moveSpeed: 5
+  playerCheckRange: 10000
+  attackRange: 10000
+  attackDelay: 3

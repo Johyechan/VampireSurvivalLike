@@ -15,6 +15,7 @@ namespace Enemy.Boss.State
 
         public override void Enter()
         {
+            Debug.Log("공격 상태");
             _animator.SetTrigger(_hash);
             _attackStrategy.RandomPattern();
         }
