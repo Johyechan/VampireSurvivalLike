@@ -16,6 +16,7 @@ namespace MyUtil.Pool
         Torch,
         NormalRangedEnemy,
         EnemyProjectile,
+        NormalBossProjectile,
     }
 }
 

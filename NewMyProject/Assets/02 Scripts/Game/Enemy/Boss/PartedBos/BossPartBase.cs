@@ -13,11 +13,18 @@ namespace Enemy.Boss.PartedBoss
         protected IState _hitState;
         protected IState _destroyState;
 
+        protected BossAttackHandler _attackHandler;
+
         public List<IBossPattern> Patterns { get; protected set; }
 
         protected virtual void Awake()
         {
             _machine = new StateMachine();
+        }
+
+        public void Init(BossAttackHandler attackHandler)
+        {
+            _attackHandler = attackHandler;
         }
 
         public void RandomPattern()

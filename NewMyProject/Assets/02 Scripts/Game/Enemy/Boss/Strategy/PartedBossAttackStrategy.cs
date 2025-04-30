@@ -17,8 +17,13 @@ namespace Enemy.Boss.Strategy
 
         public void RandomPattern()
         {
-            int randomIndex = Random.Range(0, _parts.Count);
-            _parts[randomIndex].RandomPattern();
+            List<BossPartBase> aliveParts = _parts.FindAll(part => !part.IsDestroy);
+
+            if (aliveParts.Count == 0)
+                return;
+
+            int randomIndex = Random.Range(0, aliveParts.Count);
+            aliveParts[randomIndex].RandomPattern();
         }
     }
 }

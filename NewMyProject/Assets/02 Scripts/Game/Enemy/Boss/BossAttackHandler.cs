@@ -1,3 +1,4 @@
+using Enemy.Boss.Interface;
 using System.Collections;
 using UnityEngine;
 
@@ -10,7 +11,7 @@ namespace Enemy.Boss
 
         private float _attackDelay;
 
-        public BossAttackHandler(float  attackDelay)
+        public BossAttackHandler(float attackDelay)
         {
             _attackDelay = attackDelay;
         }
@@ -20,16 +21,17 @@ namespace Enemy.Boss
             yield return new WaitForSeconds(_attackDelay);
 
             CanAttack = true;
+            PatternEnd = false;
 
-            while(true)
+            while (true)
             {
                 if(!CanAttack)
                 {
-                    PatternEnd = false;
                     if (PatternEnd)
                     {
                         yield return new WaitForSeconds(_attackDelay);
                         CanAttack = true;
+                        PatternEnd = false;
                     }
                     yield return null;
                 }

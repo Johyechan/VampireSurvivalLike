@@ -1241,10 +1241,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _so: {fileID: 11400000, guid: 37d6fd08a2656814c8a3a06cd571be07, type: 2}
   _parts:
-  - {fileID: 1065180018}
-  - {fileID: 478333951}
   - {fileID: 373115536}
-  - {fileID: 738160160}
 --- !u!95 &321265485
 Animator:
   serializedVersion: 7
@@ -1538,9 +1535,9 @@ GameObject:
   - component: {fileID: 373115534}
   - component: {fileID: 373115535}
   - component: {fileID: 373115536}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Arm_L
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1645,7 +1642,7 @@ PolygonCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -1677,6 +1674,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9370f152c8fc484fa1194a2f05ecde0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _rightArm: {fileID: 738160160}
 --- !u!1 &378469609
 GameObject:
   m_ObjectHideFlags: 0
@@ -2147,6 +2145,9 @@ MonoBehaviour:
   - prefabType: 11
     prefabObj: {fileID: 8542655633105763195, guid: 98c79c98839fe204b843b421173adf38, type: 3}
     prefabCount: 10
+  - prefabType: 12
+    prefabObj: {fileID: 8542655633105763195, guid: 23d670b503e36a145a905e193c1607ee, type: 3}
+    prefabCount: 10
 --- !u!1 &478333947
 GameObject:
   m_ObjectHideFlags: 0
@@ -2159,9 +2160,9 @@ GameObject:
   - component: {fileID: 478333949}
   - component: {fileID: 478333950}
   - component: {fileID: 478333951}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Body
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2837,9 +2838,9 @@ GameObject:
   - component: {fileID: 738160158}
   - component: {fileID: 738160159}
   - component: {fileID: 738160160}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Arm_R
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2944,7 +2945,7 @@ PolygonCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -3369,9 +3370,9 @@ GameObject:
   - component: {fileID: 1065180016}
   - component: {fileID: 1065180017}
   - component: {fileID: 1065180018}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Head
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

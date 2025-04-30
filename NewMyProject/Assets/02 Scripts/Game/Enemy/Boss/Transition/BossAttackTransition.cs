@@ -26,6 +26,7 @@ namespace Enemy.Boss.Transition
                 if(!_machine.IsCurrentState(_attackState))
                 {
                     _machine.ChangeState(_attackState);
+                    _attackHandler.CanAttack = false;
                     return true;
                 }
             }
