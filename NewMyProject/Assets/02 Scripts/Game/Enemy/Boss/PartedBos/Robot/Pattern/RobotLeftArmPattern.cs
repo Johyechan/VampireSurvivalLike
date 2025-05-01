@@ -7,64 +7,51 @@ using UnityEngine;
 
 namespace Enemy.Boss.PartedBoss.Robot.Pattern
 {
-    public class RobotLeftArmPattern : IBossPattern
+    public class RobotLeftArmPattern : CircularFirePattern
     {
         private BossPartBase _leftArm;
         private BossPartBase _rightArm;
 
         private BossAttackHandler _attackHandler;
 
-        private int _projectileCount;
+        private int _minProjectileCount;
+        private int _maxProjectileCount;
 
-        private float _patternEndDelay;
-        private float _fireSpeed;
+        private float _minFireSpeed;
+        private float _maxFireSpeed;
         private float _projectileDamage;
 
-        public RobotLeftArmPattern(BossPartBase leftArm, BossPartBase rightArm, BossAttackHandler attackHandler, int projectileCount, float patternEndDelay, float fireSpeed, float projectileDamage)
+        public RobotLeftArmPattern(BossPartBase leftArm, BossPartBase rightArm, BossAttackHandler attackHandler, int minProjectileCount, int maxProjectileCount, float minFireSpeed, float maxFireSpeed, float projectileDamage)
         {
             _leftArm = leftArm;
             _rightArm = rightArm;
             _attackHandler = attackHandler;
-            _projectileCount = projectileCount;
-            _patternEndDelay = patternEndDelay;
-            _fireSpeed = fireSpeed;
+            _minProjectileCount = minProjectileCount;
+            _maxProjectileCount = maxProjectileCount;
+            _minFireSpeed = minFireSpeed;
+            _maxFireSpeed = maxFireSpeed;
             _projectileDamage = projectileDamage;
         }
 
-        public void Pattern()
+        public override void Pattern()
         {
             _leftArm.StartCoroutine(PatternCo());
         }
 
-        private IEnumerator PatternCo()
+        protected override IEnumerator PatternCo()
         {
-            CreateProjectile(_leftArm);
-            CreateProjectile(_rightArm);
+            int projectileCount = Random.Range(_minProjectileCount, _maxProjectileCount);
+            float fireSpeed = Random.Range(_minFireSpeed, _maxFireSpeed);
 
-            yield return new WaitForSeconds(_patternEndDelay);
+            for(int i = 0; i < projectileCount; i++)
+            {
+                CreateProjectile(_leftArm, i, projectileCount, fireSpeed, _projectileDamage);
+                CreateProjectile(_rightArm, i, projectileCount, fireSpeed, _projectileDamage);
+            }
+
+            yield return new WaitForSeconds(3);
             _attackHandler.PatternEnd = true;
         }
-
-        private void CreateProjectile(BossPartBase partBase)
-        {
-            for (int i = 0; i < _projectileCount; i++)
-            {
-                GameObject projectile = ObjectPoolManager.Instance.GetObject(ObjectPoolType.NormalBossProjectile);
-                projectile.transform.position = partBase.transform.position;
-                projectile.transform.rotation = Quaternion.identity;
-
-                Vector2 dir = new Vector2(Mathf.Cos(Mathf.PI * 2 * i / _projectileCount), Mathf.Sin(Mathf.PI * 2 * i / _projectileCount));
-                float angle = Mathf.Atan2(dir.normalized.y, dir.normalized.x) * Mathf.Rad2Deg;
-
-                ProjectileBase normalBossProjectile = projectile.GetComponent<ProjectileBase>();
-                normalBossProjectile.FireSpeed = _fireSpeed;
-                normalBossProjectile.Damage = _projectileDamage;
-                normalBossProjectile.Direction = dir.normalized;
-
-                normalBossProjectile.transform.rotation = Quaternion.Euler(0, 0, angle - 90);
-            }
-        }
-
     }
 }
 

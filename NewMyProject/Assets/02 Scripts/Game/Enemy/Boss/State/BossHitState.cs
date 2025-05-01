@@ -1,5 +1,7 @@
+using Manager;
 using MyUtil.FSM;
 using NPOI.SS.Formula.Functions;
+using System.Collections;
 using UnityEngine;
 
 namespace Enemy.Boss.State.Part
@@ -11,7 +13,6 @@ namespace Enemy.Boss.State.Part
 
         private Color _originColor;
 
-        private float _currentTime;
         private float _animationTime;
 
         public BossHitState(BossHealth health, SpriteRenderer spriteRenderer, float animationTime)
@@ -24,34 +25,46 @@ namespace Enemy.Boss.State.Part
         public void Enter()
         {
             _originColor = _spriteRenderer.color;
-            _currentTime = 0;
+
+            _health.StartCoroutine(HitAnimationCo());
         }
 
         public void Execute()
         {
-            if(_currentTime > _animationTime)
-            {
-                _health.IsHit = false;
-                return;
-            }
             
-            _currentTime += Time.deltaTime;
-
-            float t = Mathf.Clamp01(_currentTime / _animationTime);
-
-            if (_currentTime < _animationTime / 2)
-            {
-                _spriteRenderer.color = Color.Lerp(_originColor, Color.red, t * 2);
-            }
-            else
-            {
-                _spriteRenderer.color = Color.Lerp(Color.red, _originColor, t * 2);
-            }
         }
 
         public void Exit()
         {
             
+        }
+
+        private IEnumerator HitAnimationCo()
+        {
+            float currentTime = 0;
+            while (!GameManager.Instance.gameOver && currentTime < _animationTime)
+            {
+                currentTime += Time.deltaTime;
+                float t = Mathf.Clamp01(currentTime / _animationTime);
+
+                _spriteRenderer.color = Color.Lerp(_originColor, Color.red, t);
+
+                yield return null;
+            }
+
+            currentTime = 0;
+
+            while (!GameManager.Instance.gameOver && currentTime < _animationTime)
+            {
+                currentTime += Time.deltaTime;
+                float t = Mathf.Clamp01(currentTime / _animationTime);
+
+                _spriteRenderer.color = Color.Lerp(Color.red, _originColor, t);
+
+                yield return null;
+            }
+
+            _health.IsHit = false;
         }
     }
 }

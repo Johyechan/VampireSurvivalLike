@@ -3,6 +3,7 @@ using Enemy.Boss.State;
 using Enemy.Boss.State.Part;
 using Enemy.Boss.Transition;
 using Enemy.Transition;
+using MyUtil;
 using MyUtil.FSM;
 using MyUtil.Interface;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ namespace Enemy.Boss.PartedBoss
 {
     public class BossPartBase : BossHealth, IBossPart
     {
+        [SerializeField] protected BossPatternSO _so;
         protected StateMachine _machine;
 
         protected IState _idleState;
@@ -21,6 +23,8 @@ namespace Enemy.Boss.PartedBoss
         protected BossAttackHandler _attackHandler;
 
         private SpriteRenderer _spriteRenderer;
+
+        private TransitionHandler _transitionHandler;
 
         private List<ITransition> _transitions = new();
 
@@ -33,7 +37,7 @@ namespace Enemy.Boss.PartedBoss
             _machine = new StateMachine();
 
             _idleState = new BossPartIdleState();
-            //_hitState = new BossHitState(this, _spriteRenderer, );
+            _hitState = new BossHitState(this, _spriteRenderer, 0.25f);
             _destroyedState = new BossPartDestroyedState();
 
             _transitions = new List<ITransition>
@@ -42,6 +46,15 @@ namespace Enemy.Boss.PartedBoss
                 new BossHitTransition(this, _machine, _hitState),
                 new BossPartIdleTransition(this, _machine, _idleState)
             };
+
+            _transitionHandler = new TransitionHandler(_transitions);
+        }
+
+        protected virtual void Update()
+        {
+            if (_transitionHandler.HandleTransitions()) return;
+
+            _machine.UpdateExecute();
         }
 
         public void Init(BossAttackHandler attackHandler)

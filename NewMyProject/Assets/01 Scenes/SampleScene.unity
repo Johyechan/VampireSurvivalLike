@@ -1242,6 +1242,7 @@ MonoBehaviour:
   _so: {fileID: 11400000, guid: 37d6fd08a2656814c8a3a06cd571be07, type: 2}
   _parts:
   - {fileID: 373115536}
+  - {fileID: 738160160}
 --- !u!95 &321265485
 Animator:
   serializedVersion: 7
@@ -1674,6 +1675,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9370f152c8fc484fa1194a2f05ecde0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _so: {fileID: 11400000, guid: 0a4dbf2420a5dff4ab19322eec7b6548, type: 2}
   _rightArm: {fileID: 738160160}
 --- !u!1 &378469609
 GameObject:
@@ -2285,6 +2287,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 218ceaecf3a84d34bb249aeb18ee344a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _so: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -2977,6 +2980,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5fec56cc9bcb864794db37630114c75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _so: {fileID: 11400000, guid: 1990a8204896c274a92ef3bf9da04933, type: 2}
+  _leftArm: {fileID: 373115536}
 --- !u!1 &809014162
 GameObject:
   m_ObjectHideFlags: 0
@@ -3495,6 +3500,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f08fc8952ff8c75418de0e618938fc08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _so: {fileID: 0}
 --- !u!1 &1074054092
 GameObject:
   m_ObjectHideFlags: 0

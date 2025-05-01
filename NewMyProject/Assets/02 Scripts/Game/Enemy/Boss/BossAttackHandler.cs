@@ -1,4 +1,5 @@
 using Enemy.Boss.Interface;
+using Manager;
 using System.Collections;
 using UnityEngine;
 
@@ -23,7 +24,7 @@ namespace Enemy.Boss
             CanAttack = true;
             PatternEnd = false;
 
-            while (true)
+            while (!GameManager.Instance.gameOver)
             {
                 if(!CanAttack)
                 {

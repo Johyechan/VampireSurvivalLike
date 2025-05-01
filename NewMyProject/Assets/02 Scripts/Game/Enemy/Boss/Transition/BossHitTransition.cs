@@ -23,8 +23,11 @@ namespace Enemy.Boss.Transition
         {
             if(_health.IsHit)
             {
-                _machine.ChangeState(_hitState);
-                return true;
+                if(!_machine.IsCurrentState(_hitState))
+                {
+                    _machine.ChangeState(_hitState);
+                    return true;
+                }
             }
             return false;
         }

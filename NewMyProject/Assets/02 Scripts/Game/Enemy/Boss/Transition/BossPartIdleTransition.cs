@@ -23,7 +23,7 @@ namespace Enemy.Transition
         {
             if(!_health.IsHit)
             {
-                if(_machine.IsCurrentState(_idleState))
+                if(!_machine.IsCurrentState(_idleState))
                 {
                     _machine.ChangeState(_idleState);
                     return true;
