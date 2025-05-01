@@ -17,7 +17,7 @@ namespace Enemy.Boss.Strategy
 
         public void RandomPattern()
         {
-            List<BossPartBase> aliveParts = _parts.FindAll(part => !part.IsDestroy);
+            List<BossPartBase> aliveParts = _parts.FindAll(part => !part.IsDead);
 
             if (aliveParts.Count == 0)
                 return;

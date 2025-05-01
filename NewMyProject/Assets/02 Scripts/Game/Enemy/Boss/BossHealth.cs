@@ -7,7 +7,8 @@ public class BossHealth : MonoBehaviour, IDamageable
     public float MaxHp { get; set; }
     protected float _currentHp;
 
-    public bool IsDestroy { get; protected set; }
+    public bool IsDead { get; protected set; }
+    public bool IsHit { get; set; }
 
     private void Start()
     {
@@ -19,10 +20,11 @@ public class BossHealth : MonoBehaviour, IDamageable
         if (_currentHp > 0)
         {
             _currentHp -= damage;
+            IsHit = true;
         }
         else
         {
-            IsDestroy = true;
+            IsDead = true;
         }
     }
 }

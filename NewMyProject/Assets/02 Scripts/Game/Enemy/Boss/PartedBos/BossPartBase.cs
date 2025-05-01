@@ -1,5 +1,10 @@
 using Enemy.Boss.Interface;
+using Enemy.Boss.State;
+using Enemy.Boss.State.Part;
+using Enemy.Boss.Transition;
+using Enemy.Transition;
 using MyUtil.FSM;
+using MyUtil.Interface;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,15 +16,32 @@ namespace Enemy.Boss.PartedBoss
 
         protected IState _idleState;
         protected IState _hitState;
-        protected IState _destroyState;
+        protected IState _destroyedState;
 
         protected BossAttackHandler _attackHandler;
+
+        private SpriteRenderer _spriteRenderer;
+
+        private List<ITransition> _transitions = new();
 
         public List<IBossPattern> Patterns { get; protected set; }
 
         protected virtual void Awake()
         {
+            _spriteRenderer = GetComponent<SpriteRenderer>();
+
             _machine = new StateMachine();
+
+            _idleState = new BossPartIdleState();
+            //_hitState = new BossHitState(this, _spriteRenderer, );
+            _destroyedState = new BossPartDestroyedState();
+
+            _transitions = new List<ITransition>
+            {
+                new BossPartDestroyedTransition(this, _machine, _destroyedState),
+                new BossHitTransition(this, _machine, _hitState),
+                new BossPartIdleTransition(this, _machine, _idleState)
+            };
         }
 
         public void Init(BossAttackHandler attackHandler)

@@ -11,13 +11,13 @@ namespace Enemy.Boss.PartedBoss
     {
         [SerializeField] protected List<BossPartBase> _parts;
 
-        private int _deathCount;
+        private int _deadCount;
 
         protected override void Awake()
         {
             base.Awake();
 
-            _deathCount = 0;
+            _deadCount = 0;
             IsDead = false;
 
             _attackStrategy = new PartedBossAttackStrategy(_parts);
@@ -41,19 +41,19 @@ namespace Enemy.Boss.PartedBoss
             foreach (var part in _parts)
             {
                 BossHealth health = part;
-                if(health.IsDestroy)
+                if(health.IsDead)
                 {
-                    _deathCount++;
+                    _deadCount++;
                 }
             }
 
-            if(_deathCount >= _parts.Count)
+            if(_deadCount >= _parts.Count)
             {
                 IsDead = true;
             }
             else
             {
-                IsDead = false;
+                _deadCount = 0;
             }
 
             base.Update();
