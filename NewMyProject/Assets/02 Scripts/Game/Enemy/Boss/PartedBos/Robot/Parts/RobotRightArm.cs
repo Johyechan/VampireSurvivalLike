@@ -13,10 +13,7 @@ namespace Enemy.Boss.PartedBoss.Robot.Part
         {
             base.Awake();
 
-            Patterns = new List<IBossPattern>
-            {
-                new RobotRightArmPattern(this, _leftArm, _attackHandler, _so.minProjectileCount, _so.maxProjectileCount, _so.minFireSpeed, _so.maxFireSpeed, _so.damage)
-            };
+            Pattern = new RobotRightArmPattern(this, _leftArm, _attackHandler, _so.minProjectileCount, _so.maxProjectileCount, _so.minFireSpeed, _so.maxFireSpeed, _so.damage);
         }
     }
 }

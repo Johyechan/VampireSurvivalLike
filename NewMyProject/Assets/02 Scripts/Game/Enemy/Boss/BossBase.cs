@@ -44,7 +44,7 @@ namespace Enemy.Boss
             _animationHandler = new BossAnimationHandler();
             _animationHandler.BossAnimator = GetComponent<Animator>();
 
-            _attackHandler = new BossAttackHandler(_so.attackDelay);
+            _attackHandler = new BossAttackHandler(this, _so.attackDelay);
         }
 
         protected virtual void Start()

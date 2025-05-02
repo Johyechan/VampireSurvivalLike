@@ -16,7 +16,7 @@ namespace Enemy.Boss.State
         public void Enter()
         {
             Debug.Log("공격 상태");
-            _attackStrategy.RandomPattern();
+            _attackStrategy.Pattern();
         }
 
         public void Execute()

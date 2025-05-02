@@ -28,7 +28,7 @@ namespace Enemy.Boss.PartedBoss
 
         private List<ITransition> _transitions = new();
 
-        public List<IBossPattern> Patterns { get; protected set; }
+        public IBossPattern Pattern { get; protected set; }
 
         protected virtual void Awake()
         {
@@ -60,12 +60,6 @@ namespace Enemy.Boss.PartedBoss
         public void Init(BossAttackHandler attackHandler)
         {
             _attackHandler = attackHandler;
-        }
-
-        public void RandomPattern()
-        {
-            int randomIndex = Random.Range(0, Patterns.Count);
-            Patterns[randomIndex].Pattern();
         }
     }
 }

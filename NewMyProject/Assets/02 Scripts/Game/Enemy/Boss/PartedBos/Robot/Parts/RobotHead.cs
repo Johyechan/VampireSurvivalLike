@@ -9,11 +9,6 @@ namespace Enemy.Boss.PartedBoss.Robot.Part
         protected override void Awake()
         {
             base.Awake();
-
-            Patterns = new List<IBossPattern>
-            {
-
-            };
         }
     }
 }

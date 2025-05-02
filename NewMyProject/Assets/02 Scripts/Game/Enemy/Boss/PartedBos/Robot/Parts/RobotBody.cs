@@ -1,4 +1,5 @@
 using Enemy.Boss.Interface;
+using Enemy.Boss.PartedBoss.Robot.Pattern;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,10 +11,7 @@ namespace Enemy.Boss.PartedBoss.Robot.Part
         {
             base.Awake();
 
-            Patterns = new List<IBossPattern>
-            {
-
-            };
+            Pattern = new RobotBodyPattern(this, _attackHandler);
         }
     }
 }

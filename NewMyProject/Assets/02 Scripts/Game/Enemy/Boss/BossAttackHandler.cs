@@ -7,13 +7,16 @@ namespace Enemy.Boss
 {
     public class BossAttackHandler
     {
+        private BossBase _boss;
+
         public bool CanAttack { get; set; }
         public bool PatternEnd { get; set; }
 
         private float _attackDelay;
 
-        public BossAttackHandler(float attackDelay)
+        public BossAttackHandler(BossBase boss, float attackDelay)
         {
+            _boss = boss;
             _attackDelay = attackDelay;
         }
 
@@ -24,7 +27,7 @@ namespace Enemy.Boss
             CanAttack = true;
             PatternEnd = false;
 
-            while (!GameManager.Instance.gameOver)
+            while (!_boss.IsDead && !GameManager.Instance.gameOver)
             {
                 if(!CanAttack)
                 {

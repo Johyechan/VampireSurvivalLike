@@ -8,22 +8,31 @@ namespace Enemy.Boss.Strategy
 {
     public class PartedBossAttackStrategy : IBossAttackStrategy
     {
-        private List<BossPartBase> _parts = new();
+        private Queue<BossPartBase> _partDestroyedCheckQueue = new ();
 
-        public PartedBossAttackStrategy(List<BossPartBase> parts)
+        public PartedBossAttackStrategy(IEnumerable<BossPartBase> parts)
         {
-            _parts = parts;
+            foreach(var part in parts)
+            {
+                _partDestroyedCheckQueue.Enqueue(part);
+            }
         }
 
-        public void RandomPattern()
+        public void Pattern()
         {
-            List<BossPartBase> aliveParts = _parts.FindAll(part => !part.IsDead);
+            int count = _partDestroyedCheckQueue.Count;
 
-            if (aliveParts.Count == 0)
-                return;
+            while(count-- > 0)
+            {
+                BossPartBase part = _partDestroyedCheckQueue.Dequeue();
 
-            int randomIndex = Random.Range(0, aliveParts.Count);
-            aliveParts[randomIndex].RandomPattern();
+                if (!part.IsDead)
+                {
+                    part.Pattern.Pattern();
+                    _partDestroyedCheckQueue.Enqueue(part);
+                    return;
+                }
+            }
         }
     }
 }
