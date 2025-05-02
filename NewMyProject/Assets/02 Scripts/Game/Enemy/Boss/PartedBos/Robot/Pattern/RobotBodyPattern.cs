@@ -11,11 +11,24 @@ namespace Enemy.Boss.PartedBoss.Robot.Pattern
 
         private BossAttackHandler _attackHandler;
 
-        public RobotBodyPattern(Transform bossTrans, BossPartBase partBase, BossAttackHandler attackHandler)
+        private float _dashSpeed;
+        private float _dashTime;
+        private float _backMovingSpeed;
+        private float _backMovingTime;
+        private float _shakePower;
+        private float _shakeTime;
+
+        public RobotBodyPattern(Transform bossTrans, BossPartBase partBase, BossAttackHandler attackHandler, float dashSpeed, float dashTime, float backMovingSpeed, float backMovingTime, float shakePower, float shakeTime)
         {
             _bossTrans = bossTrans;
             _body = partBase;
             _attackHandler = attackHandler;
+            _dashSpeed = dashSpeed;
+            _dashTime = dashTime;
+            _backMovingSpeed = backMovingSpeed;
+            _backMovingTime = backMovingTime;
+            _shakePower = shakePower;
+            _shakeTime = shakeTime;
         }
 
         public override void Pattern()
@@ -26,24 +39,36 @@ namespace Enemy.Boss.PartedBoss.Robot.Pattern
         protected override IEnumerator PatternCo()
         {
             float curTime = 0;
-            _currentPos = _bossTrans.position;
+            
+            Vector3 dir = FindPlayerDirection(_bossTrans);
 
-            while(curTime < 1)
+            while(curTime < _backMovingTime)
             {
                 curTime += Time.deltaTime;
-                ShakeAnimation(_bossTrans, 1f);
+                _bossTrans.position -= dir * _backMovingSpeed * Time.deltaTime;
+                yield return null;
+            }
+
+            curTime = 0;
+            _currentPos = _bossTrans.position;
+
+            while (curTime < _shakeTime)
+            {
+                curTime += Time.deltaTime;
+                DashAnimation(_bossTrans, _shakePower);
                 yield return null;
             }
 
             curTime = 0;
 
-            Vector3 dir = FindPlayerDirection(_bossTrans);
-            while (curTime < 1)
+            while (curTime < _dashTime)
             {
                 curTime += Time.deltaTime;
-                _bossTrans.position += dir * 10 * Time.deltaTime;
+                _bossTrans.position += dir * _dashSpeed * Time.deltaTime;
                 yield return null;
             }
+
+            yield return new WaitForSeconds(3);
 
             _attackHandler.PatternEnd = true;
         }

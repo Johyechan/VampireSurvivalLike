@@ -13,7 +13,6 @@ namespace Enemy.Boss.PartedBoss
 {
     public class BossPartBase : BossHealth, IBossPart
     {
-        [SerializeField] protected BossPatternSO _so;
         protected StateMachine _machine;
 
         protected IState _idleState;

@@ -7,6 +7,7 @@ namespace Enemy.Boss.PartedBoss.Robot.Part
 {
     public class RobotRightArm : BossPartBase
     {
+        [SerializeField] private BossCircularFirePatternSO _so;
         [SerializeField] private BossPartBase _leftArm;
 
         protected override void Awake()
