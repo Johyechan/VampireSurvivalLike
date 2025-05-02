@@ -5,12 +5,15 @@ namespace Enemy.Boss.PartedBoss.Robot.Pattern
 {
     public class RobotBodyPattern : DashPattern
     {
+        private Transform _bossTrans;
+
         private BossPartBase _body;
 
         private BossAttackHandler _attackHandler;
 
-        public RobotBodyPattern(BossPartBase partBase, BossAttackHandler attackHandler)
+        public RobotBodyPattern(Transform bossTrans, BossPartBase partBase, BossAttackHandler attackHandler)
         {
+            _bossTrans = bossTrans;
             _body = partBase;
             _attackHandler = attackHandler;
         }
@@ -23,21 +26,22 @@ namespace Enemy.Boss.PartedBoss.Robot.Pattern
         protected override IEnumerator PatternCo()
         {
             float curTime = 0;
+            _currentPos = _bossTrans.position;
+
             while(curTime < 1)
             {
                 curTime += Time.deltaTime;
-                ShakeAnimation(_body.transform, 1);
+                ShakeAnimation(_bossTrans, 1f);
                 yield return null;
             }
 
             curTime = 0;
 
-            Vector3 originPos = _body.transform.position;
+            Vector3 dir = FindPlayerDirection(_bossTrans);
             while (curTime < 1)
             {
                 curTime += Time.deltaTime;
-                float t = Mathf.Clamp01(curTime / 1);
-                _body.transform.position = Vector3.Lerp(originPos, FindPlayerDirection(_body.transform), t);
+                _bossTrans.position += dir * 10 * Time.deltaTime;
                 yield return null;
             }
 

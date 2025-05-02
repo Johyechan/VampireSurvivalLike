@@ -1241,8 +1241,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _so: {fileID: 11400000, guid: 37d6fd08a2656814c8a3a06cd571be07, type: 2}
   _parts:
-  - {fileID: 373115536}
-  - {fileID: 738160160}
   - {fileID: 478333951}
 --- !u!95 &321265485
 Animator:

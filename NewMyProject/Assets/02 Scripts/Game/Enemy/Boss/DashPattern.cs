@@ -7,14 +7,16 @@ namespace Enemy.Boss
 {
     public abstract class DashPattern : IBossPattern
     {
+        protected Vector3 _currentPos = Vector3.zero;
+
         public abstract void Pattern();
 
         protected abstract IEnumerator PatternCo();
 
         protected void ShakeAnimation(Transform trans, float shakePower)
         {
-            float noise = Mathf.PerlinNoise(Time.time, 0f);
-            trans.localPosition = new Vector3(noise * shakePower, 0f, 0f);
+            float noise = Mathf.PerlinNoise(Time.time * 5, Time.time * 5) - 0.5f;
+            trans.localPosition = _currentPos + new Vector3(noise * shakePower, noise * shakePower, 0f);
         }
 
         protected Vector3 FindPlayerDirection(Transform trans)

@@ -11,7 +11,7 @@ namespace Enemy.Boss.PartedBoss.Robot.Part
         {
             base.Awake();
 
-            Pattern = new RobotBodyPattern(this, _attackHandler);
+            Pattern = new RobotBodyPattern(transform.parent, this, _attackHandler);
         }
     }
 }
