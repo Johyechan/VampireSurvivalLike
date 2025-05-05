@@ -11,17 +11,17 @@ namespace Enemy.Boss
 
         protected abstract IEnumerator PatternCo();
 
-        protected void CreateLaser(LineRenderer line, Vector3 startPos, Vector3 endPos, float startWidth, float endWidth, Color startColor, Color endColor)
+        protected void CreateLaser(LineRenderer line, Vector3 startPos, Vector3 endPos, float width, Color color, float length)
         {
-            line.startColor = startColor;
-            line.startWidth = startWidth;
+            line.startColor = color;
+            line.startWidth = width;
             line.SetPosition(0, startPos);
-            line.SetPosition(1, endPos);
-            line.endWidth = endWidth;
-            line.endColor = endColor;
+            line.SetPosition(1, startPos + endPos * length);
+            line.endWidth = width;
+            line.endColor = color;
         }
 
-        protected int MoveLaser(LineRenderer line, Vector3 currentPos, Vector3 targetPos)
+        protected int GetLaserMoveDirection(LineRenderer line, Vector3 currentPos, Vector3 targetPos)
         {
             float cross = currentPos.x * targetPos.y - targetPos.x * currentPos.y;
 
@@ -37,15 +37,27 @@ namespace Enemy.Boss
             }
         }
 
-        float angle = 0;
-
-        protected void RotateLaser(LineRenderer line, Vector2 currentPos, int right)
+        protected IEnumerator RotateLaser(LineRenderer line, Vector2 currentPos, float rotateSpeed, float length, float rotateTime, int right)
         {
-            angle += 10f * Time.deltaTime * right;
-            float rad = angle * Mathf.Deg2Rad;
+            float angle = 0;
+            float curTime = 0;
+            Vector2 startPos = line.GetPosition(0);
 
-            Vector2 dir = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
-            line.SetPosition(1, dir.normalized * 10f);
+            while(curTime < rotateTime)
+            {
+                curTime += Time.deltaTime;
+                angle += rotateSpeed * Time.deltaTime * right;
+                float rad = angle * Mathf.Deg2Rad;
+
+                Vector2 rotatedDir = new Vector2(
+                    currentPos.x * Mathf.Cos(rad) - currentPos.y * Mathf.Sin(rad),
+                    currentPos.x * Mathf.Sin(rad) + currentPos.y * Mathf.Cos(rad)
+                );
+
+                line.SetPosition(1, startPos + rotatedDir * length);
+
+                yield return null;
+            }
         }
     }
 }

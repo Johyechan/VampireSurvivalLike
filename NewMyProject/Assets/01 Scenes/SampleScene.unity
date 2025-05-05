@@ -1309,6 +1309,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyTypes: 0a000000
+  SpawnDelayTime: 1000000
   _spawnRadius: 10
 --- !u!1 &351993281
 GameObject:

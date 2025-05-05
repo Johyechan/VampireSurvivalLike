@@ -12,11 +12,20 @@ namespace Enemy.Boss.PartedBoss.Robot.Pattern
 
         private LineRenderer _line;
 
-        public RobotHeadPattern(BossPartBase head, BossAttackHandler attackHandler, LineRenderer line)
+        private float _lineWidth;
+        private float _lineLength;
+        private float _rotateSpeed;
+        private float _rotateTime;
+
+        public RobotHeadPattern(BossPartBase head, BossAttackHandler attackHandler, LineRenderer line, float lineWidth, float lineLength, float rotateSpeed, float rotateTime)
         {
             _head = head;
             _attackHandler = attackHandler;
             _line = line;
+            _lineWidth = lineWidth;
+            _lineLength = lineLength;
+            _rotateSpeed = rotateSpeed;
+            _rotateTime = rotateTime;
         }
 
         public override void Pattern()
@@ -31,23 +40,17 @@ namespace Enemy.Boss.PartedBoss.Robot.Pattern
             _line.enabled = true;
 
             Vector3 startPos = _head.transform.position;
-            Vector3 endPos = GameManager.Instance.player.transform.position - startPos;
+            Vector3 endPos = (GameManager.Instance.player.transform.position - startPos).normalized;
 
-            CreateLaser(_line, startPos, endPos.normalized * 10f, 2f, 2f, Color.red, Color.green);
+            CreateLaser(_line, startPos, endPos, 2f, Color.red, 10f);
 
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(2f);
 
-            float curTime = 0;
-            Vector3 currentPos = _line.GetPosition(1);
-            Vector3 targetPos = Vector3.zero;
-            int rotateDir = MoveLaser(_line, currentPos, targetPos);
+            Vector3 currentPos =  (_line.GetPosition(1) - _line.GetPosition(0)).normalized;
+            Vector3 targetPos = GameManager.Instance.player.transform.position;
+            int rotateDir = GetLaserMoveDirection(_line, _line.GetPosition(1), targetPos);
 
-            while (curTime < 5f)
-            {
-                curTime += Time.deltaTime;
-                RotateLaser(_line, _head.transform.position, rotateDir);
-                yield return null;
-            }
+            yield return _head.StartCoroutine(RotateLaser(_line, currentPos, 10f, 10f, 5f, rotateDir));
 
             _line.enabled = false;
             _attackHandler.PatternEnd = true;

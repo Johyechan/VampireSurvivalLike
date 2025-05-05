@@ -11,7 +11,7 @@ namespace Map
     {
         [SerializeField] private List<ObjectPoolType> _enemyTypes = new List<ObjectPoolType>();
 
-        public float SpawnDelayTime { get; set; }
+        [SerializeField] private float SpawnDelayTime;
 
         [SerializeField] private float _spawnRadius;
 
@@ -20,11 +20,6 @@ namespace Map
             Gizmos.color = Color.yellow;
             if(GameManager.Instance != null)
                 Gizmos.DrawWireSphere(GameManager.Instance.player.transform.position, _spawnRadius);
-        }
-
-        private void Awake()
-        {
-            SpawnDelayTime = 10000000f;
         }
 
         private void OnEnable()
@@ -39,8 +34,7 @@ namespace Map
 
         private IEnumerator SpawnCo()
         {
-            //yield return new WaitForSeconds(SpawnDelayTime);
-            yield return null;
+            yield return new WaitForSeconds(SpawnDelayTime);
 
             while (!GameManager.Instance.gameOver)
             {

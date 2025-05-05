@@ -15,7 +15,7 @@ namespace Enemy.Boss.PartedBoss.Robot.Part
 
             _lineRenderer = GetComponent<LineRenderer>();
 
-            Pattern = new RobotHeadPattern(this, _attackHandler, _lineRenderer);
+            //Pattern = new RobotHeadPattern(this, _attackHandler, _lineRenderer);
         }
     }
 }
