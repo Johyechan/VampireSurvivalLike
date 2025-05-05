@@ -31,7 +31,7 @@ namespace Enemy.Boss.PartedBoss.Robot
 
             _deathTransition = new BossDeathTransition(this, _machine, _deadState);
             _attackTransition = new BossAttackTransition(_machine, _attackHandler, _attackState);
-            _moveAndIdleTransition = new BossMoveAndIdleTransition(_machine, _moveState, _idleState, _moveStrategy);
+            _moveAndIdleTransition = new BossMoveAndIdleTransition(_machine, _attackHandler, _moveState, _idleState, _moveStrategy);
 
             _transitions = new List<ITransition>
             {

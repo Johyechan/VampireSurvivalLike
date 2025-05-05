@@ -18,6 +18,8 @@ namespace Enemy.Boss
         {
             _boss = boss;
             _attackDelay = attackDelay;
+            CanAttack = false;
+            PatternEnd = true;
         }
 
         public IEnumerator AttackDelayCo()
