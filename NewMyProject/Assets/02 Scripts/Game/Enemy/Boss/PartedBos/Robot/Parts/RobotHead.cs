@@ -10,6 +10,14 @@ namespace Enemy.Boss.PartedBoss.Robot.Part
         [SerializeField] private BossLaserPatternSO _so;
         private LineRenderer _lineRenderer;
 
+        private void OnDrawGizmos()
+        {
+            //Vector2 dir = new Vector2(Mathf.Cos(45), Mathf.Sin(45));
+            //Gizmos.DrawRay(transform.position, dir * 10);
+            //Gizmos.DrawRay(transform.position + new Vector3(0.5f, -0.25f), dir * 10);
+            //Gizmos.DrawRay(transform.position + new Vector3(-0.5f, 0.25f), dir * 10);
+        }
+
         protected override void Awake()
         {
             base.Awake();

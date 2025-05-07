@@ -29,6 +29,8 @@ namespace Enemy.Boss.PartedBoss
 
         public IBossPattern Pattern { get; protected set; }
 
+        public float Damage { get; private set; }
+
         protected virtual void Awake()
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
@@ -61,9 +63,19 @@ namespace Enemy.Boss.PartedBoss
             _machine.UpdateExecute();
         }
 
-        public void Init(BossAttackHandler attackHandler)
+        public void Init(BossAttackHandler attackHandler, float damage)
         {
             _attackHandler = attackHandler;
+            Damage = damage;
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.gameObject.CompareTag("Player"))
+            {
+                IDamageable damageable = collision.GetComponent<IDamageable>();
+                damageable.TakeDamage(Damage);
+            }
         }
     }
 }

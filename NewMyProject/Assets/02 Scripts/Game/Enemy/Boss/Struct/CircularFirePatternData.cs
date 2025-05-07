@@ -12,8 +12,6 @@ namespace Enemy.Boss.Struct
         public float minFireSpeed;
         public float maxFireSpeed;
 
-        public float projectileDamage;
-
         public float patternEndDelay;
     }
 }

@@ -29,7 +29,7 @@ namespace Enemy.Boss.PartedBoss
             foreach(var part in _parts)
             {
                 part.MaxHp = _so.maxHP / _parts.Count;
-                part.Init(_attackHandler);
+                part.Init(_attackHandler, _so.damage);
             }
         }
 

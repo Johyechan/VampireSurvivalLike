@@ -10,32 +10,17 @@ namespace Enemy.Boss.Pattern
 {
     public class RobotRightArmPattern : CircularFirePattern
     {
-        private BossPartBase _rightArm;
         private BossPartBase _leftArm;
-
-        private BossAttackHandler _attackHandler;
 
         private CircularFirePatternData _patternData;
 
         private float _fireDelay;
 
-        public RobotRightArmPattern(BossPartBase rightArm, BossPartBase leftArm, BossAttackHandler attackHandler, CircularFirePatternData patternData, float fireDelay)
+        public RobotRightArmPattern(BossPartBase rightArm, BossPartBase leftArm, BossAttackHandler attackHandler, CircularFirePatternData patternData, float fireDelay) : base(rightArm, attackHandler)
         {
-            _rightArm = rightArm;
             _leftArm = leftArm;
-            _attackHandler = attackHandler;
             _patternData = patternData;
             _fireDelay = fireDelay;
-        }
-
-        public override void Pattern()
-        {
-            _rightArm.StartCoroutine(PatternCo());
-        }
-
-        public override void PatternEnd()
-        {
-            _rightArm.StopCoroutine(PatternCo());
         }
 
         protected override IEnumerator PatternCo()
@@ -45,8 +30,8 @@ namespace Enemy.Boss.Pattern
 
             for (int i = 0; i < projectileCount; i++)
             {
-                CreateProjectile(_rightArm, i, projectileCount, fireSpeed, _patternData.projectileDamage);
-                CreateProjectile(_leftArm, i, projectileCount, fireSpeed, _patternData.projectileDamage);
+                CreateProjectile(_currentPart, i, projectileCount, fireSpeed, _currentPart.Damage);
+                CreateProjectile(_leftArm, i, projectileCount, fireSpeed, _currentPart.Damage);
                 yield return new WaitForSeconds(_fireDelay);
             }
 

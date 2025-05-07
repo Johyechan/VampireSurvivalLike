@@ -9,28 +9,18 @@ namespace Enemy.Boss.Pattern
     {
         private Transform _bossTrans;
 
-        private BossPartBase _body;
-
-        private BossAttackHandler _attackHandler;
-
         private DashPatternData _patternData;
 
-        public RobotBodyPattern(Transform bossTrans, BossPartBase partBase, BossAttackHandler attackHandler, DashPatternData patternData)
+        public RobotBodyPattern(Transform bossTrans, BossPartBase body, BossAttackHandler attackHandler, DashPatternData patternData) : base(body, attackHandler)
         {
             _bossTrans = bossTrans;
-            _body = partBase;
-            _attackHandler = attackHandler;
             _patternData = patternData;
-        }
-
-        public override void Pattern()
-        {
-            _body.StartCoroutine(PatternCo());
         }
 
         public override void PatternEnd()
         {
-            _body.StopCoroutine(PatternCo());
+            _bossTrans.position = _bossTrans.position;
+            base.PatternEnd();
         }
 
         protected override IEnumerator PatternCo()

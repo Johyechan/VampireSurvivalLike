@@ -42,7 +42,14 @@ namespace Player
                 {
                     Debug.Log($"플레이어 {damage} 받음");
                     _currentHp -= damage;
-                    IsHit = true;
+                    if(_currentHp <= 0)
+                    {
+                        IsDie = true;
+                    }
+                    else
+                    {
+                        IsHit = true;
+                    }
                 }
                 else
                 {

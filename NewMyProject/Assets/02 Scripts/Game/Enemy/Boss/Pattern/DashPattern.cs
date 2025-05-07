@@ -1,19 +1,18 @@
 using Enemy.Boss.Interface;
+using Enemy.Boss.PartedBoss;
 using Manager;
 using System.Collections;
 using UnityEngine;
 
 namespace Enemy.Boss.Pattern
 {
-    public abstract class DashPattern : IBossPattern
+    public abstract class DashPattern : PatternBase
     {
         protected Vector3 _currentPos = Vector3.zero;
 
-        public abstract void Pattern();
-
-        public abstract void PatternEnd();
-
-        protected abstract IEnumerator PatternCo();
+        protected DashPattern(BossPartBase currentPart, BossAttackHandler attackHandler) : base(currentPart, attackHandler)
+        {
+        }
 
         protected void DashAnimation(Transform trans, float shakePower)
         {

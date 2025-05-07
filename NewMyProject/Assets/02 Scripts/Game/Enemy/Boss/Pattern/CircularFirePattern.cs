@@ -7,13 +7,11 @@ using System.Collections;
 
 namespace Enemy.Boss.Pattern
 {
-    public abstract class CircularFirePattern : IBossPattern
+    public abstract class CircularFirePattern : PatternBase
     {
-        public abstract void Pattern();
-
-        public abstract void PatternEnd();
-
-        protected abstract IEnumerator PatternCo();
+        protected CircularFirePattern(BossPartBase currentPart, BossAttackHandler attackHandler) : base(currentPart, attackHandler)
+        {
+        }
 
         protected void CreateProjectile(BossPartBase partBase, int currentCount, int projectileCount, float fireSpeed, float damage)
         {

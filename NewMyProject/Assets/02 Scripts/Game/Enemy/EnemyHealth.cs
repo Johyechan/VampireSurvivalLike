@@ -36,7 +36,7 @@ namespace Enemy
                 {
                     Debug.Log(damage);
                     _currentHp -= damage;
-                    if(_currentHp < 0)
+                    if(_currentHp <= 0)
                     {
                         IsDie = true;
                     }
