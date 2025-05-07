@@ -1,5 +1,5 @@
 using Enemy.Boss.Interface;
-using Enemy.Boss.PartedBoss.Robot.Pattern;
+using Enemy.Boss.Pattern;
 using MyUtil.Interface;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,7 +15,7 @@ namespace Enemy.Boss.PartedBoss.Robot.Part
         {
             base.Awake();
 
-            Pattern = new RobotLeftArmPattern(this, _rightArm, _attackHandler, _so.minProjectileCount, _so.maxProjectileCount, _so.minFireSpeed, _so.maxFireSpeed, _so.damage);
+            Pattern = new RobotLeftArmPattern(this, _rightArm, _attackHandler, _so.patternData);
         }
     }
 }

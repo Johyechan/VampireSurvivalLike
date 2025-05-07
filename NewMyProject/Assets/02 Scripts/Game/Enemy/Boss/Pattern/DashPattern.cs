@@ -3,13 +3,15 @@ using Manager;
 using System.Collections;
 using UnityEngine;
 
-namespace Enemy.Boss
+namespace Enemy.Boss.Pattern
 {
     public abstract class DashPattern : IBossPattern
     {
         protected Vector3 _currentPos = Vector3.zero;
 
         public abstract void Pattern();
+
+        public abstract void PatternEnd();
 
         protected abstract IEnumerator PatternCo();
 

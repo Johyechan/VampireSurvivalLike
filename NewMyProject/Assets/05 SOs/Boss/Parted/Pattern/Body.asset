@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: Body
   m_EditorClassIdentifier: 
   damage: 10
-  dashSpeed: 20
-  dashTime: 1
-  backMovingSpeed: 2.5
-  backMovingTime: 1
-  shakePower: 0.5
-  shakeTime: 1
+  patternData:
+    dashSpeed: 20
+    dashTime: 1
+    backMovingSpeed: 3
+    backMovingTime: 1
+    shakePower: 2
+    shakeTime: 1
+    patternEndDelay: 3

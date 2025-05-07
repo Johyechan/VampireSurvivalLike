@@ -37,7 +37,7 @@ namespace Enemy.Boss.PartedBoss
 
             _idleState = new BossPartIdleState();
             _hitState = new BossHitState(this, _spriteRenderer, 0.25f);
-            _destroyedState = new BossPartDestroyedState();
+            _destroyedState = new BossPartDestroyedState(this);
 
             _transitions = new List<ITransition>
             {
@@ -47,6 +47,11 @@ namespace Enemy.Boss.PartedBoss
             };
 
             _transitionHandler = new TransitionHandler(_transitions);
+        }
+
+        public void PatternEnd()
+        {
+            Pattern.PatternEnd();
         }
 
         protected virtual void Update()

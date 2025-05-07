@@ -5,11 +5,13 @@ using UnityEngine;
 using Enemy.Boss.Interface;
 using System.Collections;
 
-namespace Enemy.Boss
+namespace Enemy.Boss.Pattern
 {
     public abstract class CircularFirePattern : IBossPattern
     {
         public abstract void Pattern();
+
+        public abstract void PatternEnd();
 
         protected abstract IEnumerator PatternCo();
 

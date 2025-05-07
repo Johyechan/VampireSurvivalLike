@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71629a3b3d325684882deaf3ad95c6e3, type: 3}
   m_Name: Robot
   m_EditorClassIdentifier: 
-  maxHP: 1000
+  maxHP: 10
   defence: 0
   damage: 10
   moveSpeed: 1.5

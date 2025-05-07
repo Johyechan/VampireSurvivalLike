@@ -1,7 +1,9 @@
+using Enemy.Boss.PartedBoss;
+using Enemy.Boss.Struct;
 using System.Collections;
 using UnityEngine;
 
-namespace Enemy.Boss.PartedBoss.Robot.Pattern
+namespace Enemy.Boss.Pattern
 {
     public class RobotBodyPattern : DashPattern
     {
@@ -11,29 +13,24 @@ namespace Enemy.Boss.PartedBoss.Robot.Pattern
 
         private BossAttackHandler _attackHandler;
 
-        private float _dashSpeed;
-        private float _dashTime;
-        private float _backMovingSpeed;
-        private float _backMovingTime;
-        private float _shakePower;
-        private float _shakeTime;
+        private DashPatternData _patternData;
 
-        public RobotBodyPattern(Transform bossTrans, BossPartBase partBase, BossAttackHandler attackHandler, float dashSpeed, float dashTime, float backMovingSpeed, float backMovingTime, float shakePower, float shakeTime)
+        public RobotBodyPattern(Transform bossTrans, BossPartBase partBase, BossAttackHandler attackHandler, DashPatternData patternData)
         {
             _bossTrans = bossTrans;
             _body = partBase;
             _attackHandler = attackHandler;
-            _dashSpeed = dashSpeed;
-            _dashTime = dashTime;
-            _backMovingSpeed = backMovingSpeed;
-            _backMovingTime = backMovingTime;
-            _shakePower = shakePower;
-            _shakeTime = shakeTime;
+            _patternData = patternData;
         }
 
         public override void Pattern()
         {
             _body.StartCoroutine(PatternCo());
+        }
+
+        public override void PatternEnd()
+        {
+            _body.StopCoroutine(PatternCo());
         }
 
         protected override IEnumerator PatternCo()
@@ -42,33 +39,33 @@ namespace Enemy.Boss.PartedBoss.Robot.Pattern
             
             Vector3 dir = FindPlayerDirection(_bossTrans);
 
-            while(curTime < _backMovingTime)
+            while(curTime < _patternData.backMovingTime)
             {
                 curTime += Time.deltaTime;
-                _bossTrans.position -= dir * _backMovingSpeed * Time.deltaTime;
+                _bossTrans.position -= dir * _patternData.backMovingSpeed * Time.deltaTime;
                 yield return null;
             }
 
             curTime = 0;
             _currentPos = _bossTrans.position;
 
-            while (curTime < _shakeTime)
+            while (curTime < _patternData.shakeTime)
             {
                 curTime += Time.deltaTime;
-                DashAnimation(_bossTrans, _shakePower);
+                DashAnimation(_bossTrans, _patternData.shakePower);
                 yield return null;
             }
 
             curTime = 0;
 
-            while (curTime < _dashTime)
+            while (curTime < _patternData.dashTime)
             {
                 curTime += Time.deltaTime;
-                _bossTrans.position += dir * _dashSpeed * Time.deltaTime;
+                _bossTrans.position += dir * _patternData.dashSpeed * Time.deltaTime;
                 yield return null;
             }
 
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(_patternData.patternEndDelay);
 
             _attackHandler.PatternEnd = true;
         }

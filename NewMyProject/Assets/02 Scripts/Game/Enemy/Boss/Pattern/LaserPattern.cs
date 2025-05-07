@@ -3,11 +3,13 @@ using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
-namespace Enemy.Boss
+namespace Enemy.Boss.Pattern
 {
     public abstract class LaserPattern : IBossPattern
     {
         public abstract void Pattern();
+
+        public abstract void PatternEnd();
 
         protected abstract IEnumerator PatternCo();
 

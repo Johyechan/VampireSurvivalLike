@@ -20,7 +20,15 @@ public class BossHealth : MonoBehaviour, IDamageable
         if (_currentHp > 0)
         {
             _currentHp -= damage;
-            IsHit = true;
+            
+            if(_currentHp <= 0)
+            {
+                IsDead = true;
+            }
+            else
+            {
+                IsHit = true;
+            }
         }
         else
         {

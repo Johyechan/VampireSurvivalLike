@@ -14,6 +14,9 @@ namespace Item.Weapon
         {
             _closeEnemy = AreaUtil.CheckCloseTargetInArea(transform, 1000f, LayerMask.GetMask("Enemy"));
 
+            if (_closeEnemy == null)
+                return;
+
             Vector2 dir = _closeEnemy.transform.position - transform.position;
 
             float angle = Mathf.Atan2(dir.normalized.y, dir.normalized.x) * Mathf.Rad2Deg;

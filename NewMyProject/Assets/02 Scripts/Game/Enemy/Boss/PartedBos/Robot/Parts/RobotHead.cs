@@ -1,5 +1,5 @@
 using Enemy.Boss.Interface;
-using Enemy.Boss.PartedBoss.Robot.Pattern;
+using Enemy.Boss.Pattern;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +7,7 @@ namespace Enemy.Boss.PartedBoss.Robot.Part
 {
     public class RobotHead : BossPartBase
     {
+        [SerializeField] private BossLaserPatternSO _so;
         private LineRenderer _lineRenderer;
 
         protected override void Awake()
@@ -15,7 +16,7 @@ namespace Enemy.Boss.PartedBoss.Robot.Part
 
             _lineRenderer = GetComponent<LineRenderer>();
 
-            //Pattern = new RobotHeadPattern(this, _attackHandler, _lineRenderer);
+            Pattern = new RobotHeadPattern(this, _attackHandler, _lineRenderer, _so.patternData);
         }
     }
 }
