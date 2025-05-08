@@ -1,3 +1,4 @@
+using Manager;
 using MyUtil.Interface;
 using UnityEngine;
 
@@ -26,6 +27,14 @@ namespace Enemy
             _currentHp = MaxHp;
         }
 
+        private void Update()
+        {
+            if(StageManager.Instance.StageEnd)
+            {
+                IsDie = true;
+            }
+        }
+
         // 데미지를 받았을 때
         public void TakeDamage(float damage)
         {
@@ -34,7 +43,6 @@ namespace Enemy
                 // 현재 체력이 0 이상일 때만 체력 감소
                 if (_currentHp > 0)
                 {
-                    Debug.Log(damage);
                     _currentHp -= damage;
                     if(_currentHp <= 0)
                     {

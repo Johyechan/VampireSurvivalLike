@@ -1,5 +1,7 @@
 using UnityEngine;
 using MyUtil;
+using TMPro;
+using System.Collections;
 
 namespace Manager
 {
@@ -7,9 +9,16 @@ namespace Manager
     {
         public GameObject player;
 
-        public bool gameOver;
+        public bool GameOver { get; set; }
 
-        public int nameNum = 0;
+        public int NameNum { get; set; }
+
+        protected override void Awake()
+        {
+            base.Awake();
+            NameNum = 0;
+            GameOver = false;
+        }
     }
 }
 

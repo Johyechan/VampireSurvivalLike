@@ -29,7 +29,7 @@ namespace Enemy.Boss
             CanAttack = true;
             PatternEnd = false;
 
-            while (!_boss.IsDead && !GameManager.Instance.gameOver)
+            while (!_boss.IsDead && !GameManager.Instance.GameOver)
             {
                 if(!CanAttack)
                 {

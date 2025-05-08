@@ -1,7 +1,9 @@
+using Item;
 using Manager;
 using Manager.Inventory;
 using MyUtil.FSM;
 using MyUtil.Interface;
+using MyUtil.Pool;
 using Player.Backpack;
 using Player.State;
 using UnityEngine;
@@ -34,7 +36,7 @@ namespace Player
 
         private void Awake()
         {
-            GameManager.Instance.gameOver = false;
+            GameManager.Instance.GameOver = false;
 
             _backpack = GetComponent<PlayerBackpack>();
             _eventSubscriber = GetComponent<PlayerEventSubscriber>();
@@ -68,7 +70,7 @@ namespace Player
 
         private void Update()
         {
-            if (GameManager.Instance.gameOver)
+            if (GameManager.Instance.GameOver)
             {
                 return;
             }
@@ -118,6 +120,19 @@ namespace Player
             }
 
             _backpack.ItemSet();
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.CompareTag("Money"))
+            {
+                Money money = collision.GetComponent<Money>();
+                if(money != null)
+                {
+                    _wallet.AddMoney(money.MoneyValue);
+                    ObjectPoolManager.Instance.ReturnObj(ObjectPoolType.Money, money.gameObject);
+                }
+            }
         }
     }
 }

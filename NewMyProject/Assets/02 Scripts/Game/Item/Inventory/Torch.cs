@@ -28,8 +28,6 @@ namespace Item.Inventory
             for(int i = 0; i < _weaponItemsParent.childCount; i++)
             {
                 ItemEffectContainer container = _weaponItemsParent.GetChild(i).GetComponent<ItemBase>().EffectContainer;
-                Debug.Log(_weaponItemsParent.GetChild(i));
-                Debug.Log(container);
                 container.AddEffect(_fireEffect);
             }
         }

@@ -26,8 +26,8 @@ namespace Enemy.Transition
                 if(!_machine.IsCurrentState(_destroyedState))
                 {
                     _machine.ChangeState(_destroyedState);
-                    return true;
                 }
+                return true;
             }
 
             return false;

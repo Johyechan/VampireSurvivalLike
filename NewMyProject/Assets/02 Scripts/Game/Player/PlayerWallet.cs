@@ -1,3 +1,4 @@
+using Item;
 using UnityEngine;
 
 public class PlayerWallet : MonoBehaviour

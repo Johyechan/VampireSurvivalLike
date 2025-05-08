@@ -24,6 +24,7 @@ namespace Enemy.State
         public void Enter()
         {
             // 애니메이션 실행
+            Debug.Log("적 사망");
             _animator.SetTrigger(_hash);
         }
 

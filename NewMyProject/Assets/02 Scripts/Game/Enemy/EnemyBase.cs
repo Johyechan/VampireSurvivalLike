@@ -23,7 +23,6 @@ namespace Enemy
         protected virtual void OnEnable()
         {
             // 초기화를 위해 항상 새롭게 생성되면 즉 오브젝트 풀에서 새롭게 가져왔을 경우 살아있는 상태
-            _isDie = false;
             IsAttackDelay = false;
             Isknockback = false;
             // 그리고 기본 상태로 상태 변환
@@ -33,7 +32,7 @@ namespace Enemy
         void Update()
         {
             // Update에서 반복적으로 각 상태의 Execute를 실행
-            if(GameManager.Instance.gameOver)
+            if(GameManager.Instance.GameOver)
             {
                 return;
             }
@@ -59,8 +58,11 @@ namespace Enemy
         // 유니티 작업 창중 애니메이션 작업창에서 애니메이션 이벤트로 넣기 위한 함수
         protected void Return()
         {
+            Debug.Log("dd");
             // 삭제될 때 사망 애니메이션이 끝나고 사라지게 하기 위해서
             StopAllCoroutines();
+            GameObject money = ObjectPoolManager.Instance.GetObject(ObjectPoolType.Money);
+            money.transform.position = transform.position;
             ObjectPoolManager.Instance.ReturnObj(_type, gameObject);
         }
 

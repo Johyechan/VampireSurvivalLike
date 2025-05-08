@@ -32,8 +32,8 @@ namespace Enemy.Transition.Normal
                 if (!_machine.IsCurrentState(_deathState))
                 {
                     _machine.ChangeState(_deathState);
-                    return true;
                 }
+                return true;
             }
             return false;
         }

@@ -25,7 +25,7 @@ namespace Item.Weapon.Melee
 
         private IEnumerator AttackCo()
         {
-            while(!GameManager.Instance.gameOver)
+            while(!GameManager.Instance.GameOver)
             {
                 GameObject enemy = AreaUtil.CheckCloseTargetInArea(transform, itemSO.range, LayerMask.GetMask("Enemy"));
                 if (enemy != null)

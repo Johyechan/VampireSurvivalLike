@@ -17,7 +17,6 @@ namespace Player.State
 
         public void Enter()
         {
-            Debug.Log("dd");
             _animator.SetTrigger(_hash);
         }
 

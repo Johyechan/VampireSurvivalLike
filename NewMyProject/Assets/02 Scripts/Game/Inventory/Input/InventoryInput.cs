@@ -37,7 +37,7 @@ namespace Game.Inventory.Input
 
         private void ToggleInventory()
         {
-            if(GameManager.Instance.gameOver)
+            if(GameManager.Instance.GameOver)
             {
                 return;
             }

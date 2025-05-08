@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if(GameManager.Instance.gameOver)
+        if(GameManager.Instance.GameOver)
         {
             return;
         }

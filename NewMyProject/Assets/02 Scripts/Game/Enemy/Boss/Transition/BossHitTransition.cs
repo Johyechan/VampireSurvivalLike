@@ -26,8 +26,8 @@ namespace Enemy.Boss.Transition
                 if(!_machine.IsCurrentState(_hitState))
                 {
                     _machine.ChangeState(_hitState);
-                    return true;
                 }
+                return true;
             }
             return false;
         }

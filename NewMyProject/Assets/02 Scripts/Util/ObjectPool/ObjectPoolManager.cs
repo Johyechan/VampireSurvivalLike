@@ -42,7 +42,7 @@ namespace MyUtil.Pool
         private GameObject CreateNewObj(ObjectPoolType type)
         {
             GameObject newObj = Instantiate(_objectPoolMap[type].prefabObj, transform);
-            newObj.name += GameManager.Instance.nameNum++;
+            newObj.name += GameManager.Instance.NameNum++;
             newObj.SetActive(false);
 
             return newObj;

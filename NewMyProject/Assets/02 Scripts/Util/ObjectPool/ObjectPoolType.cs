@@ -17,6 +17,7 @@ namespace MyUtil.Pool
         NormalRangedEnemy,
         EnemyProjectile,
         NormalBossProjectile,
+        Money,
     }
 }
 

@@ -42,7 +42,7 @@ namespace Enemy.Boss.State.Part
         private IEnumerator HitAnimationCo()
         {
             float currentTime = 0;
-            while (!GameManager.Instance.gameOver && currentTime < _animationTime)
+            while (!GameManager.Instance.GameOver && currentTime < _animationTime)
             {
                 currentTime += Time.deltaTime;
                 float t = Mathf.Clamp01(currentTime / _animationTime);
@@ -54,7 +54,7 @@ namespace Enemy.Boss.State.Part
 
             currentTime = 0;
 
-            while (!GameManager.Instance.gameOver && currentTime < _animationTime)
+            while (!GameManager.Instance.GameOver && currentTime < _animationTime)
             {
                 currentTime += Time.deltaTime;
                 float t = Mathf.Clamp01(currentTime / _animationTime);

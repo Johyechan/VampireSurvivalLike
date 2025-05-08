@@ -30,7 +30,7 @@ namespace Player
 
         protected void Die()
         {
-            GameManager.Instance.gameOver = true;
+            GameManager.Instance.GameOver = true;
             Time.timeScale = 0;
         }
 
