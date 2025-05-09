@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Enemy.Boss.PartedBoss.Robot.Part
 {
-    public class RobotBody : BossPartBase
+    public class GolemBody : BossPartBase
     {
         [SerializeField] private BossDashPatternSO _so;
 

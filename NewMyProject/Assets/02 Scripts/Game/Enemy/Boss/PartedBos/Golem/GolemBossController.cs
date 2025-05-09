@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace Enemy.Boss.PartedBoss.Robot
 {
-    public class RobotBossController : PartedBossBaseController
+    public class GolemBossController : PartedBossBaseController
     {
         private IState _moveState;
 

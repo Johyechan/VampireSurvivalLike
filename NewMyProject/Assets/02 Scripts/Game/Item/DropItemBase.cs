@@ -1,16 +1,15 @@
+using MyUtil.Pool;
 using UnityEngine;
 
 public class DropItemBase : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [SerializeField] private ObjectPoolType _type;
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        
+        if(collision.CompareTag("Player"))
+        {
+            //GameObject uiItem = ObjectPoolManager.Instance.GetObject(_type, );
+        }
     }
 }

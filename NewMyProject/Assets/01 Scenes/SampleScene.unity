@@ -1239,7 +1239,7 @@ GameObject:
   - component: {fileID: 321265484}
   - component: {fileID: 321265485}
   m_Layer: 0
-  m_Name: RobotBoss
+  m_Name: GolemBoss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2190,6 +2190,9 @@ MonoBehaviour:
     prefabCount: 10
   - prefabType: 13
     prefabObj: {fileID: 6770617306882554112, guid: 0b94eb34f08edce4abbd972d6e590d75, type: 3}
+    prefabCount: 10
+  - prefabType: 14
+    prefabObj: {fileID: 1151630415441370328, guid: bdb53eed89dd6eb45a224fc281f37f5e, type: 3}
     prefabCount: 10
 --- !u!1 &478333947
 GameObject:

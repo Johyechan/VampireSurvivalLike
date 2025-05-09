@@ -18,6 +18,7 @@ namespace MyUtil.Pool
         EnemyProjectile,
         NormalBossProjectile,
         Money,
+        DropItemSword,
     }
 }
 
