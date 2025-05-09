@@ -51,7 +51,7 @@ namespace Player
             _machine = new StateMachine();
 
             _idleState = new PlayerIdleState(_animator, _idleHash);
-            _moveState = new PlayerMoveState(_animator, _moveHash);
+            _moveState = new PlayerMoveState(_animator, _moveHash, transform, _movement);
             _hitState = new PlayerHitState(_animator, _hitHash);
             _deathState = new PlayerDeathState(_animator, _deathHash);
 

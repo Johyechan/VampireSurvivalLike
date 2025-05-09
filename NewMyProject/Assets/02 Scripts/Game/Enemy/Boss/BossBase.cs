@@ -63,6 +63,7 @@ namespace Enemy.Boss
         {
             StopAllCoroutines();
             Debug.Log("»ç¸Á");
+            //GameObject item = ObjectPoolManager.Instance.GetObject(ObjectPoolType);
         }
 
         private void StateTransition()

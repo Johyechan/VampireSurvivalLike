@@ -33,7 +33,6 @@ namespace Enemy.Boss.Pattern
 
             Vector3 startPos = _currentPart.transform.position;
             Vector3 endPos = (GameManager.Instance.player.transform.position - startPos).normalized;
-            Debug.Log(endPos);
             CreateLaser(_line, startPos, endPos, _patternData.lineWidth, Color.red, _patternData.lineLength);
             _currentPart.StartCoroutine(RayCo());
 
@@ -55,7 +54,6 @@ namespace Enemy.Boss.Pattern
         {
             float curTime = 0;
             Vector2 dir = (_line.GetPosition(1) - _line.GetPosition(0)).normalized;
-            Debug.Log(dir);
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             while (curTime < _patternData.rotateStartDelay)
             {

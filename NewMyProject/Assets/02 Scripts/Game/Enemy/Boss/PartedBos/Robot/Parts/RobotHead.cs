@@ -23,7 +23,10 @@ namespace Enemy.Boss.PartedBoss.Robot.Part
             base.Awake();
 
             _lineRenderer = GetComponent<LineRenderer>();
+        }
 
+        private void Start()
+        {
             Pattern = new RobotHeadPattern(this, _attackHandler, _lineRenderer, _so.patternData);
         }
     }

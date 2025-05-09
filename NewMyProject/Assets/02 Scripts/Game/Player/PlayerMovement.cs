@@ -8,17 +8,8 @@ public class PlayerMovement : MonoBehaviour
     public bool IsMoving { get { return _isMoving; } }
     private bool _isMoving = false;
 
+    public Vector2 MoveInput { get { return _moveInput; } }
     private Vector2 _moveInput;
-
-    void Update()
-    {
-        if(GameManager.Instance.GameOver)
-        {
-            return;
-        }
-
-        transform.Translate(_moveInput * (StatManager.Instance.PlayerStat.speed + StatManager.Instance.AllStat.speedIncrease) * Time.deltaTime);
-    }
 
     private void OnMove(InputValue value)
     {

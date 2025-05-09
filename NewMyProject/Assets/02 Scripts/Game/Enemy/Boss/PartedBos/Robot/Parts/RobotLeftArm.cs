@@ -11,10 +11,8 @@ namespace Enemy.Boss.PartedBoss.Robot.Part
         [SerializeField] private BossCircularFirePatternSO _so;
         [SerializeField] private BossPartBase _rightArm;
 
-        protected override void Awake()
+        private void Start()
         {
-            base.Awake();
-
             Pattern = new RobotLeftArmPattern(this, _rightArm, _attackHandler, _so.patternData);
         }
     }

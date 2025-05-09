@@ -1,4 +1,6 @@
 using Enemy.Boss;
+using Enemy.Boss.CutScene;
+using Enemy.Boss.Interface;
 using Manager;
 using UnityEngine;
 
@@ -6,7 +8,7 @@ namespace Map
 {
     public class BossSpawner : MonoBehaviour
     {
-        [SerializeField] private BossBase _stageBoss;
+        [SerializeField] private CutSceneBase _bossCutScene;
 
         private bool _once;
 
@@ -20,6 +22,7 @@ namespace Map
             if(StageManager.Instance.StageEnd && !_once)
             {
                 // 보스 생성
+                _bossCutScene.CutScenePlay();
                 _once = true;
             }
         }

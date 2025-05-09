@@ -1,3 +1,4 @@
+using Manager;
 using MyUtil.FSM;
 using UnityEngine;
 
@@ -9,10 +10,16 @@ namespace Player.State
 
         private int _hash;
 
-        public PlayerMoveState(Animator animator, int hash)
+        private Transform _playerTrans;
+
+        private PlayerMovement _movement;
+
+        public PlayerMoveState(Animator animator, int hash, Transform playerTrans, PlayerMovement movement)
         {
             _animator = animator;
             _hash = hash;
+            _playerTrans = playerTrans;
+            _movement = movement;
         }
 
         public void Enter()
@@ -22,7 +29,7 @@ namespace Player.State
 
         public void Execute()
         {
-            
+            _playerTrans.Translate(_movement.MoveInput * (StatManager.Instance.PlayerStat.speed + StatManager.Instance.AllStat.speedIncrease) * Time.deltaTime);
         }
 
         public void Exit()

@@ -15,7 +15,6 @@ namespace Enemy.Boss.State
 
         public override void Enter()
         {
-            Debug.Log("움직임 상태");
             _animator.SetBool(_hash, true);
         }
 

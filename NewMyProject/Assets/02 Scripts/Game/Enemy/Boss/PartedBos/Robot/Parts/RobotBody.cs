@@ -8,10 +8,9 @@ namespace Enemy.Boss.PartedBoss.Robot.Part
     public class RobotBody : BossPartBase
     {
         [SerializeField] private BossDashPatternSO _so;
-        protected override void Awake()
-        {
-            base.Awake();
 
+        private void Start()
+        {
             Pattern = new RobotBodyPattern(transform.parent, this, _attackHandler, _so.patternData);
         }
     }

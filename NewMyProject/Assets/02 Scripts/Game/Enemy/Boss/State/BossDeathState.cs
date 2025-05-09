@@ -11,7 +11,6 @@ namespace Enemy.Boss.State
 
         public override void Enter()
         {
-            Debug.Log("╩Г╦а ╩Себ");
             _animator.SetTrigger(_hash);
         }
 
