@@ -61,11 +61,19 @@ namespace Player
         private void OnEnable()
         {
             _eventSubscriber.OnAddItem += AddItem;
+            if(InventoryManager.Instance != null)
+            {
+                InventoryManager.Instance.OnAddItem += AddItem;
+            }
         }
 
         private void OnDisable()
         {
             _eventSubscriber.OnAddItem -= AddItem;
+            if (InventoryManager.Instance != null)
+            {
+                InventoryManager.Instance.OnAddItem -= AddItem;
+            }
         }
 
         private void Update()

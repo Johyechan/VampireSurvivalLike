@@ -48,7 +48,6 @@ namespace MyUI.State
                 
                 if (_placementHandle.Place(_rectTrans, slot, _item.shape))
                 {
-                    
                     _machine.ChangeState(UIItemManager.Instance.UIItemInformations[_objName].placementSuccessState);
                 }
                 else

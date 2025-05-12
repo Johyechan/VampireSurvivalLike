@@ -48,20 +48,20 @@ namespace MyUtil.Pool
             return newObj;
         }
 
-        public GameObject GetObject(ObjectPoolType type, Transform trans = null, bool active = true)
+        public GameObject GetObject(ObjectPoolType type, Transform parent = null, bool active = true)
         {
             if (_objectPool[type].Count > 0)
             {
                 GameObject obj = _objectPool[type].Dequeue();
                 obj.SetActive(active);
-                obj.transform.SetParent(trans);
+                obj.transform.SetParent(parent);
                 return obj;
             }
             else
             {
                 GameObject newObj = CreateNewObj(type);
                 newObj.SetActive(active);
-                newObj.transform.SetParent(trans);
+                newObj.transform.SetParent(parent);
                 return newObj;
             }
         }
