@@ -36,13 +36,9 @@ namespace MyUI.Item.HandleSystem
 
         public Vector2Int? CanPlace(InventorySlot slot, ItemShape shape)
         {
-            Debug.Log(slot);
-            Debug.Log(shape);
-            Debug.Log(shape.shape); // 이게 널
             // 모든 기준점에 대해 배치 가능 여부 확인
             foreach (Vector2Int origin in shape.shape)
             {
-                Debug.Log("dd");
                 bool canPlace = true;
 
                 foreach (Vector2Int offset in shape.shape)

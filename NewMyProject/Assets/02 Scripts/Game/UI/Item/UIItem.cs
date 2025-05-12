@@ -43,6 +43,11 @@ namespace MyUI.Item
 
         public bool isInventoryItem { get; set; }
 
+        protected virtual void Awake()
+        {
+            shape = uiItemSO.DeepCopy().shape;
+        }
+
         protected virtual void Start()
         {
             _machine = new StateMachine();
@@ -50,8 +55,6 @@ namespace MyUI.Item
             _raycaster = _canvas.GetComponent<GraphicRaycaster>();
             _rectTrans = GetComponent<RectTransform>();
             _textObj = transform.GetChild(0).gameObject;
-
-            shape = uiItemSO.DeepCopy().shape;
 
             _draggable = new DragHandle(_canvas, _raycaster);
             _placement = new PlacementHandle();

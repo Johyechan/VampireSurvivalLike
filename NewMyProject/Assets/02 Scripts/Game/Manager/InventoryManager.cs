@@ -6,6 +6,7 @@ using MyUtil;
 using MyUtil.Pool;
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 namespace Manager.Inventory
@@ -38,14 +39,18 @@ namespace Manager.Inventory
             GameObject uiItemObj = ObjectPoolManager.Instance.GetObject(uiType, _uiItemBackpackPanel);
             UIItem uiItem = uiItemObj.GetComponent<UIItem>();
             RectTransform uiItemRectTransform = uiItem.GetComponent<RectTransform>();
-
-            Debug.Log(uiItem);
+            GameObject tmpTextObj = uiItemRectTransform.GetChild(0).gameObject;
+            tmpTextObj.SetActive(false);
 
             // 비어있는 슬롯을 탐색
             for(int i = 0;  i < Grid.GetLength(0); i++)
             {
                 for(int j = 0; j < Grid.GetLength(1); j++)
                 {
+                    if (!Grid[i, j].gameObject.activeSelf)
+                    {
+                        continue;
+                    }
                     // 만일 아이템의 모양만큼 비어있는 슬롯이 존재한다면 배치
                     if (placement.Place(uiItemRectTransform, Grid[i, j], uiItem.shape))
                     {
@@ -66,10 +71,12 @@ namespace Manager.Inventory
             // 배치에 실패 했을 경우 저장소에 배치
             if(!placeSuccess)
             {
-                uiItemRectTransform.SetParent(_uiItemBackpackPanel);
+                uiItemRectTransform.SetParent(_uiItemSaveBoxPanel);
+                uiItemRectTransform.anchorMin = new Vector2(0f, 1f);
+                uiItemRectTransform.anchorMax = new Vector2(0f, 1f);
                 float x = UnityEngine.Random.Range(42f, 840f);
                 float y = UnityEngine.Random.Range(-75f, -180f);
-                uiItemRectTransform.localPosition = new Vector3(x, y, 0f);
+                uiItemRectTransform.anchoredPosition = new Vector3(x, y, 0f);
                 return;
             }
 
