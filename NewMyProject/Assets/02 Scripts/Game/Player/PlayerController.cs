@@ -61,6 +61,8 @@ namespace Player
         private void OnEnable()
         {
             _eventSubscriber.OnAddItem += AddItem;
+            _health.OnHit += Hit;
+            _health.OnDie += Die;
             if(InventoryManager.Instance != null)
             {
                 InventoryManager.Instance.OnAddItem += AddItem;
@@ -70,6 +72,8 @@ namespace Player
         private void OnDisable()
         {
             _eventSubscriber.OnAddItem -= AddItem;
+            _health.OnHit -= Hit;
+            _health.OnDie -= Die;
             if (InventoryManager.Instance != null)
             {
                 InventoryManager.Instance.OnAddItem -= AddItem;
@@ -92,18 +96,12 @@ namespace Player
         {
             if (_health.IsDie)
             {
-                if(!_machine.IsCurrentState(_deathState))
-                {
-                    _machine.ChangeState(_deathState);
-                }
                 return;
             }
 
             if(_health.IsHit)
             {
-                _machine.ChangeState(_hitState);
                 _health.IsHit = false;
-                return;
             }
 
             if (_movement.IsMoving)
@@ -116,6 +114,19 @@ namespace Player
             else
             {
                 _machine.ChangeState(_idleState);
+            }
+        }
+
+        private void Hit()
+        {
+            _machine.ChangeState(_hitState);
+        }
+
+        private void Die()
+        {
+            if (!_machine.IsCurrentState(_deathState))
+            {
+                _machine.ChangeState(_deathState);
             }
         }
 

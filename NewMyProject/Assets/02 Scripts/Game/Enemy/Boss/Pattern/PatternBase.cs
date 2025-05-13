@@ -7,6 +7,8 @@ namespace Enemy.Boss.Pattern
 {
     public abstract class PatternBase : IBossPattern
     {
+        protected Coroutine _currentCoroutine;
+
         protected BossPartBase _currentPart;
 
         protected BossAttackHandler _attackHandler;
@@ -19,7 +21,7 @@ namespace Enemy.Boss.Pattern
 
         public virtual void Pattern()
         {
-            _currentPart.StartCoroutine(PatternCo());
+            _currentCoroutine = _currentPart.StartCoroutine(PatternCo());
         }
 
         protected abstract IEnumerator PatternCo();
@@ -28,7 +30,11 @@ namespace Enemy.Boss.Pattern
         {
             SpriteRenderer spriteRenderer = _currentPart.GetComponent<SpriteRenderer>();
             spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0.1f);
-            _currentPart.StopCoroutine(PatternCo());
+            if(_currentCoroutine != null)
+            {
+                _currentPart.StopCoroutine(_currentCoroutine);
+                _attackHandler.PatternEnd = true;
+            }
         }
     }
 }

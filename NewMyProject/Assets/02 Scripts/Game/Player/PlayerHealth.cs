@@ -1,5 +1,6 @@
 using Manager;
 using MyUtil.Interface;
+using System;
 using UnityEngine;
 
 namespace Player
@@ -11,6 +12,9 @@ namespace Player
 
         public bool IsHit { get; set; }
         public bool IsDie { get; private set; }
+
+        public event Action OnHit;
+        public event Action OnDie;
 
         private void OnEnable()
         {
@@ -40,19 +44,21 @@ namespace Player
             {
                 if (_currentHp > 0)
                 {
-                    Debug.Log($"플레이어 {damage} 받음");
                     _currentHp -= damage;
                     if(_currentHp <= 0)
                     {
+                        OnDie?.Invoke();
                         IsDie = true;
                     }
                     else
                     {
+                        OnHit?.Invoke();
                         IsHit = true;
                     }
                 }
                 else
                 {
+                    OnDie?.Invoke();
                     IsDie = true;
                 }
             }

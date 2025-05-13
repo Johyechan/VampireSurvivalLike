@@ -9,6 +9,10 @@ namespace Manager
     public class StageManager : Singleton<StageManager>
     {
         public bool StageEnd { get; set; }
+        public bool ChapterEnd { get; set; }
+
+        private int _stageCount;
+        private int _chapterCount;
 
         [SerializeField] private int _minute;
         [SerializeField] private int _second;

@@ -1,5 +1,6 @@
 using Manager;
 using Manager.Input;
+using Manager.Inventory;
 using Manager.UI;
 using MyUI.Animator;
 using MyUI.Animator.Enum;
