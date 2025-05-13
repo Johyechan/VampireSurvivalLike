@@ -1,6 +1,7 @@
 using Manager;
 using MyUtil.Interface;
 using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Player
@@ -12,6 +13,10 @@ namespace Player
 
         public bool IsHit { get; set; }
         public bool IsDie { get; private set; }
+
+        private bool _isNoHitTime;
+
+        private Coroutine _currentCoroutine;
 
         public event Action OnHit;
         public event Action OnDie;
@@ -29,7 +34,6 @@ namespace Player
 
         void Update()
         {
-
         }
 
         protected void Die()
@@ -40,11 +44,16 @@ namespace Player
 
         public void TakeDamage(float damage)
         {
-            if(!IsDie)
+            if(!IsDie && !_isNoHitTime)
             {
                 if (_currentHp > 0)
                 {
                     _currentHp -= damage;
+
+                    if (_currentCoroutine != null)
+                        StopCoroutine(_currentCoroutine);
+
+                    _currentCoroutine = StartCoroutine(NoHitTimerCo());
                     if(_currentHp <= 0)
                     {
                         OnDie?.Invoke();
@@ -62,6 +71,13 @@ namespace Player
                     IsDie = true;
                 }
             }
+        }
+
+        private IEnumerator NoHitTimerCo()
+        {
+            _isNoHitTime = true;
+            yield return new WaitForSeconds(0.3f);
+            _isNoHitTime = false;
         }
     }
 
