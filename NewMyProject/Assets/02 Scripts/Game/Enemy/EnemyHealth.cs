@@ -29,7 +29,7 @@ namespace Enemy
 
         private void Update()
         {
-            if(StageManager.Instance.LastStageEnd)
+            if(StageManager.Instance.StageEnd)
             {
                 IsDie = true;
             }

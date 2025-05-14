@@ -24,6 +24,13 @@ namespace MyUI
             _stageTMPText.text = $"Stage {StageManager.Instance.CurrentStage}"; // 현재 스테이지 UI에 띄우기
         }
 
+        // 보스 스테이지 UI
+        public void BossStage()
+        {
+            _stageTMPText.text = "Boss Stage";
+            _timerTMPText.text = "";
+        }
+
         // 현재 스테이지 타이머 UI
         public void StageTimerUI()
         {

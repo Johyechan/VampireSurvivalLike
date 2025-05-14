@@ -21,7 +21,7 @@ namespace MyUtil
                 {
                     _instance = FindFirstObjectByType<T>();
 
-                    if(_instance == null)
+                    if (_instance == null)
                     {
                         GameObject obj = new GameObject(typeof(T).Name);
                         _instance = obj.AddComponent<T>();

@@ -39,6 +39,12 @@ namespace Map
 
             while (!GameManager.Instance.GameOver && !StageManager.Instance.LastStageEnd)
             {
+                if (StageManager.Instance.StageEnd)
+                {
+                    yield return null;
+                    continue;
+                }
+
                 SpawnEnemy();
                 yield return new WaitForSeconds(SpawnDelayTime);
             }
