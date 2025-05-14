@@ -37,7 +37,7 @@ namespace Map
             yield return new WaitForSeconds(SpawnDelayTime);
             //yield return null;
 
-            while (!GameManager.Instance.GameOver && !StageManager.Instance.StageEnd)
+            while (!GameManager.Instance.GameOver && !StageManager.Instance.LastStageEnd)
             {
                 SpawnEnemy();
                 yield return new WaitForSeconds(SpawnDelayTime);

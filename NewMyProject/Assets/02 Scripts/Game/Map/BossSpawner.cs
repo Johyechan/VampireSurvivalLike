@@ -19,7 +19,7 @@ namespace Map
 
         private void Update()
         {
-            if(StageManager.Instance.StageEnd && !_once)
+            if(StageManager.Instance.LastStageEnd && !_once)
             {
                 // 보스 생성
                 _bossCutScene.CutScenePlay();
