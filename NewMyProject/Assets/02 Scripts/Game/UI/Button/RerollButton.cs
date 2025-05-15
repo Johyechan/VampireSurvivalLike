@@ -2,6 +2,7 @@ using Manager;
 using Manager.UI;
 using MyUI.Item;
 using MyUtil.Pool;
+using TMPro;
 using UnityEngine;
 
 namespace MyUI.Button
@@ -9,6 +10,7 @@ namespace MyUI.Button
     public class RerollButton : ButtonBase
     {
         [SerializeField] private int _price;
+        [SerializeField] private TMP_Text _priceText;
 
         private PlayerWallet _wallet;
 
@@ -17,9 +19,14 @@ namespace MyUI.Button
             _wallet = GameManager.Instance.player.GetComponent<PlayerWallet>();
         }
 
+        private void Update()
+        {
+            _priceText.text = $"{_price * StageManager.Instance.CurrentStage}$";
+        }
+
         public override void OnClicked()
         {
-            if (_wallet.UseMoney(_price))
+            if (_wallet.UseMoney(_price * StageManager.Instance.CurrentStage))
             {
                 int count = UIManager.Instance.shopItemParent.transform.childCount;
 

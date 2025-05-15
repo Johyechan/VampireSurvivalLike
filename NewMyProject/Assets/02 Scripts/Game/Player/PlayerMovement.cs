@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
         if (value.Get<Vector2>() != null)
         {
             _moveInput = value.Get<Vector2>();
+            GameManager.Instance.PlayerMoveDir = _moveInput;
             if (_moveInput != Vector2.zero)
             {
                 _isMoving = true;

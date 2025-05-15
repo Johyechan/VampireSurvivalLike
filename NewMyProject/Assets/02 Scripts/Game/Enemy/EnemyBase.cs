@@ -9,15 +9,17 @@ using UnityEngine;
 
 namespace Enemy
 {
+    // 작성자: 조혜찬
     // 적이 기본적으로 가져야 할 기능들을 가진 클래스
     public abstract class EnemyBase : EnemyBaseVariables
     {
+        // 디버그
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, _so.attackRange);
+            Gizmos.DrawWireSphere(transform.position, _so.attackRange); // 공격 범위
             Gizmos.color = Color.blue;
-            Gizmos.DrawWireSphere(transform.position, _so.playerCheckRange);
+            Gizmos.DrawWireSphere(transform.position, _so.playerCheckRange); // 플레이어 찾는 범위
         }
 
         protected virtual void OnEnable()
@@ -58,7 +60,6 @@ namespace Enemy
         // 유니티 작업 창중 애니메이션 작업창에서 애니메이션 이벤트로 넣기 위한 함수
         protected void Return()
         {
-            Debug.Log("dd");
             // 삭제될 때 사망 애니메이션이 끝나고 사라지게 하기 위해서
             StopAllCoroutines();
             GameObject money = ObjectPoolManager.Instance.GetObject(ObjectPoolType.Money);

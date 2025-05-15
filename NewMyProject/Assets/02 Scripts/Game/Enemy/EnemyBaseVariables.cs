@@ -5,6 +5,8 @@ using UnityEngine;
 
 namespace Enemy
 {
+    // 작성자: 조혜찬
+    // 기본적으로 적이 가지는 변수들
     public class EnemyBaseVariables : MonoBehaviour
     {
         // 기본적으로 적의 능력치들을 보유하는 SO를 가지고 있어야 함
@@ -21,9 +23,11 @@ namespace Enemy
         // 체력 또한 자식들이 가져야 함
         protected EnemyHealth _health;
 
-        protected EnemyKnockbackHandler _knockbackHandler;
+        protected EnemyKnockbackHandler _knockbackHandler; // 적 넉백
 
-        protected EnemyAttackDelayHandler _attackHandler;
+        protected EnemyAttackDelayHandler _attackHandler; // 적 공격
+
+        protected EnemyReSpawn _enemyReSpawn; // 적 재스폰 기능
 
         // 상태를 변환 시키는 머신도 자식들이 가져야 할 수 도 있음
         protected StateMachine _machine;
@@ -64,4 +68,4 @@ namespace Enemy
         }
     }
 }
-
+// 마지막 작성 일자: 2025.05.15
