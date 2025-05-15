@@ -13,7 +13,7 @@ namespace Map
     {
         [SerializeField] private List<ObjectPoolType> _enemyTypes = new List<ObjectPoolType>(); // 스폰할 적의 타입을 가지는 리스트
 
-        [SerializeField] private float SpawnDelayTime; // 스폰 간격
+        [SerializeField] private float _spawnDelayTime; // 스폰 간격
 
         [SerializeField] private float _spawnRadius; // 스폰 범위
 
@@ -53,7 +53,20 @@ namespace Map
                 }
 
                 SpawnEnemy(); // 스폰 함수
-                yield return new WaitForSeconds(SpawnDelayTime); // 딜레이
+                yield return new WaitForSeconds(SpawnDelayTimeSet()); // 딜레이
+            }
+        }
+
+        // 스폰 딜레이를 결정하는 함수
+        private float SpawnDelayTimeSet()
+        {
+            if(StageManager.Instance.CurrentStage == 1)
+            {
+                return _spawnDelayTime;
+            }
+            else
+            {
+                return _spawnDelayTime - (StageManager.Instance.CurrentStage / 10);
             }
         }
 
