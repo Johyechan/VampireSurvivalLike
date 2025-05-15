@@ -39,18 +39,25 @@ namespace Enemy
                 return;
             }
 
-            _machine.UpdateExecute();
-
-            if (IsAttackDelay)
+            if(_enemyReSpawn.ReSpawnCheck()) // 재스폰 해야할 경우
             {
-                _attackHandler.AttackDelay();
+                _enemyReSpawn.ReSpawn(); // 재스폰
             }
 
-            StateTransition();
+            _machine.UpdateExecute(); // 각 상태의 Update
+
+            if (IsAttackDelay) // 현재 공격이 끝나고
+            {
+                _attackHandler.AttackDelay(); // 공격 대기 상태 시작
+            }
+
+            StateTransition(); // 상태 전이 조건 확인
         }
 
+        // 상태 전이를 구현할 함수
         protected abstract void StateTransition();
 
+        // 공격 상태가 끝났을 때 애니메이션 이벤트로 불리는 함수
         protected void AttackEnd()
         {
             _machine.ChangeState(_idleState);
@@ -77,3 +84,4 @@ namespace Enemy
         }
     }
 }
+// 마지막 작성 일자: 2025.05.15

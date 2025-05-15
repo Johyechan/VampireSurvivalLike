@@ -165,6 +165,8 @@ MonoBehaviour:
   _type: 10
   _knockbackTime: 0.3
   _knockbackPower: 2
+  _needReSpawnDistance: 24
+  _reSpawnDistance: 22
   _fireType: 11
   _fireSpeed: 10
 --- !u!114 &5451116018658380249

@@ -45,6 +45,9 @@ namespace Enemy
         // 적마다 밀려나는 수치와 시간을 다르게 하기 위해서 자식들도 알아야 함
         [SerializeField] protected float _knockbackTime;
         [SerializeField] protected float _knockbackPower;
+        
+        [SerializeField] protected float _needReSpawnDistance; // 재스폰을 해야하는 거리
+        [SerializeField] protected float _reSpawnDistance; // 재스폰을 할 때 플레이어와 떨어져 있는 거리
 
         // 죽음 상태는 외부에서 죽었는지 알아야 작업을 멈추는 경우가 존재 + 자식이 접근 못하는 이유는 죽는 기준은 항상 같기 때문
         public bool IsDie { get { return _isDie; } }
@@ -61,6 +64,7 @@ namespace Enemy
             _health.MaxHp = _so.maxHp;
             _knockbackHandler = new EnemyKnockbackHandler(this, transform, _knockbackTime, _knockbackPower);
             _attackHandler = new EnemyAttackDelayHandler(_so, this);
+            _enemyReSpawn = new EnemyReSpawn(transform, _reSpawnDistance, _needReSpawnDistance);
             _animator = GetComponent<Animator>();
 
             // 새로운 머신 가져와 각자 자식들이 각자만의 머신을 가지도록 설정

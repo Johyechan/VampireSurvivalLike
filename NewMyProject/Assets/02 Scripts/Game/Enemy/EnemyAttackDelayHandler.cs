@@ -17,7 +17,7 @@ namespace Enemy
             _enemyVariables = enemyVariables;
         }
 
-        // 공격 속도를 결정하는 메서드
+        // 적의 공격 속도를 결정하는 메서드
         public void AttackDelay()
         {
             _currentAttackDelayTime += Time.deltaTime;

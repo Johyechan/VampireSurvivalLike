@@ -9,18 +9,32 @@ namespace Enemy
     {
         private Transform _enemyTrans; // 적 Transform
         private float _distance; // 플레이어로부터 얼마나 떨어질지
+        private float _needReSpawnDistance;
 
         // 생성자에서 변수 초기화
-        public EnemyReSpawn(Transform enemyTrans, float distance)
+        public EnemyReSpawn(Transform enemyTrans, float distance, float needReSpawnDistance)
         {
             _enemyTrans = enemyTrans;
             _distance = distance;
+            _needReSpawnDistance = needReSpawnDistance;
         }
 
-        //public bool ReSpawnCheck()
-        //{
+        // 재스폰 해야 하는 상황인지 판단하는 함수
+        public bool ReSpawnCheck()
+        {
+            float distance = Vector2.Distance(GameManager.Instance.player.transform.position, _enemyTrans.position); // 플레이어와 적 사이 거리
+            Debug.Log(distance);
 
-        //}
+            if(distance >= _needReSpawnDistance) // 만약 떨어진 거리가 재스폰 해야하는 거리 이상이라면
+            {
+                if(GameManager.Instance.PlayerMoveDir != Vector2.zero) // 그리고 플레이어가 움직이고 있다면
+                {
+                    return true; // 재스폰 해라
+                }
+            }
+
+            return false; // 재스폰 하지 마
+        }
 
         // 재스폰 하는 함수
         public void ReSpawn()
